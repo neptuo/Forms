@@ -10,8 +10,9 @@ using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.Messaging;
 using Microsoft.Practices.Unity;
 using Neptuo.Web.Mvc.Controllers;
-using Neptuo.Forms.Web.Models;
 using Neptuo.Web.Mvc.Html;
+using Neptuo.Forms.Core.Service;
+using Neptuo.Forms.Web.Models;
 
 namespace Neptuo.Forms.Web.Controllers
 {
@@ -22,6 +23,9 @@ namespace Neptuo.Forms.Web.Controllers
 
         [Dependency]
         public IRemoteAuthProvider RemoteAuthProvider { get; set; }
+
+        [Dependency]
+        public IUserService Service { get; set; }
 
         [ValidateInput(false)]
         public ActionResult Authenticate(string returnUrl)
@@ -61,10 +65,8 @@ namespace Neptuo.Forms.Web.Controllers
                     }
                     else
                     {
-                        return AfterLoginFailure(new LocalLoginModel
-                        {
-                            Username = response.ClaimedIdentifier
-                        });
+                        TempData["OpenID"] = response.ClaimedIdentifier;
+                        return RedirectToAction("register");
                     }
                 case AuthenticationStatus.Canceled:
                     ShowMessage((L)"Login request was canceled.", HtmlMessageType.Warning);
@@ -75,6 +77,56 @@ namespace Neptuo.Forms.Web.Controllers
             }
 
             return new EmptyResult();
+        }
+
+        public ActionResult Register()
+        {
+            if (TempData["OpenID"] != null)
+            {
+                return View(new RegisterModel
+                {
+                    Username = TempData["OpenID"].ToString()
+                });
+            }
+            return View("RegisterLocal", new LocalRegisterModel());
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserCreateStatus status = Service.CreateAccount(model.Username, model.Fullname, model.Email);
+                switch (status)
+                {
+                    case UserCreateStatus.Created:
+                        ShowMessage((L)"User account created, please login once again.");
+                        return RedirectToAction("login");
+                    case UserCreateStatus.UsernameUsed:
+                        ModelState.AddModelError("Username", (L)"Username already used!");
+                        return View(model);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult RegisterLocal(LocalRegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserCreateStatus status = Service.CreateAccount(model.Username, model.Password, model.Fullname, model.Email);
+                switch (status)
+                {
+                    case UserCreateStatus.Created:
+                        ShowMessage((L)"User account created.");
+                        return RedirectToAction("login");
+                    case UserCreateStatus.UsernameUsed:
+                        ModelState.AddModelError("Username", (L)"Username already used!");
+                        return View(model);
+                }
+            }
+            return View(model);
         }
     }
 }

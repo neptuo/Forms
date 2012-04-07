@@ -1,0 +1,50 @@
+﻿@model Neptuo.Forms.Web.Models.RegisterModel
+
+@{
+    ViewBag.Title = (L)"Register account";
+}
+
+<div class="folder">
+    <h2 class="folder-heading">@Loc("Register new user account")</h2>
+
+    @using (Html.BeginForm())
+    {
+        <div class="editor-item">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div class="editor-field">
+                <div>
+                @Html.DisplayFor(m => m.Username)
+                @Html.HiddenFor(m => m.Username)
+                </div>
+                @Html.ValidationMessageFor(m => m.Username)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Fullname)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Fullname)
+                @Html.ValidationMessageFor(m => m.Fullname)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Email)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <input type="submit" name="register" value="@Loc("Register account")" />
+    }
+</div>

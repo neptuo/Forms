@@ -7,14 +7,16 @@ using Neptuo.Web.Mvc.Html;
 
 namespace Neptuo.Forms.Web.Controllers
 {
-    public class HomeController : Neptuo.Web.Mvc.Controller
+    public class HomeController : BaseController
     {
         //
         // GET: /Home/
 
         public ActionResult Index()
         {
-            ShowMessage(String.Format((L)"Welcome back, {0}", User.Identity.Name), HtmlMessageType.Success);
+            if(UserContext.IsAuthenticated())
+                ShowMessage(String.Format((L)"Welcome back, {0}", UserContext.Account.Fullname), HtmlMessageType.Success);
+
             return View();
         }
 

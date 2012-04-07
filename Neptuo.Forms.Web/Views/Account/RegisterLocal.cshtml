@@ -1,0 +1,71 @@
+﻿@model Neptuo.Forms.Web.Models.LocalRegisterModel
+
+@{
+    ViewBag.Title = (L)"Register account";
+}
+
+<div class="folder">
+    @using (Html.BeginForm("registerlocal"))
+    {
+        <h2 class="folder-heading">@Loc("Register new user account")</h2>
+        
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Fullname)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Fullname)
+                @Html.ValidationMessageFor(m => m.Fullname)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Email)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <h2 class="folder-heading">@Loc("Provide local credentials")</h2>
+        
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Username)
+                @Html.ValidationMessageFor(m => m.Username)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Password)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.PasswordConfirm)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.PasswordConfirm)
+                @Html.ValidationMessageFor(m => m.PasswordConfirm)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <input type="submit" name="register" value="@Loc("Register account")" />
+    }
+</div>

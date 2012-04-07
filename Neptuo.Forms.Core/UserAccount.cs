@@ -20,12 +20,12 @@ namespace Neptuo.Forms.Core
 
 
         [ForeignKey("LocalCredentials")]
-        public int LocalCredentialsID { get; set; }
+        public int? LocalCredentialsID { get; set; }
 
         public LocalCredentials LocalCredentials { get; set; }
 
         [ForeignKey("RemoteCredentials")]
-        public int RemoteCredentialsID { get; set; }
+        public int? RemoteCredentialsID { get; set; }
 
         public RemoteCredentials RemoteCredentials { get; set; }
     }

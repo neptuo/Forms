@@ -94,11 +94,19 @@ p {
 /* ============================= EDITOR FIELDS ========================================= */
 
 input[type=text], textarea, select {
-    border: 1px solid #ABADB3;
+    padding: 5px;
+    background-color: white;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
+    background-image: -webkit-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+    background-image: -moz-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+    background-image: -o-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+    background-image: -ms-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+    background-image: linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+    border: 1px solid #AAA;
 }
 
 input[type=text]:focus, textarea:focus, select:focus {
-    border-color: green;
+    border-color: #5897FB;
 }
 
 .editor-item {
@@ -221,3 +229,62 @@ form.inline {
 .validation-summary-valid {
     display: none;
 }
+
+/* ============================= SPECIAL BUTTON ======================================== */
+
+.special-button {
+    height: 33px;
+    display: inline-block;
+    clear: both;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.special-button .left {
+    width: 4px;
+    height: 33px;
+    background: url('../Images/Buttons/button-left.png') no-repeat left top;
+}
+
+.special-button .right {
+    width: 4px;
+    height: 33px;
+    background: url('../Images/Buttons/button-right.png') no-repeat left top;
+}
+
+.special-button .middle {
+    height: 19px;
+    padding: 7px 5px;
+    float: left;
+    background: url('../Images/Buttons/button-middle.png') repeat-x left top;
+}
+
+.special-button a, .special-button button, .special-button input[type=button], .special-button input[type=submit] {
+    font-size: 13px;
+    font-weight: bold;
+    color: White;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+.special-button.gray, .special-button a, .special-button button, .special-button input[type=button], .special-button input[type=submit] {
+    color: gray;
+}
+
+.special-button.gray .left {
+    background-image: url('../Images/Buttons/button-gray-left.png');
+}
+
+.special-button.gray .right {
+    background-image: url('../Images/Buttons/button-gray-right.png');
+}
+
+.special-button.gray .middle {
+    background-image: url('../Images/Buttons/button-gray-middle.png');
+}
+
+
+
+
