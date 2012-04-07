@@ -1,0 +1,61 @@
+﻿td.circle {
+    background: url("../Images/FiveGame/Circle.png") no-repeat center center;
+}
+
+td.cross {
+    background: url("../Images/FiveGame/Cross.png") no-repeat center center;
+}
+
+.player-item {
+    width: 10px;
+}
+
+.playground  {
+    border-collapse: collapse; 
+}
+
+.playground td  {
+    width: 30px; 
+    height: 30px; 
+    border: 1px solid black; 
+}
+
+.stats {
+    list-style: none;
+    padding: 0;
+}
+
+.stats li {
+    padding-left: 16px;
+}
+
+.game-status {
+    width: 10px;
+    height: 10px;
+}
+
+.wins {
+    background: url('../Images/Stats/BulletGreen.png') no-repeat center center;
+}
+
+.loses {
+    background: url('../Images/Stats/BulletRed.png') no-repeat center center;
+}
+
+.unfinished {
+    background: url('../Images/Stats/BulletBlack.png') no-repeat center center;
+}
+
+.stats .wins, .stats .loses, .stats .unfinished {
+    background-position: left center;
+}
+
+.highlighted {
+    background-color: yellow !important;
+}
+
+
+
+
+
+

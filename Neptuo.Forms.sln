@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Forms.Core", "Neptuo.Forms.Core\Neptuo.Forms.Core.csproj", "{A012144F-7147-460B-BEE2-6E9AF3204BCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Forms.Web", "Neptuo.Forms.Web\Neptuo.Forms.Web.csproj", "{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
+	EndGlobalSection
+EndGlobal
