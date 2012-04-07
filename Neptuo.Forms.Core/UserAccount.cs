@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Neptuo.Forms.Core
 {
-    public class Class1
+    public class UserAccount : BaseObject
     {
+
     }
 }
