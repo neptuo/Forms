@@ -7,6 +7,7 @@ using System.Web.Routing;
 using Microsoft.Practices.Unity;
 using Neptuo.Web.Localization;
 using Neptuo.Web.Mvc;
+using Neptuo.Web.Mvc.Auth;
 
 namespace Neptuo.Forms.Web
 {
@@ -20,13 +21,16 @@ namespace Neptuo.Forms.Web
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "home", action = "index", id = UrlParameter.Optional } // Parameter defaults
             );
         }
 
         private static void RegisterUnity(UnityContainer container)
         {
-
+            container
+                .RegisterType<IAuthProvider, LocalAuthProvider>()
+                .RegisterType<IRemoteAuthProvider, RemoteAuthProvider>()
+                .RegisterType<IDomainSelector, UrlDomainSelector>();
         }
 
         private static void RegisterLocales(IResourceService service)

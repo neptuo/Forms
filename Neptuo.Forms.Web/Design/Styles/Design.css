@@ -28,6 +28,8 @@ body {
     width: 122px;
     height: 21px;
     display: block;
+    float: right;
+    margin-right: 10px;
     background: url('../Images/Layout/NeptuoLogo.png') no-repeat left top;
 }
 
@@ -47,6 +49,7 @@ body {
 }
 
 .main-menu li.first {
+    padding-left: 0;
     background: none;
 }
 
@@ -70,9 +73,49 @@ body {
     color: #F5FF00;
 }
 
+.admin-menu {
+    margin-top: 21px;
+}
+
+.admin-menu ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.admin-menu li {
+    float: right;
+    margin-left: 5px;
+}
+
+.admin-menu li.active {
+    background: url('../Images/Layout/TabBackground.png') no-repeat left top;
+}
+
+.admin-menu li a {
+    width: 70px;
+    height: 60px;
+    display: block;
+    background: no-repeat center center;
+}
+
+.admin-menu li a span {
+    display: none;
+}
+
+
 
 .body {
     padding: 10px 0;
+}
+
+.content-narrow {
+    width: 800px;
+    float: left;
+}
+
+.side-bar {
+    width: 200px;
 }
 
 .folder {
@@ -93,6 +136,13 @@ body {
 .folder-heading h1, .folder-heading h2, .folder-heading h3, .folder-heading h4, .folder-heading h5, .folder-heading h6 {
     margin: 0;
     padding: 0;
+}
+
+.folder-foot {
+    margin-top: 5px;
+    padding-top: 5px;
+    color: #999999;
+    border-top: 1px solid #C0C0C0;
 }
 
 
@@ -118,9 +168,31 @@ body {
     padding: 10px 10px;
 }
 
+/* ============================ ADMIN ICONS ============================================ */
 
+.admin-menu .admin-users {
+    background-image: url('../Images/Admin/Users.png');
+}
 
+.admin-menu .active .admin-users {
+    background: url('../Images/Admin/UsersActive.png') no-repeat center center;
+}
 
+.admin-menu .admin-projects {
+    background-image: url('../Images/Admin/Projects.png');
+}
+
+.admin-menu .active .admin-projects {
+    background: url('../Images/Admin/ProjectsActive.png') no-repeat center center;
+}
+
+.admin-menu .admin-settings {
+    background-image: url('../Images/Admin/Settings.png');
+}
+
+.admin-menu .active .admin-settings {
+    background: url('../Images/Admin/SettingsActive.png') no-repeat center center;
+}
 
 /* ============================= TINY-BUTTON =========================================== */
 
@@ -175,10 +247,10 @@ body {
 /* ============================= MESSAGE =============================================== */
 
 .message {
-    margin-bottom: 5px;
+    margin: 5px 10px;
     padding: 2px 6px;
     font-weight: bold;
-    border-radius: 5px;
+    border: 1px solid;
 }
 
 .message-content {
@@ -196,11 +268,13 @@ body {
 .message-error {
     color: Red;
     background: #fab1b1;
+    border-color: #FF6A6A;
 }
 
 .message-success {
     color: Green;
     background: #b9f7b9;
+    border-color: #21B921;
 }
 
 .message-success .message-icon {
@@ -210,6 +284,7 @@ body {
 .message-warning {
     color: Orange;
     background: #f7d595;
+    border-color: #FAB740;
 }
 
 .message-warning .message-icon {

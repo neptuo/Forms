@@ -1,0 +1,66 @@
+﻿@model Neptuo.Forms.Web.Models.LocalLoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@section HtmlHead {
+    @Javascript.Include("~/Design/Scripts/openid-jquery.js")
+    @Javascript.Include("~/Design/Scripts/openid-en.js")
+    
+    @Stylesheet.Include("~/Design/Styles/openid.css")
+
+    <script type="text/javascript">
+
+        $(function () {
+            openid.init('openid_identifier');
+        });
+    
+    </script>
+}
+
+<div class="folder">
+    <h2 class="folder-heading">@Loc("You can login using one of these providers")</h2>
+
+    @using (Html.BeginForm("authenticate", "account", FormMethod.Post, new { id = "openid_form" }))
+    {
+        <div class="openid_choice">
+            <div id="openid_btns"></div>
+        </div>
+        <div id="openid_input_area">
+            @Html.TextBox("openid_identifier")
+            <input type="submit" value="Log On" />
+        </div>
+    }
+</div>
+
+<div class="folder">
+    <h2 class="folder-heading">@Loc("Or you can use local login")</h2>
+
+    @using (Html.BeginForm())
+    {
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Username)
+                @Html.ValidationMessageFor(m => m.Username)
+            </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Password)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <input type="submit" name="change" value="@Loc("Login")" />
+    }
+</div>

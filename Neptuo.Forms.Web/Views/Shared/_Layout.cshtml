@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>@ViewBag.Title</title>
     
@@ -10,6 +10,8 @@
         @Javascript.Include("~/Design/Scripts/jquery-1.7.1.min.js")
         @Javascript.Include("~/Design/Scripts/jquery.validate.min.js")
         @Javascript.Include("~/Design/Scripts/jquery.validate.unobtrusive.min.js")
+
+        @RenderSection("HtmlHead", false)
     </head>
 
     <body>
@@ -22,20 +24,20 @@
 
                     <div class="main-menu">
                         <ul>
-                            <li class="active first">
-                                <a href="/home/index">Home</a>
+                            <li class="first @(IsCurrent("home", "index") ? "active" : "")">
+                                @Html.ActionLink((L)"Home", "index", "home")
                             </li>
-                            <li>
-                                <a href="/home/index">Features</a>
+                            <li class="@(IsCurrent("features", "index") ? "active" : "")">
+                                @Html.ActionLink((L)"Features", "index", "features")
                             </li>
-                            <li>
-                                <a href="/home/index">News</a>
+                            <li class="@(IsCurrent("home", "news") ? "active" : "")">
+                                @Html.ActionLink((L)"News", "news", "home")
                             </li>
-                            <li>
-                                <a href="/home/index">Learn</a>
+                            <li class="@(IsCurrent("learn", "index") ? "active" : "")">
+                                @Html.ActionLink((L)"Learn", "index", "learn")
                             </li>
-                            <li>
-                                <a href="/home/index">About</a>
+                            <li class="@(IsCurrent("home", "about") ? "active" : "")">
+                                @Html.ActionLink((L)"About", "about", "home")
                             </li>
                         </ul>
                     </div>
@@ -44,21 +46,62 @@
                     <a class="by-neptuo" href="http://www.neptuo.com">
                         <span>by Neptuo</span>
                     </a>
+                    <div class="clear"></div>
                     <div class="admin-menu">
-                        
+                        @if (User.Identity.IsAuthenticated) { 
+                            <ul>
+                                <li>
+                                    <a class="admin-settings" href="#">
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="admin-users" href="#">
+                                        <span>Users</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="admin-projects" href="#">
+                                        <span>Projects</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        }
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="body">
-                <!-- Message -->
+                @UI.Message(Message)
 
-                <div class="content">
+                <div class="content@(IsSideBar() ? " content-narrow" : "")">
 
                     @RenderBody()
 
                     <div class="clear"></div>
                 </div>
+                @if (IsSideBar())
+                {
+                    <div class="side-bar right">
+                        @if (IsSectionDefined("SideBar"))
+                        { 
+                            @RenderSection("SideBar");
+                        }
+                        else { 
+                            @RenderSection("SideBarTop", false)
+
+                            <div class="folder">
+                                <h4 class="folder-heading">@Loc("News")</h4>
+                                Some news texts
+                            </div>
+                            <div class="folder">
+                                <h4 class="folder-heading">@Loc("Version")</h4>
+                                In development
+                            </div>
+                        }
+                    </div>
+                }
+                <div class="clear"></div>
             </div>
         </div>
         <div class="foot">

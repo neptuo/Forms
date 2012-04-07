@@ -34,6 +34,51 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth.Core">
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.1.12097\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core.UI">
+      <HintPath>..\packages\DotNetOpenAuth.Core.UI.4.0.1.12097\lib\net40-full\DotNetOpenAuth.Core.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.InfoCard">
+      <HintPath>..\packages\DotNetOpenAuth.InfoCard.4.0.1.12097\lib\net40-full\DotNetOpenAuth.InfoCard.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.InfoCard.UI">
+      <HintPath>..\packages\DotNetOpenAuth.InfoCard.UI.4.0.1.12097\lib\net40-full\DotNetOpenAuth.InfoCard.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Common">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Common.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OAuth.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.ServiceProvider">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.ServiceProvider.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OAuth.ServiceProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.Provider">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Provider.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OpenId.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.Provider.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Provider.UI.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OpenId.Provider.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.UI.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.UI.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OpenId.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenIdInfoCard.UI">
+      <HintPath>..\packages\DotNetOpenAuth.OpenIdInfoCard.UI.4.0.1.12097\lib\net40-full\DotNetOpenAuth.OpenIdInfoCard.UI.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -95,13 +140,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BootstrapperExtensions.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IRemoteAuthProvider.cs" />
+    <Compile Include="LocalAuthProvider.cs" />
+    <Compile Include="Models\LocalLoginModel.cs" />
+    <Compile Include="RemoteAuthProvider.cs" />
+    <Compile Include="WebViewPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Design\Images\Admin\UsersActive.png" />
+    <Content Include="Design\Images\MessageIcons.png" />
+    <Content Include="Design\Images\Admin\Users.png" />
+    <Content Include="Design\Images\Admin\Projects.png" />
+    <Content Include="Design\Images\Admin\ProjectsActive.png" />
+    <Content Include="Design\Images\Admin\Settings.png" />
+    <Content Include="Design\Images\Admin\SettingsActive.png" />
+    <Content Include="Design\Images\Layout\Background.png" />
+    <Content Include="Design\Images\Layout\FootBackground.png" />
+    <Content Include="Design\Images\Layout\HeadLogo.png" />
+    <Content Include="Design\Images\Layout\MenuSeparator.png" />
+    <Content Include="Design\Images\Layout\NeptuoLogo.png" />
+    <Content Include="Design\Images\Layout\TabBackground.png" />
+    <Content Include="Design\Images\Buttons\hborder.png" />
+    <Content Include="Design\Images\OpenID\openid-inputicon.gif" />
+    <Content Include="Design\Images\OpenID\openid-providers-en.png" />
+    <Content Include="Design\Scripts\openid-en.js" />
+    <Content Include="Design\Scripts\openid-jquery.js" />
+    <Content Include="Design\Styles\openid-shadow.css" />
+    <Content Include="Design\Styles\openid.css" />
     <Content Include="Design\Styles\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Design\Styles\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Design\Styles\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -129,14 +200,6 @@
     <Content Include="Design\Styles\themes\base\jquery.ui.slider.css" />
     <Content Include="Design\Styles\themes\base\jquery.ui.tabs.css" />
     <Content Include="Design\Styles\themes\base\jquery.ui.theme.css" />
-    <Content Include="Design\Images\Buttons\hborder.png" />
-    <Content Include="Design\Images\Layout\Background.png" />
-    <Content Include="Design\Images\Layout\FootBackground.png" />
-    <Content Include="Design\Images\Layout\HeadLogo.png" />
-    <Content Include="Design\Images\Layout\MenuSeparator.png" />
-    <Content Include="Design\Images\Layout\NeptuoLogo.png" />
-    <Content Include="Design\Images\Layout\TabBackground.png" />
-    <Content Include="Design\Images\MessageIcons.png" />
     <Content Include="Design\Scripts\chosen.jquery.js" />
     <Content Include="Design\Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Design\Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -175,7 +238,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
