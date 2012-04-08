@@ -1,0 +1,17 @@
+﻿@model Neptuo.Forms.Web.Models.ListDetailArticleModel
+
+@{
+    ViewBag.Title = "News";
+}
+
+@foreach (var item in Model.Items)
+{
+    @Html.DisplayFor(m => item)
+}
+
+@if (Model.PagingInfo.TotalPages > 1)
+{ 
+    <div class="folder">
+        @Html.DisplayFor(m => m.PagingInfo)
+    </div>
+}

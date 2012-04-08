@@ -1,0 +1,10 @@
+﻿@model Neptuo.Web.Mvc.Models.PagingInfo
+@if (Model != null)
+{ 
+    <div class="paging">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a class="@(i == Model.CurrentPage ? "selected" : "")" href="?page=@i">@i</a>
+        }
+    </div>
+}

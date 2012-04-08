@@ -1,0 +1,15 @@
+﻿@model Neptuo.Forms.Web.Models.DetailArticleModel
+
+@if (Model != null) { 
+    <div class="folder">
+        <h2 class="folder-heading">@Model.Title</h2>
+
+        @Html.Raw(Model.Content)
+
+        <div class="folder-foot">
+            <div class="left">@Model.Modified</div>
+            <div class="right">@Model.AuthorFullname</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}

@@ -20,6 +20,7 @@ namespace Neptuo.Forms.Web.Models
         [Display(Name = "Email")]
         [Required(ErrorMessage = "Email is required!")]
         [Email(ErrorMessage = "Provide a valid email address!")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
     }
 }

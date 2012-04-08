@@ -47,7 +47,12 @@
                     <a class="by-neptuo" href="http://www.neptuo.com">
                         <span>by Neptuo</span>
                     </a>
+                    <div class="langs">
+                        <a href="?lang=cs"><img src="@Url.Content("~/Design/Images/Langs/cs.png")" /></a>
+                        <a href="?lang=en"><img src="@Url.Content("~/Design/Images/Langs/en.png")" /></a>
+                    </div>
                     <div class="clear"></div>
+
                     <div class="admin-menu">
                         @if (UserContext.IsAuthenticated())
                         { 
@@ -76,7 +81,7 @@
                             </ul>
                         }
                         else
-                        {
+                        {   
                             @Html.GrayButton(@Html.ActionLink((L)"Sign in", "login", "account"))
                             <text> </text>
                             @Html.GrayButton(@Html.ActionLink((L)"Create an account", "register", "account"))

@@ -29,8 +29,13 @@ body {
     height: 21px;
     display: block;
     float: right;
-    margin-right: 10px;
+    margin: 5px 10px 0 0;
     background: url('../Images/Layout/NeptuoLogo.png') no-repeat left top;
+}
+
+.head .langs {
+    float: right;
+    margin-right: 10px;
 }
 
 .main-menu {
@@ -74,7 +79,7 @@ body {
 }
 
 .admin-menu {
-    margin-top: 21px;
+    margin-top: 14px;
 }
 
 .admin-menu ul {
@@ -136,6 +141,11 @@ body {
 .folder-heading h1, .folder-heading h2, .folder-heading h3, .folder-heading h4, .folder-heading h5, .folder-heading h6 {
     margin: 0;
     padding: 0;
+}
+
+.folder-separator {
+    margin: 5px 0;
+    border-top: 1px solid #C0C0C0;
 }
 
 .folder-foot {

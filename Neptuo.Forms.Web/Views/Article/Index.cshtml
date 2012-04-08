@@ -1,0 +1,33 @@
+﻿@model Neptuo.Forms.Web.Models.ListArticleModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="folder">
+    <h2 class="folder-heading">@Loc("Articles")</h2>
+
+    @if (Model.Items.Count() > 0)
+    {
+        UI.Grid(Model.Items)
+            .AddColumn((L)"ID", a => a.ID, "w30")
+            .AddColumn((L)"Title", a => a.Title)
+            .AddColumn((L)"Lang", a => a.Culture == "cs" ? (L)"Czech" : (L)"English", "w30")
+            .AddColumn((L)"Modified", a => a.Modified, "w110")
+            .AddColumn((L)"Author", a => a.AuthorFullname, "w100")
+            .AddColumn("", a => Html.ActionLink((L)"Edit", "edit", new { id = a.ID }) + " " + UI.DeleteLink((L)"Delete", "delte", new { id = a.ID }), "w70")
+            .Render();
+    
+        <div class="grid-paging">
+            @Html.DisplayFor(m => m.PagingInfo)
+        </div>
+    }
+    else
+    {
+        @Loc("No articles");
+    }
+
+    <div class="folder-foot">
+        @Html.ActionLink((L)"+Create", "create")
+    </div>
+</div>

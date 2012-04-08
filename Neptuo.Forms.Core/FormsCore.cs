@@ -16,7 +16,10 @@ namespace Neptuo.Forms.Core
         {
             container
                 .RegisterType<IRepository<UserAccount>, GenericRepository<UserAccount, DataContext>>()
-                .RegisterType<IUserService, UserService>();
+                .RegisterType<IUserService, UserService>()
+                .RegisterType<IRepository<Article>, GenericRepository<Article, DataContext>>()
+                .RegisterType<IArticleService, ArticleService>()
+            ;
         }
     }
 }

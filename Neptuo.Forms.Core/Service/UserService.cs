@@ -50,7 +50,7 @@ namespace Neptuo.Forms.Core.Service
                     Enabled = true,
                     Created = DateTime.Now,
                     Fullname = fullname,
-                    Email = email
+                    Email = email,
                 };
                 Repository.Insert(user);
                 return UserCreateStatus.Created;
@@ -93,6 +93,46 @@ namespace Neptuo.Forms.Core.Service
             return ChangePasswordStatus.NoSuchUser;
         }
 
+        public void DisableUser(int id)
+        {
+            UserAccount user = Repository.Get(id);
+            if (user != null && user.Enabled)
+            {
+                user.Enabled = false;
+                Repository.Update(user);
+            }
+        }
+
+        public void EnableUser(int id)
+        {
+            UserAccount user = Repository.Get(id);
+            if (user != null && !user.Enabled)
+            {
+                user.Enabled = true;
+                Repository.Update(user);
+            }
+        }
+
+        public void MakeAdmin(int id)
+        {
+            UserAccount user = Repository.Get(id);
+            if (user != null && user.UserRole != UserRole.Admin)
+            {
+                user.UserRole = UserRole.Admin;
+                Repository.Update(user);
+            }
+        }
+
+        public void MakeUser(int id)
+        {
+            UserAccount user = Repository.Get(id);
+            if (user != null && user.UserRole != UserRole.User)
+            {
+                user.UserRole = UserRole.User;
+                Repository.Update(user);
+            }
+        }
+
         public UserAccount Get(int id)
         {
             return Repository.Get(id);
@@ -111,12 +151,12 @@ namespace Neptuo.Forms.Core.Service
         public UserAccount GetByLocalCredentials(string username, string password)
         {
             password = HashHelper.ComputePassword(username, password);
-            return Repository.FirstOrDefault(u => u.LocalCredentials != null && u.LocalCredentials.Username == username && u.LocalCredentials.Password == password);
+            return Repository.FirstOrDefault(u => u.LocalCredentials != null && u.LocalCredentials.Username == username && u.LocalCredentials.Password == password && u.Enabled);
         }
 
         public UserAccount GetByRemoteCredentials(string username)
         {
-            return Repository.FirstOrDefault(u => u.RemoteCredentials != null && u.RemoteCredentials.Username == username);
+            return Repository.FirstOrDefault(u => u.RemoteCredentials != null && u.RemoteCredentials.Username == username && u.Enabled);
         }
     }
 }

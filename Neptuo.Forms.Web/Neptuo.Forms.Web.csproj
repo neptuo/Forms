@@ -142,6 +142,7 @@
     <Compile Include="BaseController.cs" />
     <Compile Include="BootstrapperExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -153,6 +154,9 @@
     <Compile Include="Models\Account\LocalLoginModel.cs" />
     <Compile Include="Models\Account\LocalRegisterModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
+    <Compile Include="Models\Article\DetailArticleModel.cs" />
+    <Compile Include="Models\Article\EditArticleModel.cs" />
+    <Compile Include="Models\Article\ListArticleModel.cs" />
     <Compile Include="RemoteAuthProvider.cs" />
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="UserContext.cs" />
@@ -168,6 +172,8 @@
     <Content Include="Design\Images\Buttons\button-left.png" />
     <Content Include="Design\Images\Buttons\button-middle.png" />
     <Content Include="Design\Images\Buttons\button-right.png" />
+    <Content Include="Design\Images\Langs\cs.png" />
+    <Content Include="Design\Images\Langs\en.png" />
     <Content Include="Design\Images\MessageIcons.png" />
     <Content Include="Design\Images\Admin\Users.png" />
     <Content Include="Design\Images\Admin\Projects.png" />
@@ -271,6 +277,12 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\RegisterLocal.cshtml" />
     <Content Include="Views\Account\Change.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Article\Edit.cshtml" />
+    <Content Include="Views\Article\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PagingInfo.cshtml" />
+    <Content Include="Views\Home\News.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DetailArticleModel.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

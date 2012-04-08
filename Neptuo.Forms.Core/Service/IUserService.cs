@@ -18,6 +18,14 @@ namespace Neptuo.Forms.Core.Service
 
         ChangePasswordStatus ChangePassword(int id, string currentPassword, string newPassword);
 
+        void DisableUser(int id);
+
+        void EnableUser(int id);
+
+        void MakeAdmin(int id);
+
+        void MakeUser(int id);
+
         UserAccount Get(int id);
 
         UserAccount Get(string username);

@@ -32,7 +32,7 @@ namespace Neptuo.Forms.Web
         public bool IsAdmin()
         {
             //TODO: Move string constant!!
-            return Account.UserRole == "ADMIN";
+            return Account.UserRole == UserRole.Admin;
         }
 
         public bool IsAuthenticated()
