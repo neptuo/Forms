@@ -12,17 +12,20 @@ namespace Neptuo.Forms.Core.Service
         [Dependency]
         public IRepository<Project> Repository { get; set; }
 
-        public IQueryable<Project> GetList(int userID)
+        [Dependency]
+        public UserContext UserContext { get; set; }
+
+        public IQueryable<Project> GetList()
         {
-            return Repository.Where(p => p.OwnerUserID == userID).OrderBy(p => p.ID);
+            return Repository.Where(p => p.OwnerUserID == UserContext.AccountID).OrderBy(p => p.ID);
         }
 
-        public Project Get(int id, int userID)
+        public Project Get(int id)
         {
-            return Repository.FirstOrDefault(p => p.ID == id && p.OwnerUserID == userID);
+            return Repository.FirstOrDefault(p => p.ID == id && p.OwnerUserID == UserContext.AccountID);
         }
 
-        public CreateProjectStatus CreateProject(string name, string description, int userID)
+        public CreateProjectStatus CreateProject(string name, string description)
         {
             if (String.IsNullOrEmpty(name))
                 return CreateProjectStatus.InvalidName;
@@ -31,19 +34,19 @@ namespace Neptuo.Forms.Core.Service
             {
                 Name = name,
                 Description = description,
-                OwnerUserID = userID,
+                OwnerUserID = UserContext.AccountID,
                 Created = DateTime.Now
             };
             Repository.Insert(project);
             return CreateProjectStatus.Created;
         }
 
-        public UpdateProjectStatus UpdateProject(int id, string name, string description, int userID)
+        public UpdateProjectStatus UpdateProject(int id, string name, string description)
         {
             if (String.IsNullOrEmpty(name))
                 return UpdateProjectStatus.InvalidName;
 
-            Project project = Repository.FirstOrDefault(p => p.ID == id && p.OwnerUserID == userID);
+            Project project = Get(id);
             if (project == null)
                 return UpdateProjectStatus.NoSuchProject;
 
@@ -51,6 +54,24 @@ namespace Neptuo.Forms.Core.Service
             project.Description = description;
             Repository.Update(project);
             return UpdateProjectStatus.Updated;
+        }
+
+        public bool CanUserRead(int id)
+        {
+            Project project = Get(id);
+            return project != null;
+        }
+
+        public bool CanUserManage(int id)
+        {
+            Project project = Get(id);
+            return project != null;
+        }
+
+        public bool IsUserOwner(int id)
+        {
+            Project project = Get(id);
+            return project != null;
         }
     }
 }

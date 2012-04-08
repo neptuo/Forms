@@ -7,13 +7,19 @@ namespace Neptuo.Forms.Core.Service
 {
     public interface IProjectService
     {
-        IQueryable<Project> GetList(int userID);
+        IQueryable<Project> GetList();
 
-        Project Get(int id, int userID);
+        Project Get(int id);
 
-        CreateProjectStatus CreateProject(string name, string description, int userID);
+        CreateProjectStatus CreateProject(string name, string description);
 
-        UpdateProjectStatus UpdateProject(int id, string name, string description, int userID);
+        UpdateProjectStatus UpdateProject(int id, string name, string description);
+
+        bool CanUserRead(int id);
+
+        bool CanUserManage(int id);
+
+        bool IsUserOwner(int id);
     }
 
     public enum CreateProjectStatus

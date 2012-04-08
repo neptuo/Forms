@@ -13,6 +13,9 @@ namespace Neptuo.Forms.Core.Service
         [Dependency]
         public IRepository<UserAccount> Repository { get; set; }
 
+        [Dependency]
+        public UserContext UserContext { get; set; }
+
         public UserCreateStatus CreateAccount(string username, string password, string fullname, string email)
         {
             bool exists = Repository.FirstOrDefault(u => u.LocalCredentials != null && u.LocalCredentials.Username == username) != null;
@@ -60,9 +63,9 @@ namespace Neptuo.Forms.Core.Service
             return UserCreateStatus.UsernameUsed;
         }
 
-        public UserUpdateStatus UpdateAccount(int id, string fullname, string email)
+        public UserUpdateStatus UpdateAccount(string fullname, string email)
         {
-            UserAccount user = Repository.Get(id);
+            UserAccount user = Repository.Get(UserContext.AccountID);
             if (user != null)
             {
                 user.Fullname = fullname;
@@ -73,9 +76,9 @@ namespace Neptuo.Forms.Core.Service
             return UserUpdateStatus.NoSuchUser;
         }
 
-        public ChangePasswordStatus ChangePassword(int id, string currentPassword, string newPassword)
+        public ChangePasswordStatus ChangePassword(string currentPassword, string newPassword)
         {
-            UserAccount user = Repository.Get(id);
+            UserAccount user = Repository.Get(UserContext.AccountID);
             if (user != null)
             {
                 if (newPassword.Length < 6)
@@ -97,6 +100,9 @@ namespace Neptuo.Forms.Core.Service
 
         public void DisableUser(int id)
         {
+            if (!UserContext.IsAdmin())
+                throw new Validation.PermissionDeniedException("User is not admin!");
+
             UserAccount user = Repository.Get(id);
             if (user != null && user.Enabled)
             {
@@ -107,6 +113,9 @@ namespace Neptuo.Forms.Core.Service
 
         public void EnableUser(int id)
         {
+            if (!UserContext.IsAdmin())
+                throw new Validation.PermissionDeniedException("User is not admin!");
+
             UserAccount user = Repository.Get(id);
             if (user != null && !user.Enabled)
             {
@@ -117,6 +126,9 @@ namespace Neptuo.Forms.Core.Service
 
         public void MakeAdmin(int id)
         {
+            if (!UserContext.IsAdmin())
+                throw new Validation.PermissionDeniedException("User is not admin!");
+
             UserAccount user = Repository.Get(id);
             if (user != null && user.UserRole != UserRole.Admin)
             {
@@ -127,6 +139,9 @@ namespace Neptuo.Forms.Core.Service
 
         public void MakeUser(int id)
         {
+            if (!UserContext.IsAdmin())
+                throw new Validation.PermissionDeniedException("User is not admin!");
+
             UserAccount user = Repository.Get(id);
             if (user != null && user.UserRole != UserRole.User)
             {

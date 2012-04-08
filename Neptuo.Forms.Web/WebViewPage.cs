@@ -3,30 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.Practices.Unity;
+using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
 
 namespace Neptuo.Forms.Web
 {
     public class WebViewPage<TModel> : Neptuo.Web.Mvc.WebViewPage<TModel>
     {
-        private UserContext userContext;
-
         /// <summary>
         /// Current user context.
         /// </summary>
-        public UserContext UserContext
-        {
-            get
-            {
-                if (userContext == null)
-                    userContext = new UserContext(UserService.Get(User.Identity.Name));
-
-                return userContext;
-            }
-        }
-
         [Dependency]
-        public IUserService UserService { get; set; }
+        public UserContext UserContext { get; set; }
 
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Neptuo.Forms.Web.Controllers
 
         public ActionResult Index()
         {
-            return View(ProjectService.GetList(UserContext.Account.ID).Select(p => new ListProjectModel
+            return View(ProjectService.GetList().Select(p => new ListProjectModel
             {
                 ID = p.ID,
                 Name = p.Name,
@@ -34,7 +34,7 @@ namespace Neptuo.Forms.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            Project project = ProjectService.Get(id, UserContext.Account.ID);
+            Project project = ProjectService.Get(id);
             if (project == null)
             {
                 ShowMessage((L)"No such project!", HtmlMessageType.Error);
@@ -56,7 +56,7 @@ namespace Neptuo.Forms.Web.Controllers
             {
                 if (model.IsNew())
                 {
-                    CreateProjectStatus status = ProjectService.CreateProject(model.Name, model.Description, UserContext.Account.ID);
+                    CreateProjectStatus status = ProjectService.CreateProject(model.Name, model.Description);
                     switch (status)
                     {
                         case CreateProjectStatus.Created:
@@ -69,7 +69,7 @@ namespace Neptuo.Forms.Web.Controllers
                 }
                 else
                 {
-                    UpdateProjectStatus status = ProjectService.UpdateProject(model.ID, model.Name, model.Description, UserContext.Account.ID);
+                    UpdateProjectStatus status = ProjectService.UpdateProject(model.ID, model.Name, model.Description);
                     switch (status)
                     {
                         case UpdateProjectStatus.Updated:

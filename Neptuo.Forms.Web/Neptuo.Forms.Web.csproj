@@ -162,7 +162,7 @@
     <Compile Include="Models\Project\ListProjectModel.cs" />
     <Compile Include="RemoteAuthProvider.cs" />
     <Compile Include="HtmlExtensions.cs" />
-    <Compile Include="UserContext.cs" />
+    <Compile Include="CurrentUserContext.cs" />
     <Compile Include="WebViewPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

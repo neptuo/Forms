@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DotNetOpenAuth.OpenId;
+using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.RelyingParty;
-using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.Messaging;
 using Microsoft.Practices.Unity;
 using Neptuo.Web.Mvc.Controllers;
 using Neptuo.Web.Mvc.Html;
+using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
 using Neptuo.Forms.Web.Models;
 
@@ -21,28 +22,14 @@ namespace Neptuo.Forms.Web.Controllers
         private const string OpenIDTextBox = "openid_identifier";
         private static OpenIdRelyingParty openid = new OpenIdRelyingParty();
 
-        #region UserContext
-
-        private UserContext userContext;
-
         /// <summary>
         /// Current user context.
         /// </summary>
-        public UserContext UserContext
-        {
-            get
-            {
-                if (userContext == null)
-                    userContext = new UserContext(UserService.Get(User.Identity.Name));
-
-                return userContext;
-            }
-        }
+        [Dependency]
+        public UserContext UserContext { get; set; }
 
         [Dependency]
         public IUserService UserService { get; set; }
-
-        #endregion
 
         [Dependency]
         public IRemoteAuthProvider RemoteAuthProvider { get; set; }
@@ -177,7 +164,7 @@ namespace Neptuo.Forms.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserUpdateStatus status = UserService.UpdateAccount(UserContext.Account.ID, model.Fullname, model.Email);
+                UserUpdateStatus status = UserService.UpdateAccount(model.Fullname, model.Email);
                 if (status == UserUpdateStatus.Updated)
                 {
                     ShowMessage((L)"Account updated");
@@ -197,7 +184,7 @@ namespace Neptuo.Forms.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                ChangePasswordStatus status =  UserService.ChangePassword(UserContext.Account.ID, model.CurrentPassword, model.Password);
+                ChangePasswordStatus status =  UserService.ChangePassword(model.CurrentPassword, model.Password);
                 switch (status)
                 {
                     case ChangePasswordStatus.Changed:

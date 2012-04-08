@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity;
 using Neptuo.Web.Localization;
 using Neptuo.Web.Mvc;
 using Neptuo.Web.Mvc.Auth;
+using Neptuo.Web.Mvc.Unity;
 using Neptuo.Forms.Core;
 
 namespace Neptuo.Forms.Web
@@ -31,6 +32,7 @@ namespace Neptuo.Forms.Web
             FormsCore.RegisterTypes(container);
 
             container
+                .RegisterType<UserContext, CurrentUserContext>(new PerHttpRequestLifetimeManager())
                 .RegisterType<IAuthProvider, LocalAuthProvider>()
                 .RegisterType<IRemoteAuthProvider, RemoteAuthProvider>()
                 .RegisterType<IDomainSelector, UrlDomainSelector>();

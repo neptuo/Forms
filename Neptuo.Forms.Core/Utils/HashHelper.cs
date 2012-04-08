@@ -8,6 +8,11 @@ namespace Neptuo.Forms.Core.Utils
 {
     public static class HashHelper
     {
+        public static string ComputePublicIdentifier(string type, string name)
+        {
+            return Guid.NewGuid().ToString();
+        }
+
         public static string ComputePassword(string username, string password)
         {
             return Sha1(username + password);

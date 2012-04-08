@@ -19,6 +19,9 @@ namespace Neptuo.Forms.Core
                 .RegisterType<IUserService, UserService>()
                 .RegisterType<IRepository<Project>, GenericRepository<Project, DataContext>>()
                 .RegisterType<IProjectService, ProjectService>()
+                .RegisterType<IRepository<FormDefinition>, GenericRepository<FormDefinition, DataContext>>()
+                .RegisterType<IRepository<FieldDefinition>, GenericRepository<FieldDefinition, DataContext>>()
+                .RegisterType<IFormDefinitionService, FormDefinitionService>()
                 .RegisterType<IRepository<Article>, GenericRepository<Article, DataContext>>()
                 .RegisterType<IArticleService, ArticleService>()
             ;

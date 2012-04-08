@@ -14,9 +14,9 @@ namespace Neptuo.Forms.Core.Service
 
         UserCreateStatus CreateAccount(string remoteUsername, string fullname, string email);
 
-        UserUpdateStatus UpdateAccount(int id, string fullname, string email);
+        UserUpdateStatus UpdateAccount(string fullname, string email);
 
-        ChangePasswordStatus ChangePassword(int id, string currentPassword, string newPassword);
+        ChangePasswordStatus ChangePassword(string currentPassword, string newPassword);
 
         void DisableUser(int id);
 

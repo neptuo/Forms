@@ -13,7 +13,7 @@
             UI.Grid(Model)
                 .AddColumn((L)"ID", p => p.ID, "w30")
                 .AddColumn((L)"Name", p => p.Name)
-                .AddColumn((L)"Created", p => p.Created, "w100")
+                .AddColumn((L)"Created", p => p.Created, "w130")
                 .AddColumn("", p => Html.ActionLink((L)"Edit", "edit", new { id = p.ID }) + " " + Html.ActionLink((L)"Forms", "forms", new { id = p.ID }), "w100")
                 .Render();
         }
