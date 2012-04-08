@@ -52,13 +52,19 @@
                         @if (UserContext.IsAuthenticated())
                         { 
                             <ul>
+                                <li class="admin-logout">
+                                    @using (Html.BeginForm("logout", "account"))
+                                    {
+                                        <input type="image" name="logout" value="Logout" src="@Url.Content("~/Design/Images/Admin/Logout.png")" />
+                                    }
+                                </li>
                                 <li>
                                     <a class="admin-settings" href="#">
                                         <span>Settings</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="admin-users" href="#">
+                                <li class="@(IsCurrent("account", "change") ? "active" : "")">
+                                    <a class="admin-users" href="@Url.Action("change", "account")">
                                         <span>Users</span>
                                     </a>
                                 </li>
@@ -71,9 +77,9 @@
                         }
                         else
                         {
-                            @Html.GrayButton(@Html.ActionLink("Register", "register", "account"))
+                            @Html.GrayButton(@Html.ActionLink((L)"Sign in", "login", "account"))
                             <text> </text>
-                            @Html.Button(@Html.ActionLink("Login", "login", "account"))
+                            @Html.GrayButton(@Html.ActionLink((L)"Create an account", "register", "account"))
                         }
                     </div>
                 </div>
@@ -99,16 +105,6 @@
                         { 
                             @RenderSection("SideBarTop", false)
 
-                            if (UserContext.IsAuthenticated())
-                            { 
-                                <div class="folder">
-                                    @using (Html.BeginForm("logout", "account"))
-                                    {
-                                        <input type="submit" name="logout" value="Logout" class="link-button" />
-                                    }
-                                </div>
-                            }
-                            
                             <div class="folder">
                                 <h4 class="folder-heading">@Loc("News")</h4>
                                 Some news texts

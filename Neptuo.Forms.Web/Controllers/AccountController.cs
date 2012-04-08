@@ -21,11 +21,43 @@ namespace Neptuo.Forms.Web.Controllers
         private const string OpenIDTextBox = "openid_identifier";
         private static OpenIdRelyingParty openid = new OpenIdRelyingParty();
 
+        #region UserContext
+
+        private UserContext userContext;
+
+        /// <summary>
+        /// Current user context.
+        /// </summary>
+        public UserContext UserContext
+        {
+            get
+            {
+                if (userContext == null)
+                    userContext = new UserContext(UserService.Get(User.Identity.Name));
+
+                return userContext;
+            }
+        }
+
+        [Dependency]
+        public IUserService UserService { get; set; }
+
+        #endregion
+
         [Dependency]
         public IRemoteAuthProvider RemoteAuthProvider { get; set; }
 
-        [Dependency]
-        public IUserService Service { get; set; }
+        protected override ActionResult AfterLoginFailure(LocalLoginModel model)
+        {
+            ShowMessage((L)"No such user account!", HtmlMessageType.Error);
+            return base.AfterLoginFailure(model);
+        }
+
+        protected override ActionResult AfterSuccesfulLogin(LocalLoginModel model)
+        {
+            ShowMessage(String.Format((L)"Welcome back, {0}!", model.Username));
+            return base.AfterSuccesfulLogin(model);
+        }
 
         [ValidateInput(false)]
         public ActionResult Authenticate(string returnUrl)
@@ -96,7 +128,7 @@ namespace Neptuo.Forms.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserCreateStatus status = Service.CreateAccount(model.Username, model.Fullname, model.Email);
+                UserCreateStatus status = UserService.CreateAccount(model.Username, model.Fullname, model.Email);
                 switch (status)
                 {
                     case UserCreateStatus.Created:
@@ -115,7 +147,7 @@ namespace Neptuo.Forms.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserCreateStatus status = Service.CreateAccount(model.Username, model.Password, model.Fullname, model.Email);
+                UserCreateStatus status = UserService.CreateAccount(model.Username, model.Password, model.Fullname, model.Email);
                 switch (status)
                 {
                     case UserCreateStatus.Created:
@@ -127,6 +159,65 @@ namespace Neptuo.Forms.Web.Controllers
                 }
             }
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult Change()
+        {
+            return View("change", new ChangeAccountModel
+            {
+                Email = UserContext.Account.Email,
+                Fullname = UserContext.Account.Fullname
+            });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Change(ChangeAccountModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserUpdateStatus status = UserService.UpdateAccount(UserContext.Account.ID, model.Fullname, model.Email);
+                if (status == UserUpdateStatus.Updated)
+                {
+                    ShowMessage((L)"Account updated");
+                    return Change();
+                }
+                else
+                {
+                    ShowMessage((L)"No such user account", HtmlMessageType.Error);
+                }
+            }
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ChangePasswordStatus status =  UserService.ChangePassword(UserContext.Account.ID, model.CurrentPassword, model.Password);
+                switch (status)
+                {
+                    case ChangePasswordStatus.Changed:
+                        ShowMessage((L)"Password changed.");
+                        return RedirectToAction("change");
+                    case ChangePasswordStatus.InvalidCurrentPassword:
+                        ModelState.AddModelError("CurrentPassword", (L)"Invalid current password!");
+                        break;
+                    case ChangePasswordStatus.InsuficientComplexity:
+                        ModelState.AddModelError("Password", (L)"Insuficient password complexity!");
+                        break;
+                    case ChangePasswordStatus.NoSuchUser:
+                        ShowMessage((L)"No such user account", HtmlMessageType.Error);
+                        break;
+                    case ChangePasswordStatus.NoLocalCredentials:
+                        ShowMessage((L)"You don't have local credentials to manage!");
+                        break;
+                }
+            }
+            return Change();
         }
     }
 }

@@ -30,5 +30,12 @@ namespace Neptuo.Forms.Web
 
         [Dependency]
         public IUserService UserService { get; set; }
+
+
+        protected override void ExecuteCore()
+        {
+            LocalizationSelector.Select(ControllerContext.HttpContext.Request, ControllerContext.HttpContext.Response, ControllerContext.RouteData);
+            base.ExecuteCore();
+        }
     }
 }

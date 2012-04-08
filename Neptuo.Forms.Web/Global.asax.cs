@@ -47,7 +47,6 @@ namespace Neptuo.Forms.Web
                 .Initialize()
                 .BuildUnity(RegisterUnity)
                 .BuildLocalization(RegisterLocales)
-                .SetupAreas()
                 .SetupGlobalFilters()
                 .SetupRoutes(RegisterRoutes)
                 .SetupViewEngine(true);

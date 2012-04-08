@@ -1,0 +1,88 @@
+﻿@using Neptuo.Forms.Web.Models;
+@model Neptuo.Forms.Web.Models.ChangeAccountModel
+
+@{
+    ViewBag.Title = "Change";
+    ViewData["ChangePassword"] = new ChangePasswordModel();
+}
+
+<div class="folder w345 left">
+    <h2 class="folder-heading">@Loc("Change account")</h2>
+
+    @using (Html.BeginForm())
+    {
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Fullname)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Fullname)
+                @Html.ValidationMessageFor(m => m.Fullname)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Email)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <input type="submit" name="change" value="@Loc("Save changes")" />
+    }
+</div>
+
+<div class="folder w345 right">
+    <h2 class="folder-heading">@Loc("Change password")</h2>
+
+    @if (UserContext.HasLocalCredentials())
+    { 
+        using (Html.BeginForm("changepassword", "account"))
+        {
+            <div class="editor-item w300">
+                <div class="editor-label">
+                    @Html.LabelFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).CurrentPassword)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).CurrentPassword)
+                    @Html.ValidationMessageFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).CurrentPassword)
+                </div>
+            </div>
+            <div class="clear"></div>
+        
+            <div class="editor-item w300">
+                <div class="editor-label">
+                    @Html.LabelFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).Password)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).Password)
+                    @Html.ValidationMessageFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).Password)
+                </div>
+            </div>
+            <div class="clear"></div>
+        
+            <div class="editor-item w300">
+                <div class="editor-label">
+                    @Html.LabelFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).PasswordConfirm)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).PasswordConfirm)
+                    @Html.ValidationMessageFor(m => (ViewData["ChangePassword"] as ChangePasswordModel).PasswordConfirm)
+                </div>
+            </div>
+            <div class="clear"></div>
+        
+            <input type="submit" name="register" value="@Loc("Change password")" />
+        }
+    }
+    else
+    {
+        @Loc("You don't have local password.")
+    }
+</div>
+<div class="clear"></div>

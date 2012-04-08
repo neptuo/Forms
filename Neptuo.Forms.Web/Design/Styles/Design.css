@@ -194,6 +194,10 @@ body {
     background: url('../Images/Admin/SettingsActive.png') no-repeat center center;
 }
 
+.admin-logout {
+    margin-top: 15px;
+}
+
 /* ============================= TINY-BUTTON =========================================== */
 
 .tiny-button, .action-panel a {

@@ -71,6 +71,28 @@ namespace Neptuo.Forms.Core.Service
             return UserUpdateStatus.NoSuchUser;
         }
 
+        public ChangePasswordStatus ChangePassword(int id, string currentPassword, string newPassword)
+        {
+            UserAccount user = Repository.Get(id);
+            if (user != null)
+            {
+                if (newPassword.Length < 6)
+                    return ChangePasswordStatus.InsuficientComplexity;
+
+                if (user.LocalCredentials == null)
+                    return ChangePasswordStatus.NoLocalCredentials;
+
+                currentPassword = HashHelper.ComputePassword(user.LocalCredentials.Username, currentPassword);
+                if (user.LocalCredentials.Password != currentPassword)
+                    return ChangePasswordStatus.InvalidCurrentPassword;
+
+                user.LocalCredentials.Password = HashHelper.ComputePassword(user.LocalCredentials.Username, newPassword);
+                Repository.Update(user);
+                return ChangePasswordStatus.Changed;
+            }
+            return ChangePasswordStatus.NoSuchUser;
+        }
+
         public UserAccount Get(int id)
         {
             return Repository.Get(id);
@@ -88,7 +110,8 @@ namespace Neptuo.Forms.Core.Service
 
         public UserAccount GetByLocalCredentials(string username, string password)
         {
-            return Repository.FirstOrDefault(u => u.LocalCredentials != null && u.LocalCredentials.Username == username && u.LocalCredentials.Password == HashHelper.ComputePassword(username, password));
+            password = HashHelper.ComputePassword(username, password);
+            return Repository.FirstOrDefault(u => u.LocalCredentials != null && u.LocalCredentials.Username == username && u.LocalCredentials.Password == password);
         }
 
         public UserAccount GetByRemoteCredentials(string username)

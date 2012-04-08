@@ -18,15 +18,14 @@ namespace Neptuo.Forms.Core
 
         public string UserRole { get; set; }
 
+        //[ForeignKey("LocalCredentials")]
+        //public int? LocalCredentialsID { get; set; }
 
-        [ForeignKey("LocalCredentials")]
-        public int? LocalCredentialsID { get; set; }
+        public virtual LocalCredentials LocalCredentials { get; set; }
 
-        public LocalCredentials LocalCredentials { get; set; }
+        //[ForeignKey("RemoteCredentials")]
+        //public int? RemoteCredentialsID { get; set; }
 
-        [ForeignKey("RemoteCredentials")]
-        public int? RemoteCredentialsID { get; set; }
-
-        public RemoteCredentials RemoteCredentials { get; set; }
+        public virtual RemoteCredentials RemoteCredentials { get; set; }
     }
 }

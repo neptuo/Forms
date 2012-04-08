@@ -93,7 +93,7 @@ p {
 
 /* ============================= EDITOR FIELDS ========================================= */
 
-input[type=text], textarea, select {
+input[type=text], input[type=password], textarea, select {
     padding: 5px;
     background-color: white;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
@@ -138,6 +138,7 @@ input[type=text]:focus, textarea:focus, select:focus {
 .w280 { width: 280px; }
 .w300 { width: 300px; }
 .w330 { width: 330px; }
+.w345 { width: 345px; }
 .w350 { width: 350px; }
 .w400 { width: 400px; }
 .w500 { width: 500px; }
@@ -153,7 +154,7 @@ input[type=text]:focus, textarea:focus, select:focus {
 
 .editor-item.w30, .editor-item.w50, .editor-item.w70, .editor-item.w100, .editor-item.w120, .editor-item.w150, .editor-item.w200, .editor-item.w215, 
 .editor-item.w240, .editor-item.w260,  .editor-item.w280, 
-.editor-item.w300, .editor-item.w330, .editor-item.w350, .editor-item.w500, .editor-item.w400, .editor-item.w600, .editor-item.w700, .editor-item.w800 {
+.editor-item.w300, .editor-item.w330, .editor-item.w345, .editor-item.w350, .editor-item.w500, .editor-item.w400, .editor-item.w600, .editor-item.w700, .editor-item.w800 {
     float: left;
     margin-right: 20px;
 }

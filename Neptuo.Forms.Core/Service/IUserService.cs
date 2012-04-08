@@ -16,6 +16,8 @@ namespace Neptuo.Forms.Core.Service
 
         UserUpdateStatus UpdateAccount(int id, string fullname, string email);
 
+        ChangePasswordStatus ChangePassword(int id, string currentPassword, string newPassword);
+
         UserAccount Get(int id);
 
         UserAccount Get(string username);
@@ -41,5 +43,13 @@ namespace Neptuo.Forms.Core.Service
     public enum UserUpdateStatus
     {
         Updated, NoSuchUser
+    }
+
+    /// <summary>
+    /// Statuses that can occur while changing password.
+    /// </summary>
+    public enum ChangePasswordStatus
+    {
+        Changed, InvalidCurrentPassword, InsuficientComplexity, NoSuchUser, NoLocalCredentials
     }
 }

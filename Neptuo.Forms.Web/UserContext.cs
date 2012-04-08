@@ -39,5 +39,21 @@ namespace Neptuo.Forms.Web
         {
             return isAuthenticated;
         }
+
+        public bool HasLocalCredentials()
+        {
+            if (IsAuthenticated())
+                return Account.LocalCredentials != null;
+
+            return false;
+        }
+
+        public bool HasRemoteCredentials()
+        {
+            if (IsAuthenticated())
+                return Account.RemoteCredentials != null;
+
+            return false;
+        }
     }
 }

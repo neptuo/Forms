@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201204071928135_Nullableforcredentials.Designer.cs">
       <DependentUpon>201204071928135_Nullableforcredentials.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201204080912110_UserAccountRemoteForeignKeys.cs" />
+    <Compile Include="Migrations\201204080912110_UserAccountRemoteForeignKeys.Designer.cs">
+      <DependentUpon>201204080912110_UserAccountRemoteForeignKeys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteCredentials.cs" />
