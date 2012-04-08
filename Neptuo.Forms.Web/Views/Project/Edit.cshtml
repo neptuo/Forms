@@ -1,0 +1,36 @@
+﻿@model Neptuo.Forms.Web.Models.EditProjectModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="folder">
+    <h2 class="folder-heading">@(Model.IsNew() ? Loc("Create new project") : String.Format((L)"Edit project: {0}", Model.Name))</h2>
+
+    @using (Html.BeginForm("edit", "project"))
+    {
+        <div class="editor-item w400">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="editor-item w735">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Description)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+        </div>
+        <div class="clear"></div>
+
+        <input type="submit" name="save" value="@Loc("Save project")" />
+    }
+</div>

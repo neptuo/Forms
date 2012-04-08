@@ -73,8 +73,8 @@
                                         <span>Users</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="admin-projects" href="#">
+                                <li class="@(IsCurrent("project", "*") ? "active" : "")">
+                                    <a class="admin-projects" href="@Url.Action("index", "project")">
                                         <span>Projects</span>
                                     </a>
                                 </li>

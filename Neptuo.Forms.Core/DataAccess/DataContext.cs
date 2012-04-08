@@ -13,5 +13,10 @@ namespace Neptuo.Forms.Core.DataAccess
         public DbSet<RemoteCredentials> RemoteCredentials { get; set; }
 
         public DbSet<Article> Articles { get; set; }
+
+        public DbSet<Project> Projects { get; set; }
+
+        public DbSet<FormDefinition> FormDefinitions { get; set; }
+        public DbSet<FieldDefinition> FieldDefinitions { get; set; }
     }
 }

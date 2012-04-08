@@ -28,7 +28,8 @@ namespace Neptuo.Forms.Core.Service
                     Enabled = true,
                     Created = DateTime.Now,
                     Fullname = fullname,
-                    Email = email
+                    Email = email,
+                    UserRole = UserRole.User
                 };
                 Repository.Insert(user);
                 return UserCreateStatus.Created;
@@ -51,6 +52,7 @@ namespace Neptuo.Forms.Core.Service
                     Created = DateTime.Now,
                     Fullname = fullname,
                     Email = email,
+                    UserRole = UserRole.User
                 };
                 Repository.Insert(user);
                 return UserCreateStatus.Created;

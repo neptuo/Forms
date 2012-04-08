@@ -68,7 +68,11 @@
     <Compile Include="Article.cs" />
     <Compile Include="BaseObject.cs" />
     <Compile Include="DataAccess\DataContext.cs" />
+    <Compile Include="FieldDefinition.cs" />
+    <Compile Include="FieldType.cs" />
+    <Compile Include="FormDefinition.cs" />
     <Compile Include="FormsCore.cs" />
+    <Compile Include="FormType.cs" />
     <Compile Include="LocalCredentials.cs" />
     <Compile Include="Migrations\201204071928135_Nullableforcredentials.cs" />
     <Compile Include="Migrations\201204071928135_Nullableforcredentials.Designer.cs">
@@ -82,12 +86,19 @@
     <Compile Include="Migrations\201204081521368_AddArticle.Designer.cs">
       <DependentUpon>201204081521368_AddArticle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201204082132478_AddProjectFormDefinitionFieldDefinition.cs" />
+    <Compile Include="Migrations\201204082132478_AddProjectFormDefinitionFieldDefinition.Designer.cs">
+      <DependentUpon>201204082132478_AddProjectFormDefinitionFieldDefinition.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteCredentials.cs" />
     <Compile Include="Service\ArticleService.cs" />
     <Compile Include="Service\IArticleService.cs" />
+    <Compile Include="Service\IProjectService.cs" />
     <Compile Include="Service\IUserService.cs" />
+    <Compile Include="Service\ProjectService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="UserAccount.cs" />
     <Compile Include="UserRole.cs" />
