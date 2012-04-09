@@ -9,6 +9,7 @@ using RiaLibrary.Web;
 using Neptuo.Web.Localization;
 using Neptuo.Web.Mvc;
 using Neptuo.Web.Mvc.Auth;
+using Neptuo.Web.Mvc.Html;
 using Neptuo.Web.Mvc.Unity;
 using Neptuo.Forms.Core;
 
@@ -46,12 +47,18 @@ namespace Neptuo.Forms.Web
             service.AddBundle(Server.MapPath("~/Locales"), "FormsWeb");
         }
 
+        private void RegisterMenu(StandartMenuRepository menu)
+        {
+
+        }
+
         protected void Application_Start()
         {
             Bootstrapper
                 .Initialize()
                 .BuildUnity(RegisterUnity)
                 .BuildLocalization(RegisterLocales)
+                .BuildStandartMenu(RegisterMenu)
                 .SetupGlobalFilters()
                 .SetupRoutes(RegisterRoutes)
                 .SetupViewEngine(true);

@@ -52,11 +52,33 @@ namespace Neptuo.Forms.Web.Controllers
             return View();
         }
 
+        #region Learn
+
         [Url("learn")]
         public ActionResult Learn()
         {
             return View();
         }
+
+        [Url("learn/rest")]
+        public ActionResult LearnRestApi()
+        {
+            return View("Learn");
+        }
+
+        [Url("learn/webservice")]
+        public ActionResult LearnWebService()
+        {
+            return View("Learn");
+        }
+
+        [Url("learn/javascript")]
+        public ActionResult LearnJavascript()
+        {
+            return View("Learn");
+        }
+
+        #endregion
 
         [Url("features")]
         public ActionResult Features()
