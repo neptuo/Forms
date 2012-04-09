@@ -143,6 +143,7 @@
     <Compile Include="BootstrapperExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\FormDefinitionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
@@ -158,6 +159,8 @@
     <Compile Include="Models\Article\DetailArticleModel.cs" />
     <Compile Include="Models\Article\EditArticleModel.cs" />
     <Compile Include="Models\Article\ListArticleModel.cs" />
+    <Compile Include="Models\FormDefinition\EditFormDefinitionModel.cs" />
+    <Compile Include="Models\Project\ListFormDefinitionModel.cs" />
     <Compile Include="Models\Project\EditProjectModel.cs" />
     <Compile Include="Models\Project\ListProjectModel.cs" />
     <Compile Include="RemoteAuthProvider.cs" />
@@ -288,6 +291,8 @@
     <Content Include="Views\Shared\DisplayTemplates\DetailArticleModel.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\Forms.cshtml" />
+    <Content Include="Views\FormDefinition\Edit.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -33,7 +33,7 @@ namespace Neptuo.Forms.Core.Service
         public FormDefinition Get(int id)
         {
             FormDefinition form = FormRepository.Get(id);
-            if (!ProjectService.CanUserRead(form.ProjectID))
+            if (form != null && !ProjectService.CanUserRead(form.ProjectID))
                 return null;
 
             return form;

@@ -17,6 +17,9 @@ namespace Neptuo.Forms.Web.Controllers
         [Dependency]
         public IProjectService ProjectService { get; set; }
 
+        [Dependency]
+        public IFormDefinitionService FormService { get; set; }
+
         public ActionResult Index()
         {
             return View(ProjectService.GetList().Select(p => new ListProjectModel
@@ -90,7 +93,15 @@ namespace Neptuo.Forms.Web.Controllers
 
         public ActionResult Forms(int id)
         {
-            return View("index");
+            return View(FormService.GetList(id).Select(f => new ListFormDefinitionModel
+            {
+                ID = f.ID,
+                Name = f.Name,
+                PublicIdentifier = f.PublicIdentifier,
+                PublicContent = f.PublicContent,
+                Created = f.Created,
+                FormType = f.FormType
+            }));
         }
 
     }

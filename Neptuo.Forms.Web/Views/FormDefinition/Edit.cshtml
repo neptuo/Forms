@@ -1,0 +1,80 @@
+﻿@model Neptuo.Forms.Web.Models.EditFormDefinitionModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="folder">
+    <h2 class="folder-heading">@(Model.IsNew() ? Loc("Create new form definition") : String.Format((L)"Edit form: {0}", Model.Name) )</h2>
+
+    @using (Html.BeginForm("edit", "formdefinition"))
+    {
+        <div class="editor-item w400">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="editor-item w400">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.PublicContent)
+                @Html.EditorFor(m => m.PublicContent)
+                @Html.ValidationMessageFor(m => m.PublicContent)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        if (Model.IsNew())
+        { 
+            <div class="editor-item w300">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.ProjectID)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(m => m.ProjectID, Model.GetProjects())
+                    @Html.ValidationMessageFor(m => m.ProjectID)
+                </div>
+            </div>
+        }
+        else
+        { 
+            @Html.HiddenFor(m => m.ProjectID)
+        }
+        
+        if (Model.IsNew())
+        { 
+            <div class="editor-item w200">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.FormType)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(m => m.FormType, new SelectListItem[] {
+                        new SelectListItem {
+                            Text = (L)"Form",
+                            Value = Neptuo.Forms.Core.FormType.Form.ToString(),
+                            Selected = Model.FormType == Neptuo.Forms.Core.FormType.Form
+                        },
+                        new SelectListItem {
+                            Text = (L)"Inquiry",
+                            Value = Neptuo.Forms.Core.FormType.Inquiry.ToString(),
+                            Selected = Model.FormType == Neptuo.Forms.Core.FormType.Inquiry
+                        }
+                    })
+                    @Html.ValidationMessageFor(m => m.FormType)
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(m => m.FormType)
+        }
+        <div class="clear"></div>
+        
+        <input type="submit" name="save" value="@Loc("Save form")" />
+    }
+</div>
