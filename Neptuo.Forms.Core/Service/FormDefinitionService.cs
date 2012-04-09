@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Practices.Unity;
 using Neptuo.Web.DataAccess;
 using Neptuo.Forms.Core.Utils;
+using Neptuo.Forms.Core.Validation;
 
 namespace Neptuo.Forms.Core.Service
 {
@@ -50,10 +51,10 @@ namespace Neptuo.Forms.Core.Service
 
         public CreateFormDefinitionStatus CreateForm(string name, int formType, bool publicContent, int projectID)
         {
-            if(String.IsNullOrEmpty(name))
+            if(!Validator.CheckName(name))
                 return CreateFormDefinitionStatus.InvalidName;
 
-            if(FormType.Form != formType && FormType.Inquiry != formType)
+            if(!Validator.CheckFormType(formType))
                 return CreateFormDefinitionStatus.InvalidFormType;
 
             Project project = ProjectService.Get(projectID);
@@ -75,7 +76,7 @@ namespace Neptuo.Forms.Core.Service
 
         public UpdateFormDefinitionStatus UpdateForm(int id, string name, bool publicContent)
         {
-            if(String.IsNullOrEmpty(name))
+            if(!Validator.CheckName(name))
                 return UpdateFormDefinitionStatus.InvalidName;
 
             FormDefinition form = Get(id);
@@ -94,7 +95,7 @@ namespace Neptuo.Forms.Core.Service
             if (form == null)
                 return CreateFieldDefinitionStatus.NoSuchFormDefinition;
 
-            if (!IsValidFieldType(fieldType) || (form.FormType == FormType.Inquiry && fieldType != FieldType.BoolField))
+            if (!Validator.CheckFieldType(fieldType, form.FormType))
                 return CreateFieldDefinitionStatus.InvalidFieldType;
 
             if (String.IsNullOrEmpty(name))
@@ -117,24 +118,13 @@ namespace Neptuo.Forms.Core.Service
             if (Get(field.FormDefinitionID) == null)
                 return UpdateFieldDefinitionStatus.NoSuchFieldDefinition;
 
-            if (String.IsNullOrEmpty(name))
+            if (!Validator.CheckName(name))
                 return UpdateFieldDefinitionStatus.InvalidName;
 
             field.Name = name;
             field.Required = required;
             FieldRepository.Update(field);
             return UpdateFieldDefinitionStatus.Updated;
-        }
-
-        private bool IsValidFieldType(int fieldType)
-        {
-            if (fieldType != FieldType.BoolField && fieldType != FieldType.BoolField && fieldType != FieldType.DoubleField
-                && fieldType != FieldType.FileField && fieldType != FieldType.ReferenceField && fieldType != FieldType.StringField)
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }

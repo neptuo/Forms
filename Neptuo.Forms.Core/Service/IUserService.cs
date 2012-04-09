@@ -42,7 +42,7 @@ namespace Neptuo.Forms.Core.Service
     /// </summary>
     public enum UserCreateStatus
     {
-        Created, UsernameUsed
+        Created, UsernameUsed, InsuficientPassword
     }
 
     /// <summary>

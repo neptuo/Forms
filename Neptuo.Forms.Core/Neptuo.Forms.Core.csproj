@@ -107,7 +107,7 @@
     <Compile Include="UserRole.cs" />
     <Compile Include="Utils\HashHelper.cs" />
     <Compile Include="Validation\PermissionDeniedException.cs" />
-    <Compile Include="Validation\UserAccountValidator.cs" />
+    <Compile Include="Validation\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

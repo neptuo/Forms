@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Unity;
 using Neptuo.Web.DataAccess;
+using Neptuo.Forms.Core.Validation;
 
 namespace Neptuo.Forms.Core.Service
 {
@@ -27,8 +28,11 @@ namespace Neptuo.Forms.Core.Service
 
         public CreateProjectStatus CreateProject(string name, string description)
         {
-            if (String.IsNullOrEmpty(name))
+            if (!Validator.CheckName(name))
                 return CreateProjectStatus.InvalidName;
+
+            if (GetList().Count() == Validator.MaxUserProjects)
+                return CreateProjectStatus.ProjectCountExceeded;
 
             Project project = new Project
             {
@@ -43,7 +47,7 @@ namespace Neptuo.Forms.Core.Service
 
         public UpdateProjectStatus UpdateProject(int id, string name, string description)
         {
-            if (String.IsNullOrEmpty(name))
+            if (!Validator.CheckName(name))
                 return UpdateProjectStatus.InvalidName;
 
             Project project = Get(id);

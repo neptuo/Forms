@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Practices.Unity;
 using Neptuo.Web.DataAccess;
 using Neptuo.Forms.Core.Utils;
+using Neptuo.Forms.Core.Validation;
 
 namespace Neptuo.Forms.Core.Service
 {
@@ -21,6 +22,9 @@ namespace Neptuo.Forms.Core.Service
             bool exists = Repository.FirstOrDefault(u => u.LocalCredentials != null && u.LocalCredentials.Username == username) != null;
             if (!exists)
             {
+                if (!Validator.CheckPassword(password))
+                    return UserCreateStatus.InsuficientPassword;
+
                 UserAccount user = new UserAccount
                 {
                     LocalCredentials = new LocalCredentials
@@ -81,7 +85,7 @@ namespace Neptuo.Forms.Core.Service
             UserAccount user = Repository.Get(UserContext.AccountID);
             if (user != null)
             {
-                if (newPassword.Length < 6)
+                if (!Validator.CheckPassword(newPassword))
                     return ChangePasswordStatus.InsuficientComplexity;
 
                 if (user.LocalCredentials == null)

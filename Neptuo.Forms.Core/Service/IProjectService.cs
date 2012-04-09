@@ -24,7 +24,7 @@ namespace Neptuo.Forms.Core.Service
 
     public enum CreateProjectStatus
     {
-        Created, InvalidName
+        Created, InvalidName, ProjectCountExceeded
     }
 
     public enum UpdateProjectStatus

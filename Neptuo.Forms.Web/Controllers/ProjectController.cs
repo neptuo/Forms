@@ -65,6 +65,9 @@ namespace Neptuo.Forms.Web.Controllers
                         case CreateProjectStatus.Created:
                             ShowMessage(String.Format((L)"Project '{0}' created.", model.Name));
                             return RedirectToAction("index");
+                        case CreateProjectStatus.ProjectCountExceeded:
+                            ShowMessage((L)"Maximum project count exceeded!", HtmlMessageType.Warning);
+                            return RedirectToAction("index");
                         case CreateProjectStatus.InvalidName:
                             ModelState.AddModelError("Name", (L)"Invalid project name!");
                             break;

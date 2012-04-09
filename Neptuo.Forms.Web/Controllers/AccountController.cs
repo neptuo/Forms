@@ -123,7 +123,10 @@ namespace Neptuo.Forms.Web.Controllers
                         return RedirectToAction("login");
                     case UserCreateStatus.UsernameUsed:
                         ModelState.AddModelError("Username", (L)"Username already used!");
-                        return View(model);
+                        break;
+                    case UserCreateStatus.InsuficientPassword:
+                        ModelState.AddModelError("Password", (L)"Insuficient password complexity!");
+                        break;
                 }
             }
             return View(model);
