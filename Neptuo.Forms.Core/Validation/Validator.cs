@@ -80,7 +80,7 @@ namespace Neptuo.Forms.Core.Validation
 
             if (formType == FormType.Form)
             {
-                if (fieldType != FieldType.BoolField && fieldType != FieldType.BoolField && fieldType != FieldType.DoubleField
+                if (fieldType != FieldType.BoolField && fieldType != FieldType.DoubleField
                     && fieldType != FieldType.FileField && fieldType != FieldType.ReferenceField && fieldType != FieldType.StringField)
                 {
                     return false;
@@ -91,7 +91,7 @@ namespace Neptuo.Forms.Core.Validation
                 return fieldType == FieldType.BoolField;
             }
 
-            return false;
+            return true;
         }
     }
 }

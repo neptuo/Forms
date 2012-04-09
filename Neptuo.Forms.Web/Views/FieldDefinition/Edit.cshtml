@@ -1,0 +1,53 @@
+﻿@model Neptuo.Forms.Web.Models.EditFieldDefinitionModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="folder">
+    <h2 class="folder-heading">@(Model.IsNew() ? Loc("Create new form field") : String.Format((L)"Edit field: {0}", Model.Name))</h2>
+
+    @using (Html.BeginForm("edit", "fielddefinition"))
+    {
+        <div class="editor-item w400">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="editor-item">
+            <div class="editor-label">
+                @Html.EditorFor(m => m.Required)
+                @Html.LabelFor(m => m.Required)
+                @Html.ValidationMessageFor(m => m.Required)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        if (Model.FormType == Neptuo.Forms.Core.FormType.Form)
+        { 
+            <div class="editor-item w200">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.FieldType)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(m => m.FieldType, Model.GetFieldTypes())
+                    @Html.ValidationMessageFor(m => m.FieldType)
+                </div>
+            </div>
+            <div class="clear"></div>
+        }
+        else
+        { 
+            @Html.HiddenFor(m => m.FieldType)
+        }
+        
+        @Html.HiddenFor(m => m.FormDefinitionID)
+        <input type="submit" name="save" value="@Loc("Save field")" />
+    }
+</div>

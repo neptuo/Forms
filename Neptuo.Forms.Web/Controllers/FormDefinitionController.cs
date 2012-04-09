@@ -94,5 +94,16 @@ namespace Neptuo.Forms.Web.Controllers
 
             return View(model);
         }
+
+        public ActionResult Fields(int id)
+        {
+            return View(FormService.GetFields(id).Select(f => new ListFieldDefinitionModel
+            {
+                ID = f.ID,
+                Name = f.Name,
+                Required = f.Required,
+                FieldType = f.FieldType
+            }));
+        }
     }
 }

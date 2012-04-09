@@ -73,7 +73,7 @@
                                         <span>Users</span>
                                     </a>
                                 </li>
-                                <li class="@(IsCurrent("project", "*") ? "active" : "")">
+                                <li class="@((IsCurrent("project", "*") || IsCurrent("formdefinition", "*") || IsCurrent("fielddefinition", "*")) ? "active" : "")">
                                     <a class="admin-projects" href="@Url.Action("index", "project")">
                                         <span>Projects</span>
                                     </a>

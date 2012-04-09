@@ -34,5 +34,18 @@ namespace Neptuo.Forms.Core
         /// Field as reference to other form definition.
         /// </summary>
         public const int ReferenceField = 5;
+
+        /// <summary>
+        /// Returns map of ID(storage value of field type)/Name(Constant name).
+        /// </summary>
+        /// <returns>Map of ID(storage value of field type)/Name(Constant name).</returns>
+        public static IEnumerable<KeyValuePair<int, string>> GetTypes()
+        {
+            yield return new KeyValuePair<int, string>(1, "DoubleField");
+            yield return new KeyValuePair<int, string>(2, "StringField");
+            yield return new KeyValuePair<int, string>(3, "BoolField");
+            yield return new KeyValuePair<int, string>(4, "FileField");
+            yield return new KeyValuePair<int, string>(5, "ReferenceField");
+        }
     }
 }

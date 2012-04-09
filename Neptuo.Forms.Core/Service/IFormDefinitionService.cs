@@ -13,6 +13,8 @@ namespace Neptuo.Forms.Core.Service
 
         IQueryable<FieldDefinition> GetFields(int id);
 
+        FieldDefinition GetField(int fieldID);
+
         CreateFormDefinitionStatus CreateForm(string name, int formType, bool publicContent, int projectID);
 
         UpdateFormDefinitionStatus UpdateForm(int id, string name, bool publicContent);

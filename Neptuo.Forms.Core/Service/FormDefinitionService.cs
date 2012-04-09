@@ -49,6 +49,15 @@ namespace Neptuo.Forms.Core.Service
             return new FieldDefinition[0].AsQueryable();
         }
 
+        public FieldDefinition GetField(int fieldID)
+        {
+            FieldDefinition field = FieldRepository.Get(fieldID);
+            if (field != null && !ProjectService.CanUserRead(field.FormDefinition.ProjectID))
+                return null;
+
+            return field;
+        }
+
         public CreateFormDefinitionStatus CreateForm(string name, int formType, bool publicContent, int projectID)
         {
             if(!Validator.CheckName(name))
@@ -108,6 +117,7 @@ namespace Neptuo.Forms.Core.Service
                 Required = required,
                 FormDefinitionID = id
             });
+            FormRepository.Update(form);
 
             return CreateFieldDefinitionStatus.Created;
         }
