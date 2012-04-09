@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using RiaLibrary.Web;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
@@ -20,6 +21,7 @@ namespace Neptuo.Forms.Web.Controllers
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
+        [Url("admin/project")]
         public ActionResult Index()
         {
             return View(ProjectService.GetList().Select(p => new ListProjectModel
@@ -30,11 +32,13 @@ namespace Neptuo.Forms.Web.Controllers
             }));
         }
 
+        [Url("admin/project/create")]
         public ActionResult Create()
         {
             return View("Edit", new EditProjectModel());
         }
 
+        [Url("admin/project-{id}/edit")]
         public ActionResult Edit(int id)
         {
             Project project = ProjectService.Get(id);
@@ -53,6 +57,7 @@ namespace Neptuo.Forms.Web.Controllers
         }
 
         [HttpPost]
+        [Url("admin/project-{id}/edit")]
         public ActionResult Edit(EditProjectModel model)
         {
             if (ModelState.IsValid)
@@ -94,6 +99,7 @@ namespace Neptuo.Forms.Web.Controllers
             return View(model);
         }
 
+        [Url("admin/project-{id}/forms")]
         public ActionResult Forms(int id)
         {
             return View(FormService.GetList(id).Select(f => new ListFormDefinitionModel

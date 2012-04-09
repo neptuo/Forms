@@ -9,6 +9,7 @@ using Neptuo.Web.Mvc.Html;
 using Neptuo.Web.Mvc.Models;
 using Neptuo.Forms.Core.Service;
 using Neptuo.Forms.Web.Models;
+using RiaLibrary.Web;
 
 namespace Neptuo.Forms.Web.Controllers
 {
@@ -21,12 +22,10 @@ namespace Neptuo.Forms.Web.Controllers
 
         public ActionResult Index()
         {
-            if(UserContext.IsAuthenticated())
-                ShowMessage(String.Format((L)"Welcome back, {0}", UserContext.Account.Fullname), HtmlMessageType.Success);
-
             return View();
         }
 
+        [Url("news")]
         public ActionResult News(int page = 1)
         {
             return View(new ListDetailArticleModel(ArticleService.GetList(Thread.CurrentThread.CurrentUICulture).Select(a => new DetailArticleModel
@@ -47,10 +46,22 @@ namespace Neptuo.Forms.Web.Controllers
             ));
         }
 
+        [Url("about")]
         public ActionResult About()
         {
             return View();
         }
 
+        [Url("learn")]
+        public ActionResult Learn()
+        {
+            return View();
+        }
+
+        [Url("features")]
+        public ActionResult Features()
+        {
+            return View();
+        }
     }
 }

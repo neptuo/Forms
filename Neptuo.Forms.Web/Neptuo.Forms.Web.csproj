@@ -111,6 +111,9 @@
     <Reference Include="Neptuo.Web.Validation">
       <HintPath>..\Resources\References\Neptuo.Web.Validation.dll</HintPath>
     </Reference>
+    <Reference Include="RiaLibrary.Web">
+      <HintPath>..\Resources\References\RiaLibrary.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -200,6 +203,7 @@
     <Content Include="Design\Images\OpenID\openid-providers-en.png" />
     <Content Include="Design\Scripts\openid-en.js" />
     <Content Include="Design\Scripts\openid-jquery.js" />
+    <Content Include="Design\Styles\chosen-sprite.png" />
     <Content Include="Design\Styles\openid-shadow.css" />
     <Content Include="Design\Styles\openid.css" />
     <Content Include="Design\Styles\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -298,6 +302,9 @@
     <Content Include="Views\FormDefinition\Edit.cshtml" />
     <Content Include="Views\FormDefinition\Fields.cshtml" />
     <Content Include="Views\FieldDefinition\Edit.cshtml" />
+    <Content Include="Views\Home\About.cs.cshtml" />
+    <Content Include="Views\Home\Learn.cshtml" />
+    <Content Include="Views\Home\Features.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

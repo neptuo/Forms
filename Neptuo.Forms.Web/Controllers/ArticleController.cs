@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using RiaLibrary.Web;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Web.Mvc.Models;
 using Neptuo.Forms.Core;
@@ -21,6 +22,7 @@ namespace Neptuo.Forms.Web.Controllers
         [Dependency]
         public IArticleService ArticleService { get; set; }
 
+        [Url("admin/article")]
         public ActionResult Index(int page = 1)
         {
             return View(new ListArticleModel(ArticleService.GetList().Select(a => new ListItemArticleModel
@@ -42,11 +44,13 @@ namespace Neptuo.Forms.Web.Controllers
             ));
         }
 
+        [Url("admin/article/create")]
         public ActionResult Create()
         {
             return View("Edit", new EditArticleModel());
         }
 
+        [Url("admin/article-{id}/edit")]
         public ActionResult Edit(int id)
         {
             Article article = ArticleService.Get(id);
@@ -66,6 +70,7 @@ namespace Neptuo.Forms.Web.Controllers
         }
 
         [HttpPost]
+        [Url("admin/article-{id}/edit")]
         public ActionResult Edit(EditArticleModel model)
         {
             if (ModelState.IsValid)
@@ -99,6 +104,7 @@ namespace Neptuo.Forms.Web.Controllers
         }
 
         [HttpPost]
+        [Url("admin/article-{id}/delete")]
         public ActionResult Delete(int id)
         {
             bool result = ArticleService.Delete(id);

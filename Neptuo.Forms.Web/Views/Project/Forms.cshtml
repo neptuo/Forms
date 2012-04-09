@@ -24,7 +24,7 @@
     }
 
     <div class="folder-foot">
-        @Html.ActionLink((L)"+Create", "create", "formdefinition")
+        @Html.ActionLink((L)"+Create", "create", "formdefinition", new { ProjectID = ViewContext.RouteData.Values["id"] }, null)
         @Html.ActionLink((L)"Back to projects", "index")
     </div>
 </div>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
+using RiaLibrary.Web;
 using Neptuo.Web.Localization;
 using Neptuo.Web.Mvc;
 using Neptuo.Web.Mvc.Auth;
@@ -20,6 +21,8 @@ namespace Neptuo.Forms.Web
     {
         private void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapRoutes();
+
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters

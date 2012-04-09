@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using RiaLibrary.Web;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
@@ -16,6 +17,7 @@ namespace Neptuo.Forms.Web.Controllers
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
+        [Url("admin/fielddefinition/create")]
         public ActionResult Create(int formDefinitionID)
         {
             FormDefinition form = FormService.Get(formDefinitionID);
@@ -32,6 +34,7 @@ namespace Neptuo.Forms.Web.Controllers
             });
         }
 
+        [Url("admin/fielddefinition-{id}/edit")]
         public ActionResult Edit(int id)
         {
             FieldDefinition field = FormService.GetField(id);
@@ -53,6 +56,7 @@ namespace Neptuo.Forms.Web.Controllers
         }
 
         [HttpPost]
+        [Url("admin/fielddefinition-{id}/edit")]
         public ActionResult Edit(EditFieldDefinitionModel model)
         {
             if (ModelState.IsValid)

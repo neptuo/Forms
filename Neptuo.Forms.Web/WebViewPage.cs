@@ -44,7 +44,10 @@ namespace Neptuo.Forms.Web
         /// <returns><code>true</code>, if passed <paramref name="controller"/> and <paramref name="action"/> are current controller and action. <code>false</code> otherwise.</returns>
         public bool IsCurrent(string controller, string action)
         {
-            return (string)ViewContext.RouteData.Values["controller"] == controller && ((string)ViewContext.RouteData.Values["action"] == action || action == "*");
+            string c = ((string)ViewContext.RouteData.Values["controller"]).ToLowerInvariant();
+            string a = ((string)ViewContext.RouteData.Values["action"]).ToLowerInvariant();
+
+            return c == controller && (a == action || action == "*");
         }
 
 

@@ -11,6 +11,7 @@
         @Javascript.Include("~/Design/Scripts/jquery.validate.min.js")
         @Javascript.Include("~/Design/Scripts/jquery.validate.unobtrusive.min.js")
         @Javascript.Include("~/Design/Scripts/jquery-ui-1.8.18.min.js")
+        @Javascript.Include("~/Design/Scripts/chosen.jquery.js")
 
         @RenderSection("HtmlHead", false)
     </head>
@@ -28,13 +29,13 @@
                             <li class="first @(IsCurrent("home", "index") ? "active" : "")">
                                 @Html.ActionLink((L)"Home", "index", "home")
                             </li>
-                            <li class="@(IsCurrent("features", "index") ? "active" : "")">
+                            <li class="@(IsCurrent("home", "features") ? "active" : "")">
                                 @Html.ActionLink((L)"Features", "index", "features")
                             </li>
                             <li class="@(IsCurrent("home", "news") ? "active" : "")">
                                 @Html.ActionLink((L)"News", "news", "home")
                             </li>
-                            <li class="@(IsCurrent("learn", "index") ? "active" : "")">
+                            <li class="@(IsCurrent("home", "learn") ? "active" : "")">
                                 @Html.ActionLink((L)"Learn", "index", "learn")
                             </li>
                             <li class="@(IsCurrent("home", "about") ? "active" : "")">
@@ -110,6 +111,18 @@
                         { 
                             @RenderSection("SideBarTop", false)
 
+                            if (UserContext.IsAdmin())
+                            { 
+                                <div class="folder">
+                                    <h4 class="folder-heading">@Loc("Admin menu")</h4>
+                                    <ul>
+                                        <li>
+                                            @Html.ActionLink((L)"Articles", "index", "article")
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+
                             <div class="folder">
                                 <h4 class="folder-heading">@Loc("News")</h4>
                                 Some news texts
@@ -135,6 +148,14 @@
                 <div class="clear"></div>
             </div>
         </div>
+
+        <script type="text/javascript">
+
+            $(function () {
+                $('select').chosen();
+            });
+        
+        </script>
     </body>
 </html>
  
