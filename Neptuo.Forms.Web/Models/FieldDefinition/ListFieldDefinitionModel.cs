@@ -8,7 +8,7 @@ namespace Neptuo.Forms.Web.Models
 {
     public class ListFieldDefinitionModel
     {
-        public int ID { get; set; }
+        public int FieldDefinitionID { get; set; }
 
         public string Name { get; set; }
 

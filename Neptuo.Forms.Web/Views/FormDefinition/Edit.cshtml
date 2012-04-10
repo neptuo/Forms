@@ -53,18 +53,7 @@
                     @Html.LabelFor(m => m.FormType)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownListFor(m => m.FormType, new SelectListItem[] {
-                        new SelectListItem {
-                            Text = (L)"Form",
-                            Value = Neptuo.Forms.Core.FormType.Form.ToString(),
-                            Selected = Model.FormType == Neptuo.Forms.Core.FormType.Form
-                        },
-                        new SelectListItem {
-                            Text = (L)"Inquiry",
-                            Value = Neptuo.Forms.Core.FormType.Inquiry.ToString(),
-                            Selected = Model.FormType == Neptuo.Forms.Core.FormType.Inquiry
-                        }
-                    })
+                    @Html.DropDownListFor(m => m.FormType, Model.GetFormTypes())
                     @Html.ValidationMessageFor(m => m.FormType)
                 </div>
             </div>

@@ -21,27 +21,27 @@ namespace Neptuo.Forms.Web.Controllers
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
-        [Url("admin/project")]
+        [Url("user/projects")]
         public ActionResult Index()
         {
             return View(ProjectService.GetList().Select(p => new ListProjectModel
             {
-                ID = p.ID,
+                ProjectID = p.ID,
                 Name = p.Name,
                 Created = p.Created
             }));
         }
 
-        [Url("admin/project/create")]
+        [Url("user/project/create")]
         public ActionResult Create()
         {
             return View("Edit", new EditProjectModel());
         }
 
-        [Url("admin/project-{id}/edit")]
-        public ActionResult Edit(int id)
+        [Url("user/project-{projectID}/edit")]
+        public ActionResult Edit(int projectID)
         {
-            Project project = ProjectService.Get(id);
+            Project project = ProjectService.Get(projectID);
             if (project == null)
             {
                 ShowMessage((L)"No such project!", HtmlMessageType.Error);
@@ -50,14 +50,14 @@ namespace Neptuo.Forms.Web.Controllers
 
             return View(new EditProjectModel
             {
-                ID = project.ID,
+                ProjectID = project.ID,
                 Name = project.Name,
                 Description = project.Description
             });
         }
 
         [HttpPost]
-        [Url("admin/project-{id}/edit")]
+        [Url("user/project-{projectID}/edit")]
         public ActionResult Edit(EditProjectModel model)
         {
             if (ModelState.IsValid)
@@ -80,7 +80,7 @@ namespace Neptuo.Forms.Web.Controllers
                 }
                 else
                 {
-                    UpdateProjectStatus status = ProjectService.UpdateProject(model.ID, model.Name, model.Description);
+                    UpdateProjectStatus status = ProjectService.UpdateProject(model.ProjectID, model.Name, model.Description);
                     switch (status)
                     {
                         case UpdateProjectStatus.Updated:
@@ -99,18 +99,27 @@ namespace Neptuo.Forms.Web.Controllers
             return View(model);
         }
 
-        [Url("admin/project-{id}/forms")]
-        public ActionResult Forms(int id)
+        [Url("user/project-{projectID}/forms")]
+        public ActionResult Forms(int projectID)
         {
-            return View(FormService.GetList(id).Select(f => new ListFormDefinitionModel
+            return View(new ListFormDefinitionModel
             {
-                ID = f.ID,
-                Name = f.Name,
-                PublicIdentifier = f.PublicIdentifier,
-                PublicContent = f.PublicContent,
-                Created = f.Created,
-                FormType = f.FormType
-            }));
+                Forms = FormService.GetList(projectID).Select(f => new ListItemFormDefinitionModel
+                {
+                    FormDefinitionID = f.ID,
+                    Name = f.Name,
+                    PublicIdentifier = f.PublicIdentifier,
+                    PublicContent = f.PublicContent,
+                    Created = f.Created,
+                    FormType = f.FormType
+                }),
+                Projects = ProjectService.GetList().Select(p => new LightProject
+                {
+                    ID = p.ID,
+                    Name = p.Name
+                }),
+                CurrentProjectID = projectID
+            });
         }
 
     }

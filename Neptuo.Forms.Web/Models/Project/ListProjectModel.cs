@@ -7,7 +7,7 @@ namespace Neptuo.Forms.Web.Models
 {
     public class ListProjectModel
     {
-        public int ID { get; set; }
+        public int ProjectID { get; set; }
 
         public string Name { get; set; }
 

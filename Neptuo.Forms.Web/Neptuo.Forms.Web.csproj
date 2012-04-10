@@ -165,8 +165,8 @@
     <Compile Include="Models\Article\ListArticleModel.cs" />
     <Compile Include="Models\FieldDefinition\EditFieldDefinitionModel.cs" />
     <Compile Include="Models\FormDefinition\EditFormDefinitionModel.cs" />
-    <Compile Include="Models\FormDefinition\ListFieldDefinitionModel.cs" />
-    <Compile Include="Models\Project\ListFormDefinitionModel.cs" />
+    <Compile Include="Models\FieldDefinition\ListFieldDefinitionModel.cs" />
+    <Compile Include="Models\FormDefinition\ListFormDefinitionModel.cs" />
     <Compile Include="Models\Project\EditProjectModel.cs" />
     <Compile Include="Models\Project\ListProjectModel.cs" />
     <Compile Include="RemoteAuthProvider.cs" />

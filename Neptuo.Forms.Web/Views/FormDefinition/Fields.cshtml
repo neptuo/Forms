@@ -11,17 +11,17 @@
         
         UI.Grid(Model)
             .SetEmptyText((L)"No Fields")
-            .AddColumn((L)"ID", f => f.ID, "w30")
+            .AddColumn((L)"ID", f => f.FieldDefinitionID, "w30")
             .AddColumn((L)"Name", f => f.Name)
             .AddColumn((L)"Required", f => f.Required ? (L)"Yes" : (L)"No", "w50")
             .AddColumn((L)"Field type", f => (L)Neptuo.Forms.Core.FieldType.GetTypes().First(i => i.Key == f.FieldType).Value, "w100")
-            .AddColumn("", f => Html.ActionLink((L)"Edit", "edit", "fielddefinition", new { id = f.ID }, null), "w50")
+            .AddColumn("", f => Html.ActionLink((L)"Edit", "edit", "fielddefinition", new { fieldDefinitionID = f.FieldDefinitionID }, null), "w50")
             .Render();
         
     }
 
     <div class="folder-foot">
-        @Html.ActionLink((L)"+Create", "create", "fielddefinition", new { FormDefinitionID = ViewContext.RouteData.Values["id"] }, null)
+        @Html.ActionLink((L)"+Create", "create", "fielddefinition")
         @Html.ActionLink((L)"Back to projects", "index", "project")
     </div>
 </div>

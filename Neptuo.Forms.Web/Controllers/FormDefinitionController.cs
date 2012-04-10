@@ -20,7 +20,18 @@ namespace Neptuo.Forms.Web.Controllers
         [Dependency]
         public IProjectService ProjectService { get; set; }
 
-        [Url("admin/formdefinition/create")]
+        [Url("user/forms")]
+        public ActionResult Index()
+        {
+            Project project = ProjectService.GetList().OrderBy(p => p.ID).FirstOrDefault();
+            if (project != null)
+                return RedirectToAction("forms", "project", new { projectID = project.ID });
+
+            ShowMessage((L)"You don't have project, create one at first.", HtmlMessageType.Warning);
+            return RedirectToAction("index", "project");
+        }
+
+        [Url("user/form/create")]
         public ActionResult Create(int projectID)
         {
             return View("Edit", new EditFormDefinitionModel
@@ -34,10 +45,10 @@ namespace Neptuo.Forms.Web.Controllers
             });
         }
 
-        [Url("admin/formdefinition-{id}/edit")]
-        public ActionResult Edit(int id)
+        [Url("user/form-{formDefinitionID}/edit")]
+        public ActionResult Edit(int formDefinitionID)
         {
-            FormDefinition form = FormService.Get(id);
+            FormDefinition form = FormService.Get(formDefinitionID);
             if (form == null)
             {
                 ShowMessage((L)"No such form definition!", HtmlMessageType.Warning);
@@ -46,7 +57,7 @@ namespace Neptuo.Forms.Web.Controllers
 
             return View(new EditFormDefinitionModel
             {
-                ID = form.ID,
+                FormDefinitionID = form.ID,
                 Name = form.Name,
                 FormType = form.FormType,
                 PublicContent = form.PublicContent,
@@ -55,7 +66,7 @@ namespace Neptuo.Forms.Web.Controllers
         }
 
         [HttpPost]
-        [Url("admin/formdefinition-{id}/edit")]
+        [Url("user/form-{formDefinitionID}/edit")]
         public ActionResult Edit(EditFormDefinitionModel model)
         {
             if (ModelState.IsValid)
@@ -67,7 +78,7 @@ namespace Neptuo.Forms.Web.Controllers
                     {
                         case CreateFormDefinitionStatus.Created:
                             ShowMessage(String.Format((L)"Form '{0}' created.", model.Name));
-                            return RedirectToAction("forms", "project", new { id = model.ProjectID });
+                            return RedirectToAction("forms", "project", new { projectID = model.ProjectID });
                         case CreateFormDefinitionStatus.InvalidName:
                             ModelState.AddModelError("Name", (L)"Invalid name!");
                             break;
@@ -81,18 +92,18 @@ namespace Neptuo.Forms.Web.Controllers
                 }
                 else
                 {
-                    UpdateFormDefinitionStatus status = FormService.UpdateForm(model.ID, model.Name, model.PublicContent);
+                    UpdateFormDefinitionStatus status = FormService.UpdateForm(model.FormDefinitionID, model.Name, model.PublicContent);
                     switch (status)
                     {
                         case UpdateFormDefinitionStatus.Updated:
                             ShowMessage(String.Format((L)"Form '{0}' updated.", model.Name));
-                            return RedirectToAction("forms", "project", new { id = model.ProjectID });
+                            return RedirectToAction("forms", "project", new { projectID = model.ProjectID });
                         case UpdateFormDefinitionStatus.InvalidName:
                             ModelState.AddModelError("Name", (L)"Invalid name!");
                             break;
                         case UpdateFormDefinitionStatus.NoSuchFormDefinition:
                             ShowMessage((L)"No such form definition!", HtmlMessageType.Warning);
-                            return RedirectToAction("forms", "project", new { id = model.ProjectID });
+                            return RedirectToAction("forms", "project", new { projectID = model.ProjectID });
                     }
                 }
             }
@@ -100,12 +111,12 @@ namespace Neptuo.Forms.Web.Controllers
             return View(model);
         }
 
-        [Url("admin/formdefinition-{id}/fields")]
-        public ActionResult Fields(int id)
+        [Url("user/form-{formDefinitionID}/fields")]
+        public ActionResult Fields(int formDefinitionID)
         {
-            return View(FormService.GetFields(id).Select(f => new ListFieldDefinitionModel
+            return View(FormService.GetFields(formDefinitionID).Select(f => new ListFieldDefinitionModel
             {
-                ID = f.ID,
+                FieldDefinitionID = f.ID,
                 Name = f.Name,
                 Required = f.Required,
                 FieldType = f.FieldType

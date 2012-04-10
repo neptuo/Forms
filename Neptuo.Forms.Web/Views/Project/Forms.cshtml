@@ -1,30 +1,43 @@
-﻿@model IEnumerable<Neptuo.Forms.Web.Models.ListFormDefinitionModel>
+﻿@model Neptuo.Forms.Web.Models.ListFormDefinitionModel
 
 @{
     ViewBag.Title = "Forms";
 }
 
 <div class="folder">
-    <h2 class="folder-heading">@Loc("Project forms")</h2>
+    <div class="folder-heading">
+        <div class="right">
+            @Html.ActionLink("Projects", "index")
+            @Html.DropDownList("ProjectFilter", Model.GetProjects(Url))
+        </div>
+        <h2>@Loc("Project forms")</h2>
+    </div>
 
     @{
-        UI.Grid(Model)
+        UI.Grid(Model.Forms)
             .SetEmptyText((L)"No forms")
-            .AddColumn((L)"ID", f => f.ID, "w30")
+            .AddColumn((L)"ID", f => f.FormDefinitionID, "w30")
             .AddColumn((L)"Name", f => f.Name)
             .AddColumn((L)"PublicIdentifier", f => f.PublicIdentifier)
             .AddColumn((L)"Created", f => f.Created, "w130")
             .AddColumn((L)"Type", f => f.FormType == Neptuo.Forms.Core.FormType.Form ? (L)"Form" : (L)"Inquiry", "w40")
             .AddColumn((L)"Public", f => f.PublicContent ? (L)"Yes" : (L)"No", "w30")
-            .AddColumn("", f => Html.ActionLink((L)"Edit", "edit", "formdefinition", new { id = f.ID }, null)
-                + " " + Html.ActionLink((L)"Fields", "fields", "formdefinition", new { id = f.ID }, null)
-                + " " + Html.ActionLink((L)"Data", "index", "formdata", new { id = f.ID }), "w100")
+            .AddColumn("", f => Html.ActionLink((L)"Edit", "edit", "formdefinition", new { formDefinitionID = f.FormDefinitionID }, null)
+                + " " + Html.ActionLink((L)"Fields", "fields", "formdefinition", new { formDefinitionID = f.FormDefinitionID }, null)
+                + " " + Html.ActionLink((L)"Data", "index", "formdata", new { formDefinitionID = f.FormDefinitionID }), "w100")
             .Render();
         
     }
 
     <div class="folder-foot">
-        @Html.ActionLink((L)"+Create", "create", "formdefinition", new { ProjectID = ViewContext.RouteData.Values["id"] }, null)
+        @Html.ActionLink((L)"+Create", "create", "formdefinition")
         @Html.ActionLink((L)"Back to projects", "index")
     </div>
 </div>
+
+@section JavascriptDomReady {
+
+    $('#ProjectFilter').change(function() {
+        window.location = $(this).val();
+    });
+}

@@ -11,10 +11,10 @@
         if (Model.Count() > 0)
         {
             UI.Grid(Model)
-                .AddColumn((L)"ID", p => p.ID, "w30")
+                .AddColumn((L)"ID", p => p.ProjectID, "w30")
                 .AddColumn((L)"Name", p => p.Name)
                 .AddColumn((L)"Created", p => p.Created, "w130")
-                .AddColumn("", p => Html.ActionLink((L)"Edit", "edit", new { id = p.ID }) + " " + Html.ActionLink((L)"Forms", "forms", new { id = p.ID }), "w100")
+                .AddColumn("", p => Html.ActionLink((L)"Edit", "edit", new { projectID = p.ProjectID }) + " " + Html.ActionLink((L)"Forms", "forms", new { projectID = p.ProjectID }), "w100")
                 .Render();
         }
         else

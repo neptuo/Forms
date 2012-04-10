@@ -10,7 +10,7 @@ namespace Neptuo.Forms.Web.Models
     public class EditProjectModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int ID { get; set; }
+        public int ProjectID { get; set; }
 
         [Display(Name = "Project name")]
         [Required(ErrorMessage = "Project name is required!")]
@@ -23,7 +23,7 @@ namespace Neptuo.Forms.Web.Models
 
         public bool IsNew()
         {
-            return ID == 0;
+            return ProjectID == 0;
         }
     }
 }

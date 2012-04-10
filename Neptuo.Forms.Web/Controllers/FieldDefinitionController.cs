@@ -17,7 +17,7 @@ namespace Neptuo.Forms.Web.Controllers
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
-        [Url("admin/fielddefinition/create")]
+        [Url("user/form-{formDefinitionID}/field/create")]
         public ActionResult Create(int formDefinitionID)
         {
             FormDefinition form = FormService.Get(formDefinitionID);
@@ -34,10 +34,10 @@ namespace Neptuo.Forms.Web.Controllers
             });
         }
 
-        [Url("admin/fielddefinition-{id}/edit")]
-        public ActionResult Edit(int id)
+        [Url("user/form-{formDefinitionID}/field-{fieldDefinitionID}/edit")]
+        public ActionResult Edit(int fieldDefinitionID)
         {
-            FieldDefinition field = FormService.GetField(id);
+            FieldDefinition field = FormService.GetField(fieldDefinitionID);
             if (field == null)
             {
                 ShowMessage((L)"No such field!", HtmlMessageType.Warning);
@@ -46,7 +46,7 @@ namespace Neptuo.Forms.Web.Controllers
 
             return View(new EditFieldDefinitionModel
             {
-                ID = field.ID,
+                FieldDefinitionID = field.ID,
                 Name = field.Name,
                 Required = field.Required,
                 FieldType = field.FieldType,
@@ -56,7 +56,7 @@ namespace Neptuo.Forms.Web.Controllers
         }
 
         [HttpPost]
-        [Url("admin/fielddefinition-{id}/edit")]
+        [Url("user/form-{formDefinitionID}/field-{fieldDefinitionID}/edit")]
         public ActionResult Edit(EditFieldDefinitionModel model)
         {
             if (ModelState.IsValid)
@@ -68,7 +68,7 @@ namespace Neptuo.Forms.Web.Controllers
                     {
                         case CreateFieldDefinitionStatus.Created:
                             ShowMessage(String.Format((L)"Form field '{0}' created.", model.Name));
-                            return RedirectToAction("fields", "formdefinition", new { id = model.FormDefinitionID });
+                            return RedirectToAction("fields", "formdefinition", new { formDefinitionID = model.FormDefinitionID });
                         case CreateFieldDefinitionStatus.InvalidName:
                             ModelState.AddModelError("Name", (L)"Invalid field name!");
                             break;
@@ -82,12 +82,12 @@ namespace Neptuo.Forms.Web.Controllers
                 }
                 else
                 {
-                    UpdateFieldDefinitionStatus status = FormService.UpdateField(model.ID, model.Name, model.Required);
+                    UpdateFieldDefinitionStatus status = FormService.UpdateField(model.FieldDefinitionID, model.Name, model.Required);
                     switch (status)
                     {
                         case UpdateFieldDefinitionStatus.Updated:
                             ShowMessage(String.Format((L)"Form field '{0}' updated.", model.Name));
-                            return RedirectToAction("fields", "formdefinition", new { id = model.FormDefinitionID });
+                            return RedirectToAction("fields", "formdefinition", new { formDefinitionID = model.FormDefinitionID });
                         case UpdateFieldDefinitionStatus.InvalidName:
                             ModelState.AddModelError("Name", (L)"Invalid field name!");
                             break;

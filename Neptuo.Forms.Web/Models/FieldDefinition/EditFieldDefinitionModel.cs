@@ -10,7 +10,7 @@ namespace Neptuo.Forms.Web.Models
     public class EditFieldDefinitionModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int ID { get; set; }
+        public int FieldDefinitionID { get; set; }
 
         [Display(Name = "Field name")]
         [Required(ErrorMessage = "Field name is required!")]
@@ -43,7 +43,7 @@ namespace Neptuo.Forms.Web.Models
 
         public bool IsNew()
         {
-            return ID == 0;
+            return FieldDefinitionID == 0;
         }
     }
 }

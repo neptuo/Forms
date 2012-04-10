@@ -97,11 +97,20 @@ namespace Neptuo.Forms.Web
                 Action = "change"
             }, new MenuItem
             {
-                LinkText = "Projects",
+                LinkText = "Forms",
                 IconUrl = "admin-projects",
-                Controller = "Project",
+                Controller = "FormDefinition",
                 Action = "Index",
                 ActiveOn = c => projectActive.Contains(c.RouteData.GetController())
+            });
+
+            //SuperAdmin menu
+            menu.Register("SuperAdminMenu", new MenuItem
+            {
+                LinkText = "Articles",
+                Controller = "Article",
+                Action = "Index",
+                ActiveOn = c => c.RouteData.GetControllerLower() == "article"
             });
 
             //Learn sidebar menu

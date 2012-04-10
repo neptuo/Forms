@@ -10,7 +10,7 @@ namespace Neptuo.Forms.Web.Models
     public class EditFormDefinitionModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int ID { get; set; }
+        public int FormDefinitionID { get; set; }
 
         [Display(Name = "Form name")]
         [Required(ErrorMessage = "Form name is required!")]
@@ -39,9 +39,22 @@ namespace Neptuo.Forms.Web.Models
             }
         }
 
+        public IEnumerable<SelectListItem> GetFormTypes()
+        {
+            foreach (KeyValuePair<int, string> item in Core.FormType.GetTypes())
+            {
+                yield return new SelectListItem
+                {
+                    Text = (L)item.Value,
+                    Value = item.Key.ToString(),
+                    Selected = item.Key == FormType
+                };
+            }
+        }
+
         public bool IsNew()
         {
-            return ID == 0;
+            return FormDefinitionID == 0;
         }
     }
 

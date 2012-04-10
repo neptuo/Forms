@@ -64,11 +64,8 @@
                             { 
                                 <div class="folder">
                                     <h4 class="folder-heading">@Loc("Admin menu")</h4>
-                                    <ul>
-                                        <li>
-                                            @Html.ActionLink((L)"Articles", "index", "article")
-                                        </li>
-                                    </ul>
+                                    
+                                    @UI.Menu("SuperAdminMenu", "SideBarMenu")
                                 </div>
                             }
 
@@ -102,8 +99,11 @@
 
             $(function () {
                 $('select').chosen();
+
+                @RenderSection("JavascriptDomReady", false)
             });
         
+            @RenderSection("JavascriptInline", false)
         </script>
     </body>
 </html>

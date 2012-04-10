@@ -22,7 +22,7 @@ namespace Neptuo.Forms.Web.Controllers
         [Dependency]
         public IArticleService ArticleService { get; set; }
 
-        [Url("admin/article")]
+        [Url("admin/articles")]
         public ActionResult Index(int page = 1)
         {
             return View(new ListArticleModel(ArticleService.GetList().Select(a => new ListItemArticleModel
