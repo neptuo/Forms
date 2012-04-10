@@ -14,7 +14,7 @@ using Neptuo.Forms.Web.Models;
 
 namespace Neptuo.Forms.Web.Controllers
 {
-    [Authorize]
+    [AuthorizeAdmin]
     public class ArticleController : BaseController
     {
         private int pageSize = 10;

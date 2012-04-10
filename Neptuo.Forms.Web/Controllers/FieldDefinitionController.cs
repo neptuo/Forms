@@ -12,6 +12,7 @@ using Neptuo.Forms.Web.Models;
 
 namespace Neptuo.Forms.Web.Controllers
 {
+    [AuthorizeUser]
     public class FieldDefinitionController : BaseController
     {
         [Dependency]

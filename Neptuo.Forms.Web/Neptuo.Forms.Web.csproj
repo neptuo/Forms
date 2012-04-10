@@ -142,6 +142,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorizeUserAttribute.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="BootstrapperExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />

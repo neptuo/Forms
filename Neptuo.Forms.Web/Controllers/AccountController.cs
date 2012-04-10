@@ -151,7 +151,7 @@ namespace Neptuo.Forms.Web.Controllers
             return View(model);
         }
 
-        [Authorize]
+        [AuthorizeUser]
         public ActionResult Change()
         {
             return View("change", new ChangeAccountModel
@@ -161,7 +161,7 @@ namespace Neptuo.Forms.Web.Controllers
             });
         }
 
-        [Authorize]
+        [AuthorizeUser]
         [HttpPost]
         public ActionResult Change(ChangeAccountModel model)
         {
@@ -181,7 +181,7 @@ namespace Neptuo.Forms.Web.Controllers
             return View(model);
         }
 
-        [Authorize]
+        [AuthorizeUser]
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {

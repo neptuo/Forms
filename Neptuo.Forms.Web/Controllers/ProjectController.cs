@@ -12,7 +12,7 @@ using Neptuo.Forms.Web.Models;
 
 namespace Neptuo.Forms.Web.Controllers
 {
-    [Authorize]
+    [AuthorizeUser]
     public class ProjectController : BaseController
     {
         [Dependency]

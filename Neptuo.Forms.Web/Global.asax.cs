@@ -37,6 +37,7 @@ namespace Neptuo.Forms.Web
 
             container
                 .RegisterType<UserContext, CurrentUserContext>(new PerHttpRequestLifetimeManager())
+                .RegisterType<IUserRoleResolver, CurrentUserContext>(new PerHttpRequestLifetimeManager())
                 .RegisterType<IAuthProvider, LocalAuthProvider>()
                 .RegisterType<IRemoteAuthProvider, RemoteAuthProvider>()
                 .RegisterType<IDomainSelector, UrlDomainSelector>();
