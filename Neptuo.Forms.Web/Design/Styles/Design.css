@@ -127,6 +127,10 @@ body {
     background: #eeeeee;
 }
 
+.side-menu li.active a {
+    font-weight: bold;
+}
+
 
 .body {
     padding: 10px 0;

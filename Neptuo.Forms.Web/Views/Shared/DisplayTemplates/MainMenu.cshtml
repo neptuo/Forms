@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Neptuo.Web.Mvc.Html.MenuItem>
+@{ int i = 0; }
+
+<div class="main-menu">
+    <ul>
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+            <li class="@(i == 1 ? "first" : "")@(item.ActiveOn(ViewContext) ? " active" : "")">
+                @Html.ActionLink(item.LinkText, item.Action, item.Controller)
+            </li>
+        }
+    </ul>
+</div>

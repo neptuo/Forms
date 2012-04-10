@@ -305,6 +305,10 @@
     <Content Include="Views\Home\About.cs.cshtml" />
     <Content Include="Views\Home\Learn.cshtml" />
     <Content Include="Views\Home\Features.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SideBarMenu.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MainMenu.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AdminMenu.cshtml" />
+    <Content Include="Views\Home\Learn.cs.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -49,7 +49,78 @@ namespace Neptuo.Forms.Web
 
         private void RegisterMenu(StandartMenuRepository menu)
         {
+            menu.GetLinkText = value => (L)value;
 
+            //Main menu
+            menu.Register("MainMenu", new MenuItem
+            {
+                LinkText = "Home",
+                Controller = "Home",
+                Action = "Index"
+            }, new MenuItem
+            {
+                LinkText = "Features",
+                Controller = "Home",
+                Action = "Features"
+            }, new MenuItem
+            {
+                LinkText = "New",
+                Controller = "Home",
+                Action = "News"
+            }, new MenuItem
+            {
+                LinkText = "Learn",
+                Controller = "Home",
+                Action = "Learn",
+                ActiveOn = c => c.RouteData.Values["action"].ToString().StartsWith("Learn")
+            }, new MenuItem
+            {
+                LinkText = "About",
+                Controller = "Home",
+                Action = "About"
+            });
+
+            //Admin menu
+            string[] projectActive = { "Project", "FormDefinition", "FieldDefinition" };
+            menu.Register("AdminMenu", new MenuItem
+            {
+                LinkText = "Settings",
+                IconUrl = "admin-settings",
+                UrlContent = "#",
+                Controller = "Settings",
+                Action = "Index"
+            }, new MenuItem
+            {
+                LinkText = "User account",
+                IconUrl = "admin-users",
+                Controller = "account",
+                Action = "change"
+            }, new MenuItem
+            {
+                LinkText = "Projects",
+                IconUrl = "admin-projects",
+                Controller = "Project",
+                Action = "Index",
+                ActiveOn = c => projectActive.Contains(c.RouteData.GetController())
+            });
+
+            //Learn sidebar menu
+            menu.Register("LearnMenu", new MenuItem
+            {
+                LinkText = "REST API",
+                Controller = "Home",
+                Action = "LearnRestApi"
+            }, new MenuItem
+            {
+                LinkText = "WebService API",
+                Controller = "Home",
+                Action = "LearnWebService"
+            }, new MenuItem
+            {
+                LinkText = "Javascript library",
+                Controller = "Home",
+                Action = "LearnJavascript"
+            });
         }
 
         protected void Application_Start()

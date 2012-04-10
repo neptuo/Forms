@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Neptuo.Web.Mvc.Html.MenuItem>
+
+<div class="admin-menu">
+    @if (UserContext.IsAuthenticated())
+    { 
+        <ul>
+            <li class="admin-logout">
+                @using (Html.BeginForm("logout", "account"))
+                {
+                    <input type="image" name="logout" value="Logout" src="@Url.Content("~/Design/Images/Admin/Logout.png")" />
+                }
+            </li>
+            @foreach (var item in Model)
+            {
+                <li@(item.ActiveOn(ViewContext) ? " class=active" : "")>
+                    <a class="@item.IconUrl" href="@Url.Action(item.Action, item.Controller)">
+                        <span>@item.LinkText</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {   
+        @Html.GrayButton(@Html.ActionLink((L)"Sign in", "login", "account"))
+        <text> </text>
+        @Html.GrayButton(@Html.ActionLink((L)"Create an account", "register", "account"))
+    }
+</div>

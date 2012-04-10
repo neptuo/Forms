@@ -5,19 +5,7 @@
 @section SideBarTop {
     <div class="folder">
         <h4 class="folder-heading">@Loc("Learn")</h4>
-        <div class="side-menu">
-            <ul>
-                <li>
-                    @Html.ActionLink((L)"REST API", "learnrestapi")
-                </li>
-                <li>
-                    @Html.ActionLink((L)"WebService API", "learnwebservice")
-                </li>
-                <li>
-                    @Html.ActionLink((L)"Javascript library", "learnjavascript")
-                </li>
-            </ul>
-        </div>
+        @UI.Menu("LearnMenu", "SideBarMenu")
     </div>
 }
 

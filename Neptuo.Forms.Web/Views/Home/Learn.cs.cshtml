@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Learn";
+}
+
+@section SideBarTop {
+    <div class="folder">
+        <h4 class="folder-heading">@Loc("Learn")</h4>
+        @UI.Menu("LearnMenu", "SideBarMenu")
+    </div>
+}
+
+<div class="folder">
+    <h2 class="folder-heading">Jak začít</h2>
+    <p class="first">
+        V první řadě je nutné se přihlásit, to je možné pomocí Google, Yahoo, AOL, myOpendID nebo OpenID účtu. Samozřejmě je takové možné se zaregistrovat lokálně.
+    </p>
+
+    <p>
+        Po přihlášení je v administrační sekci možné vytvářet formuláře. Formuláře jsou shlukovány do projektů, a každý formulář musí do nějakého patřit, takže je nutné vytvořit nejprve projekt.
+        Limit na počet projektů u vlastněné jedním účtem je v současné době 25.
+    </p>
+    <p>
+        Ale zpět k formulářům, u každého formuláře je možné definovat, zda zadaná data jsou veřejná nebo ne, tedy jestli je možné získat přes rozhraní webových služeb nebo ne 
+        (každý formulář je identifikovaný pomocí speciálního řetězce, bez jehož znalosti není možné k formuláři žádným způsobem přistoupit mimo administrační rozhraní). U veřejných
+        formulářů je možné zobrazovat zadaná data na příklad na vašem webu/aplikaci. FormService aktuálně podporuje dva druhy formulářů, klasický formulář a formulář typu ankety. U anktery je
+        možné mít pouze pole (více o polích v dalším odstavci) typu ano/ne, kdežto klasický formulář umožňuje zadávat různá data.
+    </p>
+
+    Po založení formuláře je možné definovat jednotlivá jeho pole. Typy polí jsou následující:
+    <ul>
+        <li>
+            <strong>Textové pole</strong> - umožňuje zadat libovolný textový řetězec. Jeho délka není omezena. Ve standartním webovém zobrazení formuláře se zobrazí jako
+            textové pole.
+        </li>
+        <li>
+            <strong>Číselné pole</strong> - umožňuje zadat libovolnou číselnou hodnotu. Tato hodnota může kladná nebo záporná, může být i desetinná.
+        </li>
+        <li>
+            <strong>Ano/ne pole</strong> - toto pole umožňuje zadat pouze ano/ne. Ve standartním webovém zobrazení se zobrazí jako zaškrtávátko (checkbox).
+        </li>
+        <li>
+            <strong>Souborové pole</strong> - umožňuje uživateli vybrat soubor z jeho počítače a nahrát ho jako přílohu k formuláři. Zde je omezení velikosti souboru
+            na několik megabytů.
+        </li>
+        <li>
+            <strong>Odkazové pole</strong> - toto pole umožňuje odkázat na již zadaná data do jiného formuláře. Ve standartním webovém zobrazení se zobrazí jako nabídka (selectbox),
+            kde každá položka v seznamu bude jedna zadaná hodnota do cílového formuláře.
+        </li>
+    </ul>
+
+    <p class="last">
+        Z těchto polí je možné sestavit formuláře o téměř neomezeném počtu polí. Toto slouží jako definici formuláře.
+        Po vytvoření definice formuláře je možné ho integrovat do aplikace/webu pomocí jednoho z následujících rozhraní.
+    </p>
+</div>
+
+<div class="folder">
+    <h2 class="folder-heading">Integrace formulářů</h2>
+    <p class="first">
+        FormService v současné době poskytuje dvě rozhraní postavené na webových službách pro integraci do vašich aplikací. První rozhraní je postavené na
+        standartu REST, více zde o @Html.ActionLink("REST API", "LearnRestApi"). Toto rozhraní je vhodné pro použití především při integraci do desktopové aplikace,
+        kde je možné plné podpory pro síťovou komunikaci a REST standart je tak zde snadné využít.
+    </p>
+
+    <p>
+        Na druhé straně, pro použití ve webových stránkách je vhodnější rozhrané uzpůsobené pro různá omezení, která na webu vznikají, více zde o @Html.ActionLink("webém rozhraní", "LearnWebService").
+    </p>
+
+    <p class="last">
+        Při použití webého rozhraní je možné takové využít naší, nad jQuery postanou, javascriptovou knihovnou pro snadné zaingerovanání formuláře do vašich stránek. Knihovna se umí postarat jak o
+        zobrazení formuláře, tak o zpracování odeslání dat na server, více zde o @Html.ActionLink("javascriptové knihovně", "learnjavascript").
+    </p>
+</div>
+
+<div class="folder">
+    <h2 class="folder-heading">Sdílení formulářů</h2>
+    
+    <p class="first last">
+        Projekty, formuláře a jejich data je možné sdílet mezi jednotlivými uživateli. Je možné jinému uživateli nastavit dvě úrovně přístupu do formuláře:
+        <ul>
+            <li>
+                <strong>Čtení</strong> - umožní uživateli zobrazit definici formuláře a jeho data.
+            </li>
+            <li>
+                <strong>Čtení a zápis</strong> - je rozšíření úrovně čtení o možnost upravovat strukturu formuláře a zadaná data.
+            </li>
+        </ul>
+        Poslední možností je pak kompletní převedení formuláře na jiného uživatele.
+    </p>
+</div>

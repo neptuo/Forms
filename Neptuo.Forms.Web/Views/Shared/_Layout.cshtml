@@ -24,25 +24,7 @@
                         <span>FormService</span>
                     </a>
 
-                    <div class="main-menu">
-                        <ul>
-                            <li class="first @(IsCurrent("home", "index") ? "active" : "")">
-                                @Html.ActionLink((L)"Home", "index", "home")
-                            </li>
-                            <li class="@(IsCurrent("home", "features") ? "active" : "")">
-                                @Html.ActionLink((L)"Features", "index", "features")
-                            </li>
-                            <li class="@(IsCurrent("home", "news") ? "active" : "")">
-                                @Html.ActionLink((L)"News", "news", "home")
-                            </li>
-                            <li class="@(IsCurrent("home", "learn") ? "active" : "")">
-                                @Html.ActionLink((L)"Learn", "index", "learn")
-                            </li>
-                            <li class="@(IsCurrent("home", "about") ? "active" : "")">
-                                @Html.ActionLink((L)"About", "about", "home")
-                            </li>
-                        </ul>
-                    </div>
+                    @UI.Menu("MainMenu", "MainMenu")
                 </div>
                 <div class="right">
                     <a class="by-neptuo" href="http://www.neptuo.com">
@@ -54,40 +36,7 @@
                     </div>
                     <div class="clear"></div>
 
-                    <div class="admin-menu">
-                        @if (UserContext.IsAuthenticated())
-                        { 
-                            <ul>
-                                <li class="admin-logout">
-                                    @using (Html.BeginForm("logout", "account"))
-                                    {
-                                        <input type="image" name="logout" value="Logout" src="@Url.Content("~/Design/Images/Admin/Logout.png")" />
-                                    }
-                                </li>
-                                <li>
-                                    <a class="admin-settings" href="#">
-                                        <span>Settings</span>
-                                    </a>
-                                </li>
-                                <li class="@(IsCurrent("account", "change") ? "active" : "")">
-                                    <a class="admin-users" href="@Url.Action("change", "account")">
-                                        <span>Users</span>
-                                    </a>
-                                </li>
-                                <li class="@((IsCurrent("project", "*") || IsCurrent("formdefinition", "*") || IsCurrent("fielddefinition", "*")) ? "active" : "")">
-                                    <a class="admin-projects" href="@Url.Action("index", "project")">
-                                        <span>Projects</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        }
-                        else
-                        {   
-                            @Html.GrayButton(@Html.ActionLink((L)"Sign in", "login", "account"))
-                            <text> </text>
-                            @Html.GrayButton(@Html.ActionLink((L)"Create an account", "register", "account"))
-                        }
-                    </div>
+                    @UI.Menu("AdminMenu", "AdminMenu")
                 </div>
                 <div class="clear"></div>
             </div>

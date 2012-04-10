@@ -33,6 +33,14 @@ p {
     text-align: justify;
 }
 
+p.first {
+    margin-top: 0;
+}
+
+p.last {
+    margin-bottom: 0;
+}
+
 .clear {
     clear: both;
 }
