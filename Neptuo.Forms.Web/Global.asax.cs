@@ -65,15 +65,15 @@ namespace Neptuo.Forms.Web
                 Action = "Features"
             }, new MenuItem
             {
-                LinkText = "New",
-                Controller = "Home",
-                Action = "News"
-            }, new MenuItem
-            {
                 LinkText = "Learn",
                 Controller = "Home",
                 Action = "Learn",
                 ActiveOn = c => c.RouteData.Values["action"].ToString().StartsWith("Learn")
+            }, new MenuItem
+            {
+                LinkText = "News",
+                Controller = "Home",
+                Action = "News"
             }, new MenuItem
             {
                 LinkText = "About",
@@ -116,6 +116,11 @@ namespace Neptuo.Forms.Web
 
             //Learn sidebar menu
             menu.Register("LearnMenu", new MenuItem
+            {
+                LinkText = "Get started",
+                Controller = "Home",
+                Action = "Learn"
+            }, new MenuItem
             {
                 LinkText = "REST API",
                 Controller = "Home",

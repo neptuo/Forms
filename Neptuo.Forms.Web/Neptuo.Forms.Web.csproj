@@ -310,6 +310,7 @@
     <Content Include="Views\Shared\DisplayTemplates\MainMenu.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\AdminMenu.cshtml" />
     <Content Include="Views\Home\Learn.cs.cshtml" />
+    <Content Include="Views\Home\Features.cs.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

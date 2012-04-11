@@ -1,1 +1,5 @@
-﻿
+﻿Home=Domů
+Features=Funkce
+News=Novinky
+Learn=Naučit se
+About=O službě
