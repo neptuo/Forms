@@ -32,12 +32,15 @@ namespace Neptuo.Forms.Web.Models
         {
             foreach (KeyValuePair<int, string> item in Core.FieldType.GetTypes())
             {
-                yield return new SelectListItem
+                if (item.Key != Core.FieldType.ReferenceField)
                 {
-                    Text = (L)item.Value,
-                    Value = item.Key.ToString(),
-                    Selected = item.Key == FieldType
-                };
+                    yield return new SelectListItem
+                    {
+                        Text = (L)item.Value,
+                        Value = item.Key.ToString(),
+                        Selected = item.Key == FieldType
+                    };
+                }
             }
         }
 

@@ -115,13 +115,17 @@ namespace Neptuo.Forms.Web.Controllers
         [Url("user/form-{formDefinitionID}/fields")]
         public ActionResult Fields(int formDefinitionID)
         {
-            return View(FormService.GetFields(formDefinitionID).Select(f => new ListFieldDefinitionModel
+            return View(new ListFieldDefinitionModel
             {
-                FieldDefinitionID = f.ID,
-                Name = f.Name,
-                Required = f.Required,
-                FieldType = f.FieldType
-            }));
+                ProjectID = FormService.Get(formDefinitionID).ProjectID,
+                Fields = FormService.GetFields(formDefinitionID).Select(f => new ListItemFieldDefinitionModel
+                {
+                    FieldDefinitionID = f.ID,
+                    Name = f.Name,
+                    Required = f.Required,
+                    FieldType = f.FieldType
+                })
+            });
         }
     }
 }

@@ -30,7 +30,7 @@
     }
 
     <div class="folder-foot">
-        @Html.ActionLink((L)"+Create", "create", "formdefinition")
+        @Html.ActionLink((L)"+Create", "create", "formdefinition", new { ProjectID = Model.CurrentProjectID }, null)
         @Html.ActionLink((L)"Back to projects", "index")
     </div>
 </div>

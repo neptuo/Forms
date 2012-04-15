@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201204082132478_AddProjectFormDefinitionFieldDefinition.Designer.cs">
       <DependentUpon>201204082132478_AddProjectFormDefinitionFieldDefinition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201204151413135_AddReferenceFieldSupport.cs" />
+    <Compile Include="Migrations\201204151413135_AddReferenceFieldSupport.Designer.cs">
+      <DependentUpon>201204151413135_AddReferenceFieldSupport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

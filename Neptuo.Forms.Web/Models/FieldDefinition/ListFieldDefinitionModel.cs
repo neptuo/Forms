@@ -8,6 +8,13 @@ namespace Neptuo.Forms.Web.Models
 {
     public class ListFieldDefinitionModel
     {
+        public int ProjectID { get; set; }
+
+        public IEnumerable<ListItemFieldDefinitionModel> Fields { get; set; }
+    }
+
+    public class ListItemFieldDefinitionModel
+    {
         public int FieldDefinitionID { get; set; }
 
         public string Name { get; set; }

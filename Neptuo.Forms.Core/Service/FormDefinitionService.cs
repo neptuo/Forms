@@ -104,7 +104,7 @@ namespace Neptuo.Forms.Core.Service
             if (form == null)
                 return CreateFieldDefinitionStatus.NoSuchFormDefinition;
 
-            if (!Validator.CheckFieldType(fieldType, form.FormType))
+            if (!Validator.CheckFieldType(fieldType, form.FormType) && fieldType != FieldType.ReferenceField)
                 return CreateFieldDefinitionStatus.InvalidFieldType;
 
             if (String.IsNullOrEmpty(name))
@@ -116,6 +116,37 @@ namespace Neptuo.Forms.Core.Service
                 FieldType = fieldType,
                 Required = required,
                 FormDefinitionID = id
+            });
+            FormRepository.Update(form);
+
+            return CreateFieldDefinitionStatus.Created;
+        }
+
+        public CreateFieldDefinitionStatus AddReferenceField(int id, string name, bool required, int targetFieldDefinitionID)
+        {
+            FormDefinition form = Get(id);
+            if (form == null)
+                return CreateFieldDefinitionStatus.NoSuchFormDefinition;
+
+            if (String.IsNullOrEmpty(name))
+                return CreateFieldDefinitionStatus.InvalidName;
+
+            FieldDefinition targetField = FieldRepository.Get(targetFieldDefinitionID);
+            if (targetField == null)
+                return CreateFieldDefinitionStatus.NoSuchTargetFieldDefinition;
+
+            FormDefinition targetForm = Get(targetField.FormDefinitionID);
+            if (targetForm == null)
+                return CreateFieldDefinitionStatus.NoSuchTargetFormDefinition;
+
+            form.Fields.Add(new FieldDefinition
+            {
+                Name = name,
+                FieldType = FieldType.ReferenceField,
+                Required = required,
+                FormDefinitionID = id,
+                //ReferenceFormID = targetFormDefinitionID,
+                //ReferenceDisplayFieldID = targetFieldDefinitionID
             });
             FormRepository.Update(form);
 

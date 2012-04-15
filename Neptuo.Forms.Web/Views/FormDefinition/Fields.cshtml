@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Neptuo.Forms.Web.Models.ListFieldDefinitionModel>
+﻿@model Neptuo.Forms.Web.Models.ListFieldDefinitionModel
 
 @{
     ViewBag.Title = "Fields";
@@ -9,7 +9,7 @@
 
     @{
         
-        UI.Grid(Model)
+        UI.Grid(Model.Fields)
             .SetEmptyText((L)"No Fields")
             .AddColumn((L)"ID", f => f.FieldDefinitionID, "w30")
             .AddColumn((L)"Name", f => f.Name)
@@ -22,6 +22,7 @@
 
     <div class="folder-foot">
         @Html.ActionLink((L)"+Create", "create", "fielddefinition")
-        @Html.ActionLink((L)"Back to projects", "index", "project")
+        @Html.ActionLink((L)"+Create reference field", "createreference", "fielddefinition")
+        @Html.ActionLink((L)"Back to projects", "forms", "project", new { ProjectID = Model.ProjectID }, null)
     </div>
 </div>

@@ -35,6 +35,69 @@ namespace Neptuo.Forms.Web.Controllers
             });
         }
 
+        [Url("user/form-{formDefinitionID}/field/create-reference")]
+        public ActionResult CreateReference(int formDefinitionID)
+        {
+            FormDefinition form = FormService.Get(formDefinitionID);
+            if (form == null)
+            {
+                ShowMessage((L)"No such form!", HtmlMessageType.Warning);
+                return RedirectToAction("index", "project");
+            }
+
+            IEnumerable<LightFormDefinition> forms = FormService.GetList(form.ProjectID).Select(f => new LightFormDefinition {
+                ID = f.ID,
+                Name = f.Name
+            });
+
+            IDictionary<string, IEnumerable<LightFieldDefinition>> fields = new Dictionary<string, IEnumerable<LightFieldDefinition>>();
+            foreach (LightFormDefinition item in forms)
+            {
+                fields.Add(item.Name, FormService.GetFields(item.ID).Select(f => new LightFieldDefinition
+                {
+                    ID = f.ID,
+                    Name = f.Name
+                }));
+            }
+
+            return View(new CreateReferenceFieldDefinitionModel
+            {
+                FormDefinitionID = formDefinitionID,
+                FormType = form.FormType,
+                FieldType = FieldType.ReferenceField,
+                Fields = fields
+            });
+        }
+
+        [HttpPost]
+        [Url("user/form-{formDefinitionID}/field/create-reference")]
+        public ActionResult CreateReference(CreateReferenceFieldDefinitionModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                CreateFieldDefinitionStatus status = FormService.AddReferenceField(model.FormDefinitionID, model.Name, model.Required, model.TargetFieldDefinitionID);
+                switch (status)
+                {
+                    case CreateFieldDefinitionStatus.Created:
+                        ShowMessage(String.Format((L)"Form field '{0}' created.", model.Name));
+                        return RedirectToAction("fields", "formdefinition", new { formDefinitionID = model.FormDefinitionID });
+                    case CreateFieldDefinitionStatus.InvalidName:
+                        ModelState.AddModelError("Name", (L)"Invalid field name!");
+                        break;
+                    case CreateFieldDefinitionStatus.NoSuchFormDefinition:
+                        ShowMessage((L)"No such form definition!", HtmlMessageType.Warning);
+                        return RedirectToAction("index", "project");
+                    case CreateFieldDefinitionStatus.NoSuchTargetFormDefinition:
+                        ShowMessage((L)"No such target form definition!", HtmlMessageType.Warning);
+                        break;
+                    case CreateFieldDefinitionStatus.NoSuchTargetFieldDefinition:
+                        ShowMessage((L)"No such target field definition!", HtmlMessageType.Warning);
+                        break;
+                }
+            }
+            return View(model);
+        }
+
         [Url("user/form-{formDefinitionID}/field-{fieldDefinitionID}/edit")]
         public ActionResult Edit(int fieldDefinitionID)
         {
