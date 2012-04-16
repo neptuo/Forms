@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -20,6 +21,8 @@ namespace Neptuo.Forms.Core
         public int ProjectID { get; set; }
         public virtual Project Project { get; set; }
 
+        //This could be a problem!!!
+        [InverseProperty("FormDefinition")]
         public virtual List<FieldDefinition> Fields { get; set; }
     }
 }

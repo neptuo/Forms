@@ -29,7 +29,7 @@
         </div>
         <div class="clear"></div>
         
-        if (Model.FormType == Neptuo.Forms.Core.FormType.Form)
+        if (Model.IsNew() && Model.FormType == Neptuo.Forms.Core.FormType.Form)
         { 
             <div class="editor-item w200">
                 <div class="editor-label">

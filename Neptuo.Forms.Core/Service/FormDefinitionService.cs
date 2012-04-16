@@ -145,8 +145,8 @@ namespace Neptuo.Forms.Core.Service
                 FieldType = FieldType.ReferenceField,
                 Required = required,
                 FormDefinitionID = id,
-                //ReferenceFormID = targetFormDefinitionID,
-                //ReferenceDisplayFieldID = targetFieldDefinitionID
+                ReferenceFormID = targetForm.ID,
+                ReferenceDisplayFieldID = targetFieldDefinitionID
             });
             FormRepository.Update(form);
 
