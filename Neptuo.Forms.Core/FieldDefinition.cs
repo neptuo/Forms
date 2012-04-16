@@ -10,6 +10,8 @@ namespace Neptuo.Forms.Core
     {
         public string Name { get; set; }
 
+        public string PublicIdentifier { get; set; }
+
         public int FieldType { get; set; }
 
         public bool Required { get; set; }

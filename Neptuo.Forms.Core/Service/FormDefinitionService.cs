@@ -40,6 +40,15 @@ namespace Neptuo.Forms.Core.Service
             return form;
         }
 
+        public FormDefinition Get(string publicIdentifier)
+        {
+            FormDefinition form = FormRepository.FirstOrDefault(f => f.PublicIdentifier == publicIdentifier);
+            if (form != null && !ProjectService.CanUserRead(form.ProjectID))
+                return null;
+
+            return form;
+        }
+
         public IQueryable<FieldDefinition> GetFields(int id)
         {
             FormDefinition form = Get(id);
@@ -113,6 +122,7 @@ namespace Neptuo.Forms.Core.Service
             form.Fields.Add(new FieldDefinition
             {
                 Name = name,
+                PublicIdentifier = HashHelper.ComputePublicIdentifier(typeof(FieldDefinition).Name, name),
                 FieldType = fieldType,
                 Required = required,
                 FormDefinitionID = id
@@ -142,6 +152,7 @@ namespace Neptuo.Forms.Core.Service
             form.Fields.Add(new FieldDefinition
             {
                 Name = name,
+                PublicIdentifier = HashHelper.ComputePublicIdentifier(typeof(FieldDefinition).Name, name),
                 FieldType = FieldType.ReferenceField,
                 Required = required,
                 FormDefinitionID = id,

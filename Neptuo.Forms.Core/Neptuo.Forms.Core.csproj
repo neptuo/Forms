@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201204160640423_AddReferenceFieldSupport.Designer.cs">
       <DependentUpon>201204160640423_AddReferenceFieldSupport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201204161127447_AddPublicIdentifierToFieldDefinition.cs" />
+    <Compile Include="Migrations\201204161127447_AddPublicIdentifierToFieldDefinition.Designer.cs">
+      <DependentUpon>201204161127447_AddPublicIdentifierToFieldDefinition.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

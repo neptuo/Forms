@@ -25,6 +25,13 @@ namespace Neptuo.Forms.Core.Service
         FormDefinition Get(int id);
 
         /// <summary>
+        /// Returns form definition by <paramref name="publicIdentifier"/>.
+        /// </summary>
+        /// <param name="publicIdentifier">Form public identifier.</param>
+        /// <returns>Form definition by <paramref name="publicIdentifier"/>.</returns>
+        FormDefinition Get(string publicIdentifier);
+
+        /// <summary>
         /// Returns field definitions of form definition from <paramref name="id"/>.
         /// </summary>
         /// <param name="id">Form definition ID.</param>

@@ -21,7 +21,6 @@ namespace Neptuo.Forms.Core
         public int ProjectID { get; set; }
         public virtual Project Project { get; set; }
 
-        //This could be a problem!!!
         [InverseProperty("FormDefinition")]
         public virtual List<FieldDefinition> Fields { get; set; }
     }
