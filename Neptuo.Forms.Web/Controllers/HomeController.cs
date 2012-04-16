@@ -13,6 +13,7 @@ using RiaLibrary.Web;
 
 namespace Neptuo.Forms.Web.Controllers
 {
+    [OutputCache(Duration = Int32.MaxValue)]
     public class HomeController : BaseController
     {
         private int pageSize = 10;

@@ -12,9 +12,14 @@ namespace Neptuo.Forms.Core
 {
     public static class FormsCore
     {
+        /// <summary>
+        /// Register types for this assembly.
+        /// </summary>
+        /// <param name="container">Unity container isntance.</param>
         public static void RegisterTypes(UnityContainer container)
         {
             container
+                .RegisterType<IActivityService, ActivityService>()
                 .RegisterType<IRepository<UserAccount>, GenericRepository<UserAccount, DataContext>>()
                 .RegisterType<IUserService, UserService>()
                 .RegisterType<IRepository<Project>, GenericRepository<Project, DataContext>>()

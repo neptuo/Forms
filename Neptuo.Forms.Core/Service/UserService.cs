@@ -12,6 +12,9 @@ namespace Neptuo.Forms.Core.Service
     public class UserService : IUserService
     {
         [Dependency]
+        public IActivityService ActivityService { get; set; }
+
+        [Dependency]
         public IRepository<UserAccount> Repository { get; set; }
 
         [Dependency]
@@ -23,7 +26,7 @@ namespace Neptuo.Forms.Core.Service
             if (!exists)
             {
                 if (!Validator.CheckPassword(password))
-                    return UserCreateStatus.InsuficientPassword;
+                    return UserCreateStatus.InsufficientPassword;
 
                 UserAccount user = new UserAccount
                 {
@@ -42,6 +45,7 @@ namespace Neptuo.Forms.Core.Service
                 Repository.Insert(user);
                 return UserCreateStatus.Created;
             }
+            ActivityService.UserRegistered(username);
             return UserCreateStatus.UsernameUsed;
         }
 
@@ -66,6 +70,7 @@ namespace Neptuo.Forms.Core.Service
                 Repository.Insert(user);
                 return UserCreateStatus.Created;
             }
+            ActivityService.UserRegistered(remoteUsername);
             return UserCreateStatus.UsernameUsed;
         }
 

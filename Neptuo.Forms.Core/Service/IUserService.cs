@@ -110,7 +110,7 @@ namespace Neptuo.Forms.Core.Service
     /// </summary>
     public enum UserCreateStatus
     {
-        Created, UsernameUsed, InsuficientPassword
+        Created, UsernameUsed, InsufficientPassword
     }
 
     /// <summary>

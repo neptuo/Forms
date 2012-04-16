@@ -22,9 +22,9 @@ namespace Neptuo.Forms.Web.Controllers
         private const string OpenIDTextBox = "openid_identifier";
         private static OpenIdRelyingParty openid = new OpenIdRelyingParty();
 
-        /// <summary>
-        /// Current user context.
-        /// </summary>
+        [Dependency]
+        public IActivityService ActivityService { get; set; }
+
         [Dependency]
         public UserContext UserContext { get; set; }
 
@@ -36,14 +36,28 @@ namespace Neptuo.Forms.Web.Controllers
 
         protected override ActionResult AfterLoginFailure(LocalLoginModel model)
         {
+            ActivityService.UserLoginFailure(model.Username);
             ShowMessage((L)"No such user account!", HtmlMessageType.Error);
             return base.AfterLoginFailure(model);
         }
 
-        protected override ActionResult AfterSuccesfulLogin(LocalLoginModel model)
+        protected override ActionResult AfterSuccessfulLogin(LocalLoginModel model)
         {
+            ActivityService.UserLoggedIn(model.Username);
             ShowMessage(String.Format((L)"Welcome back, {0}!", model.Username));
-            return base.AfterSuccesfulLogin(model);
+            return base.AfterSuccessfulLogin(model);
+        }
+
+        protected override ActionResult AfterSuccessfulLogout()
+        {
+            string username = null;
+            if (UserContext.Account.LocalCredentials != null)
+                username = UserContext.Account.LocalCredentials.Username;
+            else
+                username = UserContext.Account.RemoteCredentials.Username;
+
+            ActivityService.UserLoggedOut(username);
+            return base.AfterSuccessfulLogout();
         }
 
         [ValidateInput(false)]
@@ -62,12 +76,12 @@ namespace Neptuo.Forms.Web.Controllers
                     }
                     catch (ProtocolException)
                     {
-                        ShowMessage("Error using remote login. Use local credentials or try again later.", HtmlMessageType.Warning);
+                        ShowMessage((L)"Error using remote login. Use local credentials or try again later.", HtmlMessageType.Warning);
                         return View("login", new LocalLoginModel());
                     }
                 }
 
-                ShowMessage("Invalid identifier.", HtmlMessageType.Error);
+                ShowMessage((L)"Invalid identifier.", HtmlMessageType.Error);
                 return View("login", new LocalLoginModel());
             }
 
@@ -77,7 +91,7 @@ namespace Neptuo.Forms.Web.Controllers
                 case AuthenticationStatus.Authenticated:
                     if (RemoteAuthProvider.Authenticate(response.ClaimedIdentifier, false))
                     {
-                        return AfterSuccesfulLogin(new LocalLoginModel
+                        return AfterSuccessfulLogin(new LocalLoginModel
                         {
                             Username = response.ClaimedIdentifier
                         });
@@ -124,8 +138,8 @@ namespace Neptuo.Forms.Web.Controllers
                     case UserCreateStatus.UsernameUsed:
                         ModelState.AddModelError("Username", (L)"Username already used!");
                         break;
-                    case UserCreateStatus.InsuficientPassword:
-                        ModelState.AddModelError("Password", (L)"Insuficient password complexity!");
+                    case UserCreateStatus.InsufficientPassword:
+                        ModelState.AddModelError("Password", (L)"Insufficient password complexity!");
                         break;
                 }
             }

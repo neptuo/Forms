@@ -11,6 +11,9 @@ namespace Neptuo.Forms.Core.Service
     public class ProjectService : IProjectService
     {
         [Dependency]
+        public IActivityService ActivityService { get; set; }
+
+        [Dependency]
         public IRepository<Project> Repository { get; set; }
 
         [Dependency]
@@ -42,6 +45,7 @@ namespace Neptuo.Forms.Core.Service
                 Created = DateTime.Now
             };
             Repository.Insert(project);
+            ActivityService.ProjectCreated(project.ID);
             return CreateProjectStatus.Created;
         }
 
@@ -57,6 +61,7 @@ namespace Neptuo.Forms.Core.Service
             project.Name = name;
             project.Description = description;
             Repository.Update(project);
+            ActivityService.ProjectUpdated(project.ID);
             return UpdateProjectStatus.Updated;
         }
 

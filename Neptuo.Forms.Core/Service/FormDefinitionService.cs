@@ -12,6 +12,9 @@ namespace Neptuo.Forms.Core.Service
     public class FormDefinitionService : IFormDefinitionService
     {
         [Dependency]
+        public IActivityService ActivityService { get; set; }
+
+        [Dependency]
         public IRepository<FormDefinition> FormRepository { get; set; }
 
         [Dependency]
@@ -89,6 +92,7 @@ namespace Neptuo.Forms.Core.Service
                 Created = DateTime.Now
             };
             FormRepository.Insert(form);
+            ActivityService.FormDefinitionCreated(form.ID);
             return CreateFormDefinitionStatus.Created;
         }
 
@@ -104,6 +108,7 @@ namespace Neptuo.Forms.Core.Service
             form.Name = name;
             form.PublicContent = publicContent;
             FormRepository.Update(form);
+            ActivityService.FormDefinitionUpdated(form.ID);
             return UpdateFormDefinitionStatus.Updated;
         }
 
@@ -128,7 +133,7 @@ namespace Neptuo.Forms.Core.Service
                 FormDefinitionID = id
             });
             FormRepository.Update(form);
-
+            ActivityService.FieldDefinitionCreated(form.Fields.Max(f => f.ID));
             return CreateFieldDefinitionStatus.Created;
         }
 
@@ -160,7 +165,7 @@ namespace Neptuo.Forms.Core.Service
                 ReferenceDisplayFieldID = targetFieldDefinitionID
             });
             FormRepository.Update(form);
-
+            ActivityService.FieldDefinitionCreated(form.Fields.Max(f => f.ID));
             return CreateFieldDefinitionStatus.Created;
         }
 
@@ -176,6 +181,7 @@ namespace Neptuo.Forms.Core.Service
             field.Name = name;
             field.Required = required;
             FieldRepository.Update(field);
+            ActivityService.FieldDefinitionUpdated(field.ID);
             return UpdateFieldDefinitionStatus.Updated;
         }
     }
