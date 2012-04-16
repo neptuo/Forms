@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201204161127447_AddPublicIdentifierToFieldDefinition.Designer.cs">
       <DependentUpon>201204161127447_AddPublicIdentifierToFieldDefinition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201204161309500_AddPublicIdentifierToUserAccount.cs" />
+    <Compile Include="Migrations\201204161309500_AddPublicIdentifierToUserAccount.Designer.cs">
+      <DependentUpon>201204161309500_AddPublicIdentifierToUserAccount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

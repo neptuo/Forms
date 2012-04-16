@@ -10,7 +10,8 @@ namespace Neptuo.Forms.Core.Utils
     {
         public static string ComputePublicIdentifier(string type, string name)
         {
-            return Guid.NewGuid().ToString();
+            Random r = new Random((int)DateTime.Now.Ticks);
+            return Guid.NewGuid().ToString().Substring(0, 13).Replace('-', name[r.Next(name.Length)]);
         }
 
         public static string ComputePassword(string username, string password)

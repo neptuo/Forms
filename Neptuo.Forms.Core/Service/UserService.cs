@@ -27,6 +27,7 @@ namespace Neptuo.Forms.Core.Service
 
                 UserAccount user = new UserAccount
                 {
+                    PublicIdentifier = HashHelper.ComputePublicIdentifier(typeof(UserAccount).Name, username),
                     LocalCredentials = new LocalCredentials
                     {
                         Username = username,
@@ -51,6 +52,7 @@ namespace Neptuo.Forms.Core.Service
             {
                 UserAccount user = new UserAccount
                 {
+                    PublicIdentifier = HashHelper.ComputePublicIdentifier(typeof(UserAccount).Name, remoteUsername),
                     RemoteCredentials = new RemoteCredentials
                     {
                         Username = remoteUsername
