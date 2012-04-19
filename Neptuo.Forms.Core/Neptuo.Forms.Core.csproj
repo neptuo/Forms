@@ -68,8 +68,11 @@
     <Compile Include="Article.cs" />
     <Compile Include="BaseObject.cs" />
     <Compile Include="DataAccess\DataContext.cs" />
+    <Compile Include="FieldData.Contrete.cs" />
+    <Compile Include="FieldData.Base.cs" />
     <Compile Include="FieldDefinition.cs" />
     <Compile Include="FieldType.cs" />
+    <Compile Include="FormData.cs" />
     <Compile Include="FormDefinition.cs" />
     <Compile Include="FormsCore.cs" />
     <Compile Include="FormType.cs" />
@@ -101,6 +104,10 @@
     <Compile Include="Migrations\201204161309500_AddPublicIdentifierToUserAccount.cs" />
     <Compile Include="Migrations\201204161309500_AddPublicIdentifierToUserAccount.Designer.cs">
       <DependentUpon>201204161309500_AddPublicIdentifierToUserAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201204191352116_AddFormFieldData.cs" />
+    <Compile Include="Migrations\201204191352116_AddFormFieldData.Designer.cs">
+      <DependentUpon>201204191352116_AddFormFieldData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Project.cs" />

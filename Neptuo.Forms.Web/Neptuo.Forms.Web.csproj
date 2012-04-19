@@ -316,6 +316,10 @@
     <Content Include="Views\Home\Learn.cs.cshtml" />
     <Content Include="Views\Home\Features.cs.cshtml" />
     <Content Include="Views\FieldDefinition\CreateReference.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\QuickListArticleModel.cshtml" />
+    <Content Include="Views\Home\QuickNews.cshtml" />
+    <Content Include="Views\Home\IndexWelcome.cs.cshtml" />
+    <Content Include="Views\Home\IndexWelcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\RestApi\" />

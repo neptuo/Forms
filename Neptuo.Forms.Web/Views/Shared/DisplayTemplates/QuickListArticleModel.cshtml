@@ -1,0 +1,22 @@
+﻿@model Neptuo.Forms.Web.Models.QuickListArticleModel
+
+@if (Model != null && Model.Items.Count() > 0)
+{
+    foreach (var item in Model.Items)
+    {
+    <div class="news-item">
+        <div class="news-date">@item.Modified</div>
+        <h4 class="news-heading">@item.Title</h4>
+        @if (!String.IsNullOrEmpty(item.Content) && !String.IsNullOrWhiteSpace(item.Content))
+        { 
+            <p>
+                @item.Content
+            </p>
+        }
+    </div>
+    }
+}
+else
+{
+    @Loc("No news")
+}

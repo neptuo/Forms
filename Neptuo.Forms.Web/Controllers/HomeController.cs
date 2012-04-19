@@ -13,7 +13,7 @@ using RiaLibrary.Web;
 
 namespace Neptuo.Forms.Web.Controllers
 {
-    [OutputCache(Duration = Int32.MaxValue)]
+    [OutputCache(Duration = Int32.MaxValue, VaryByParam="lang")]
     public class HomeController : BaseController
     {
         private int pageSize = 10;
@@ -24,6 +24,24 @@ namespace Neptuo.Forms.Web.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult IndexWelcome()
+        {
+            return PartialView();
+        }
+
+        [ChildActionOnly]
+        public ActionResult QuickNews()
+        {
+            return PartialView(new QuickListArticleModel(ArticleService.GetList(Thread.CurrentThread.CurrentUICulture).Select(a => new DetailArticleModel
+            {
+                Title = a.Title,
+                Content = a.Content,
+                Modified = a.Modified,
+                AuthorFullname = a.Author.Fullname
+            })));
         }
 
         [Url("news")]

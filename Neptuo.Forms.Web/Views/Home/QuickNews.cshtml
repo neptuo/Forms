@@ -1,0 +1,11 @@
+﻿@model Neptuo.Forms.Web.Models.QuickListArticleModel
+
+<div class="folder">
+    <div class="folder-heading">
+        <h2 class="left">@Loc("News")</h2>
+        @Html.ActionLink((L)"All news", "news", null, new { @class = "right" })
+        <div class="clear"></div>
+    </div>
+        
+    @Html.DisplayFor(m => m)
+</div>
