@@ -171,6 +171,7 @@
     <Compile Include="Models\FormDefinition\EditFormDefinitionModel.cs" />
     <Compile Include="Models\FieldDefinition\ListFieldDefinitionModel.cs" />
     <Compile Include="Models\FormDefinition\ListFormDefinitionModel.cs" />
+    <Compile Include="Models\WebService\FormInsertModel.cs" />
     <Compile Include="Models\Project\EditProjectModel.cs" />
     <Compile Include="Models\Project\ListProjectModel.cs" />
     <Compile Include="Models\WebService\FormDefinitionModel.cs" />

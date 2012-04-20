@@ -27,7 +27,7 @@ namespace Neptuo.Forms.Web
         {
             get
             {
-                //TODO: Highly critical, resolve there circular dependency!!
+                //TODO: Highly critical, resolve this circular dependency!!
                 IRepository<UserAccount> service = DependencyResolver.Current.GetService<IRepository<UserAccount>>();
                 return service.FirstOrDefault(u => (u.LocalCredentials != null && u.LocalCredentials.Username == HttpContext.Current.User.Identity.Name) || (u.RemoteCredentials != null && u.RemoteCredentials.Username == HttpContext.Current.User.Identity.Name));
             }

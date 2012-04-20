@@ -16,6 +16,9 @@ namespace Neptuo.Forms.Web.Controllers.WebService
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
+        [Dependency]
+        public IFormDataService DataService { get; set; }
+
         [Url("ws/{formPublicIdentifier}/definition")]
         public object GetDefinition(string formPublicIdentifier)
         {
@@ -23,7 +26,7 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             if (form == null)
                 return new HttpStatusCodeResult(404);
 
-            return Json(new FormDefinitionModel
+            return JsonP(new FormDefinitionModel
             {
                 PublicIdentifier = formPublicIdentifier,
                 PublicContent = form.PublicContent,
@@ -36,7 +39,7 @@ namespace Neptuo.Forms.Web.Controllers.WebService
                     TargetFormPublicIdentifier = f.ReferenceFormID != null ? f.FormDefinition.PublicIdentifier : null,
                     TargetFieldPublicIdentifier = f.ReferenceDisplayFieldID != null ? f.ReferenceDisplayField.PublicIdentifier : null
                 })
-            }, JsonRequestBehavior.AllowGet);
+            });
         }
 
         [Url("ws/{formPublicIdentifier}/data")]
@@ -45,10 +48,35 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             return View();
         }
 
+        [HttpPost]
         [Url("ws/{formPublicIdentifier}/insert")]
-        public ActionResult InsertData()
+        public ActionResult InsertData(FormInsertModel model)
         {
-            return View();
+            IFormDataCreator creator = DataService.Create();
+
+            SetPublicIdentifierStatus spi = creator.PublicIdentifier(model.FormPublicIdentifier);
+            if (spi == SetPublicIdentifierStatus.NoSuchFormDefinition)
+                throw new Exception();
+
+            creator.Tag(model.FormTag);
+
+            foreach (FieldInsertModel field in model.Fields)
+            {
+                AddFieldStatus afs = creator.AddFieldConvert(field.PublicIndetifier, field.Value);
+                switch (afs)
+                {
+                    case AddFieldStatus.NoSuchFormDefinition:
+                        throw new Exception();
+                    case AddFieldStatus.NoSuchFieldDefinition:
+                        throw new Exception();
+                    case AddFieldStatus.IncorrectFieldType:
+                        throw new Exception();
+                    case AddFieldStatus.IncorrectValue:
+                        throw new Exception();
+                }
+            }
+
+            return new EmptyResult();
         }
     }
 }
