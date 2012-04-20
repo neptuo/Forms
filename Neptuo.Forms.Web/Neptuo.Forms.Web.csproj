@@ -321,6 +321,11 @@
     <Content Include="Views\Home\QuickNews.cshtml" />
     <Content Include="Views\Home\IndexWelcome.cs.cshtml" />
     <Content Include="Views\Home\IndexWelcome.cshtml" />
+    <Content Include="Views\Home\LearnRestApi.cshtml" />
+    <Content Include="Views\Home\LearnWebService.cshtml" />
+    <Content Include="Views\Home\LearnWebService.cs.cshtml" />
+    <Content Include="Views\Home\LearnJavascript.cshtml" />
+    <Content Include="Views\Home\LearnJavascript.cs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\RestApi\" />

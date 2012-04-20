@@ -82,19 +82,19 @@ namespace Neptuo.Forms.Web.Controllers
         [Url("learn/rest")]
         public ActionResult LearnRestApi()
         {
-            return View("Learn");
+            return View();
         }
 
         [Url("learn/webservice")]
         public ActionResult LearnWebService()
         {
-            return View("Learn");
+            return View();
         }
 
         [Url("learn/javascript")]
         public ActionResult LearnJavascript()
         {
-            return View("Learn");
+            return View();
         }
 
         #endregion

@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "LearnWebService";
+}
+
+@section SideBarTop {
+    <div class="folder">
+        <h4 class="folder-heading">@Loc("Learn")</h4>
+        @UI.Menu("LearnMenu", "SideBarMenu")
+    </div>
+}
+
+<div class="folder">
+    <h2 class="folder-heading">Rozhraní WebService</h2>
+    <p class="first">
+        Jak již bylo zmíněno v úvodním článku, toto rozhraní slouží především pro integraci formuláře do webové stránky. Je optimalizováno proti nejrůznějším nástrahám webu
+        jako je například omezená ajax komunikace mezi různými doménami.
+    </p>
+    <p class="last strong">
+        Tato stránka slouží pouze pro popis rozhraní a doporučuje místo přímé komunikace s WebService rozhraním použití javascriptové knihovny, která ve své základní verzi řeší drobnosti týkající se komunikace se serverem.
+    </p>
+</div>
+<div class="folder">
+    <h2 class="folder-heading">Získání dat ze serveru</h2>
+    <p class="first">
+        Pro stahování dat, ať už definice formuláře nebo již vyplněná data, se používá protokol JsonP. Ten umožňuje pomocí HTTP GET metody stáhnout data pomocí javascript
+        i z různých domén. Celé to funguje tak, že do URL se vloží navíc parametr <strong>p</strong>. Tedy například 
+    </p>
+    <dd>http://forms.neptuo.com/ws/4600454eu1ae9/definition?p=callback</dd>
+    <p>
+        Tuto url je pak možné použít jako src atribut tagu script
+    </p>
+    <dd>
+        &lt;script src="http://forms.neptuo.com/ws/4600454eu1ae9/definition?p=callback" type="text/javascipt"&gt;&lt;script&gt;
+    </dd>
+    <p>
+        V javascript pak stačí mít definovanou funkci
+    </p>
+    <dd>function callback(json) { ... }</dd>
+    <p class="last">
+        která bude zavolána s načtenými daty.
+    </p>
+</div>
+<div class="folder">
+    <h2 class="folder-heading">Odeslání dat</h2>
+    <p class="first">
+        Pro deslání dat pak stačí mít formulář, který využívá HTTP POST metodu a jehož názvy jednotlivých polí se shodují s <strong>PublicIdentifier</strong> jednotlivých polí v definici formuláře.
+    </p>
+    <dl>
+        <dd>
+            &lt;form method="post" action="http://forms.neptuo.com/ws/4600454eu1ae9/insert"&gt;
+            <dl>
+                <dd>
+                &lt;label for="name"&gt;Jméno&lt;/label&gt;<br />
+                &lt;input type="text" name="224b9d76Nf49c" id="name" value="" /&gt;<br />
+                <br />
+                &lt;label for="message"&gt;Zpáva&lt;/label&gt;<br />
+                &lt;input type="text" name="5825c2feab1d6" id="message" value="" /&gt;<br />
+                <br />
+                &lt;label for="author"&gt;Autor&lt;/label&gt;<br />
+                &lt;input type="text" name="e400b9b8u42df" id="author" value="" /&gt;<br />
+                </dd>
+            </dl>
+            &lt;form&gt;
+        </dd>
+    </dl>
+    <p class="last">
+        Samozřejmě tento formulář může mít nastavený atribut target tak, aby se odesílal do skrytého iframu, a uživatel tak nebyl přesměrován na naši stránku.
+    </p>
+</div>

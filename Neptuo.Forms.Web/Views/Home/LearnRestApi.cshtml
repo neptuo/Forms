@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "LearnRestApi";
+}
+
+@section SideBarTop {
+    <div class="folder">
+        <h4 class="folder-heading">@Loc("Learn")</h4>
+        @UI.Menu("LearnMenu", "SideBarMenu")
+    </div>
+}
+
+<div class="folder">
+    <h2 class="folder-heading">@Loc("REST API")</h2>
+    <p class="first last">
+        @Loc("We haven't yet started with REST API. Check soon!")
+    </p>
+</div>
