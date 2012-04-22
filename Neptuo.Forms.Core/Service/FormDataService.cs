@@ -15,9 +15,12 @@ namespace Neptuo.Forms.Core.Service
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
+        [Dependency]
+        public IFileStorage FileStorage { get; set; }
+
         public IQueryable<FormData> GetList(int formDefinitionID)
         {
-            throw new NotImplementedException();
+            return DataRepository.Where(d => d.FormDefinitionID == formDefinitionID);
         }
 
         public FormData Get(int id)
@@ -25,27 +28,31 @@ namespace Neptuo.Forms.Core.Service
             throw new NotImplementedException();
         }
 
-        public IFormDataCreator Create()
+        public IFormDataCreator CreateForm()
         {
-            return new FormDataCreator(DataRepository, FormService);
+            return new FormDataCreator(DataRepository, FormService, FileStorage);
+        }
+
+        public IInquiryDataCreator CreateInquiry()
+        {
+            return new InquiryDataCreator(DataRepository, FormService);
         }
     }
 
-    public class FormDataCreator : IFormDataCreator
+    public abstract class CreatorBase
     {
-        private IRepository<FormData> dataRepository { get; set; }
-        private IFormDefinitionService formService { get; set; }
+        protected IRepository<FormData> dataRepository;
+        protected IFormDefinitionService formService;
+        protected int formType;
 
-        private FormDefinition formDefinition;
-        private FormData formData;
-        private List<FieldData> fieldData;
+        protected FormDefinition formDefinition;
+        protected FormData formData;
 
-        public FormDataCreator(IRepository<FormData> dataRepository, IFormDefinitionService formService)
+        public CreatorBase(IRepository<FormData> dataRepository, IFormDefinitionService formService, int formType)
         {
             this.dataRepository = dataRepository;
             this.formService = formService;
-
-            fieldData = new List<FieldData>();
+            this.formType = formType;
         }
 
         public SetPublicIdentifierStatus PublicIdentifier(string identifier)
@@ -54,9 +61,15 @@ namespace Neptuo.Forms.Core.Service
             if (formDefinition == null)
                 return SetPublicIdentifierStatus.NoSuchFormDefinition;
 
+
+            if (formDefinition.FormType != formType)
+                return SetPublicIdentifierStatus.InvalidFormType;
+
             formData = new FormData
             {
-                FormDefinitionID = formDefinition.ID
+                FormDefinitionID = formDefinition.ID,
+                Created = DateTime.Now,
+                Fields = new List<FieldData>()
             };
 
             return SetPublicIdentifierStatus.Set;
@@ -66,6 +79,26 @@ namespace Neptuo.Forms.Core.Service
         {
             if (formData != null)
                 formData.Tag = tag;
+        }
+
+        public CreateFormDataStatus Save()
+        {
+            if (formDefinition == null || formData == null)
+                return CreateFormDataStatus.InvalidCreator;
+
+            dataRepository.Insert(formData);
+            return CreateFormDataStatus.Created;
+        }
+    }
+
+    public class FormDataCreator : CreatorBase, IFormDataCreator
+    {
+        private IFileStorage fileStorage;
+
+        public FormDataCreator(IRepository<FormData> dataRepository, IFormDefinitionService formService, IFileStorage fileStorage)
+            : base(dataRepository, formService, FormType.Form)
+        {
+            this.fileStorage = fileStorage;
         }
 
         public AddFieldStatus AddFieldConvert(string identifier, string value)
@@ -133,6 +166,9 @@ namespace Neptuo.Forms.Core.Service
             if (field.FieldType != FieldType.StringField)
                 return AddFieldStatus.IncorrectFieldType;
 
+            if (field.Required && String.IsNullOrEmpty(value))
+                return AddFieldStatus.IncorrectValue;
+
             formData.Fields.Add(new StringFieldData
             {
                 Data = value,
@@ -173,8 +209,15 @@ namespace Neptuo.Forms.Core.Service
             if (field.FieldType != FieldType.FileField)
                 return AddFieldStatus.IncorrectFieldType;
 
-            throw new NotImplementedException();
-            //TODO: Continue..
+
+            formData.Fields.Add(new FileFieldData
+            {
+                Filename = filename,
+                MimeType = mimetype,
+                LocalFilename = fileStorage.InsertData(data),
+                FieldDefinitionID = field.ID,
+            });
+            return AddFieldStatus.Added;
         }
 
         public AddReferenceFieldStatus AddReferenceField(string identifier, int selectedID)
@@ -189,18 +232,36 @@ namespace Neptuo.Forms.Core.Service
             if (field.FieldType != FieldType.ReferenceField)
                 return AddReferenceFieldStatus.IncorrectFieldType;
 
-            throw new NotImplementedException();
-            //TODO: Continue..
-        }
-
-        public CreateFormDataStatus Save()
-        {
-            if (formDefinition == null || formData == null)
-                return CreateFormDataStatus.InvalidCreator;
-
-            dataRepository.Insert(formData);
-            return CreateFormDataStatus.Created;
+            formData.Fields.Add(new ReferenceFieldData
+            {
+                ReferenceDataID = selectedID,
+                FieldDefinitionID = field.ID
+            });
+            return AddReferenceFieldStatus.Added;
         }
     }
 
+    public class InquiryDataCreator : CreatorBase, IInquiryDataCreator
+    {
+        public InquiryDataCreator(IRepository<FormData> dataRepository, IFormDefinitionService formService)
+            : base(dataRepository, formService, FormType.Inquiry)
+        { }
+
+        public AddInquiryAnswerStatus AddAnswer(string identifier)
+        {
+            if (formDefinition == null)
+                return AddInquiryAnswerStatus.NoSuchFormDefinition;
+
+            FieldDefinition field = formDefinition.Fields.FirstOrDefault(f => f.PublicIdentifier == identifier);
+            if (field == null)
+                return AddInquiryAnswerStatus.NoSuchFieldDefinition;
+
+            formData.Fields.Add(new BoolFieldData
+            {
+                Data = true,
+                FieldDefinitionID = field.ID
+            });
+            return AddInquiryAnswerStatus.Added;
+        }
+    }
 }

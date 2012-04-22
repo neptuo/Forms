@@ -46,8 +46,8 @@ namespace Neptuo.Forms.Core.Service
         public FormDefinition Get(string publicIdentifier)
         {
             FormDefinition form = FormRepository.FirstOrDefault(f => f.PublicIdentifier == publicIdentifier);
-            if (form != null && !ProjectService.CanUserRead(form.ProjectID))
-                return null;
+            //if (form != null && !ProjectService.CanUserRead(form.ProjectID))
+            //    return null;
 
             return form;
         }

@@ -11,7 +11,9 @@ namespace Neptuo.Forms.Core.Service
 
         FormData Get(int id);
 
-        IFormDataCreator Create();
+        IFormDataCreator CreateForm();
+
+        IInquiryDataCreator CreateInquiry();
     }
 
     public interface IFormDataCreator
@@ -42,9 +44,20 @@ namespace Neptuo.Forms.Core.Service
         CreateFormDataStatus Save();
     }
 
+    public interface IInquiryDataCreator
+    {
+        SetPublicIdentifierStatus PublicIdentifier(string identifier);
+
+        void Tag(string tag);
+
+        AddInquiryAnswerStatus AddAnswer(string identifier);
+
+        CreateFormDataStatus Save();
+    }
+
     public enum SetPublicIdentifierStatus
     {
-        Set, NoSuchFormDefinition
+        Set, NoSuchFormDefinition, InvalidFormType
     }
 
     public enum AddFieldStatus
@@ -54,7 +67,12 @@ namespace Neptuo.Forms.Core.Service
 
     public enum AddReferenceFieldStatus
     {
-        NoSuchFormDefinition, NoSuchFieldDefinition, NoSuchFormData, IncorrectFieldType
+        Added, NoSuchFormDefinition, NoSuchFieldDefinition, NoSuchFormData, IncorrectFieldType
+    }
+
+    public enum AddInquiryAnswerStatus
+    {
+        Added, NoSuchFormDefinition, NoSuchFieldDefinition
     }
 
     public enum CreateFormDataStatus

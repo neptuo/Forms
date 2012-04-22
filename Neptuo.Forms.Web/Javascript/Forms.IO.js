@@ -2,7 +2,8 @@
 
 Forms.IO = Forms.IO || {};
 
-Forms.IO.BaseUrl = 'http://localhost:36258/ws/';
+Forms.IO.DomainName = 'localhost:36258';
+Forms.IO.BaseUrl = 'http://' + Forms.IO.DomainName + '/ws/';
 
 Forms.IO.GetDefinition = function(formID, success, error) {
     $.jsonp({
@@ -16,32 +17,10 @@ Forms.IO.GetDefinition = function(formID, success, error) {
     });
 };
 
-Forms.IO.InsertData2 = function (formID, fields) {
-    var genID = Forms.IO.GenerateIdentifier();
-    $iframe = $('<iframe id="' + genID + '" name="' + genID + '" />').hide().appendTo('body');
-    $form = $('<form method="post" action="' + Forms.IO.BaseUrl + formID + '/insert" target="' + genID + '" />').hide().appendTo('body');
 
-    for (var i = 0; i < fields.length; i++) {
-        var field = fields[i];
-        $input = $('<input type="hidden" name="' + field.PublicIdentifier + '" value="' + field.Value + '" />').appendTo($form);
-    }
-
-    $iframe.load(function (e) {
-        $iframe.remove();
-        $form.remove();
-    });
-    $form.submit();
-};
-
-Forms.IO.InsertData = function (formID, fields, success, error) {
-    var queryString = '';
-    for (var i = 0; i < fields.length; i++) {
-        var field = fields[i];
-        queryString += field.PublicIdentifier + '=' + encodeURIComponent(field.Value) + '&';
-    }
-
+Forms.IO.GetFormData = function (formID, pageSize, pageIndex, success, error) {
     $.jsonp({
-        url: Forms.IO.BaseUrl + formID + '/insert?' + queryString + 'p=?',
+        url: Forms.IO.BaseUrl + formID + '/data?pageSize=' + pageSize + '&pageIndex=' + pageIndex + '&p=?',
         success: function (json) {
             success(json);
         },
@@ -51,6 +30,30 @@ Forms.IO.InsertData = function (formID, fields, success, error) {
     });
 };
 
-Forms.IO.GenerateIdentifier = function() {
-    return Math.floor((Math.random()*10000)+1);
+Forms.IO.InsertFormData = function (formID, fields, success, validation, error) {
+    var queryString = '';
+    for (var i = 0; i < fields.length; i++) {
+        var field = fields[i];
+        queryString += field.PublicIdentifier + '=' + encodeURIComponent(field.Value) + '&';
+    }
+
+    $.jsonp({
+        url: Forms.IO.BaseUrl + formID + '/insert?' + queryString + 'p=?',
+        success: function (json) {
+            if (typeof json.Errors == 'undefined') {
+                success(json);
+            } else {
+                validation(json.Errors);
+            }
+        },
+        error: function () {
+            error();
+        }
+    });
+};
+
+
+
+Forms.IO.GetInquiryData = function (inquiryID, success, error) {
+    throw new Error('Not yet implemented!');
 };

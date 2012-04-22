@@ -30,6 +30,7 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             {
                 PublicIdentifier = formPublicIdentifier,
                 PublicContent = form.PublicContent,
+                Type = FormType.GetTypes().FirstOrDefault(t => t.Key == form.FormType).Value,
                 Fields = form.Fields.Select(f => new FieldDefinitionModel
                 {
                     Name = f.Name,
@@ -43,42 +44,130 @@ namespace Neptuo.Forms.Web.Controllers.WebService
         }
 
         [Url("ws/{formPublicIdentifier}/data")]
-        public ActionResult GetData(string formPublicIdentifier)
+        public ActionResult GetFormData(string formPublicIdentifier, int pageSize = 20, int pageIndex = 0)
         {
+            FormDefinition form = FormService.Get(formPublicIdentifier);
+            if (form == null)
+                return new HttpStatusCodeResult(404);
+
+            IEnumerable<FormData> formData = DataService.GetList(form.ID).OrderByDescending(d => d.Created).Skip(pageSize * pageIndex).Take(pageSize).ToArray();
+
+            return JsonP(formData.Select(d => new FormListDataModel {
+                Created = d.Created,
+                Fields = d.Fields.Select(f => new FieldListDataModel {
+                    PublicIdentifier = f.FieldDefinition.PublicIdentifier,
+                    Name = f.FieldDefinition.Name,
+                    Value = f.GetDisplayValue()
+                })
+            }));
+        }
+
+        [Url("ws/{formPublicIdentifier}/inquiry-data")]
+        public ActionResult GetInquiryData(string formPublicIdentifier)
+        {
+            FormDefinition form = FormService.Get(formPublicIdentifier);
+            if (form == null)
+                return new HttpStatusCodeResult(404);
+
+            //TODO: Compute inquiry data! (Use cache?)
             return View();
         }
 
         [HttpGet]
-        //[HttpPost]
         [Url("ws/{formPublicIdentifier}/insert")]
-        public ActionResult InsertData(FormInsertModel model)
+        public ActionResult InsertFormData(FormInsertModel model)
         {
-            IFormDataCreator creator = DataService.Create();
+            List<InsertValidationModel> validation = new List<InsertValidationModel>();
+            IFormDataCreator creator = DataService.CreateForm();
 
             SetPublicIdentifierStatus spi = creator.PublicIdentifier(model.FormPublicIdentifier);
             if (spi == SetPublicIdentifierStatus.NoSuchFormDefinition)
-                throw new Exception();
+                validation.Add(new InsertValidationModel(null, "NoSuchFormDefinition"));
 
             creator.Tag(model.FormTag);
 
             foreach (FieldInsertModel field in model.Fields)
             {
-                AddFieldStatus afs = creator.AddFieldConvert(field.PublicIndetifier, field.Value);
+                AddFieldStatus afs = creator.AddFieldConvert(field.PublicIdentifier, field.Value);
                 switch (afs)
                 {
                     case AddFieldStatus.NoSuchFormDefinition:
-                        throw new Exception();
+                        validation.Add(new InsertValidationModel(field.PublicIdentifier, "NoSuchFormDefinition"));
+                        break;
                     case AddFieldStatus.NoSuchFieldDefinition:
-                        throw new Exception();
+                        validation.Add(new InsertValidationModel(field.PublicIdentifier, "NoSuchFieldDefinition"));
+                        break;
                     case AddFieldStatus.IncorrectFieldType:
-                        throw new Exception();
+                        validation.Add(new InsertValidationModel(field.PublicIdentifier, "IncorrectFieldType"));
+                        break;
                     case AddFieldStatus.IncorrectValue:
-                        throw new Exception();
+                        validation.Add(new InsertValidationModel(field.PublicIdentifier, "IncorrectValue"));
+                        break;
                 }
             }
-            creator.Save();
 
+            //TODO: Handle reference field!
+            //TODO: What about file field???
 
+            if (validation.Count == 0)
+            {
+                CreateFormDataStatus status = creator.Save();
+                switch (status)
+                {
+                    case CreateFormDataStatus.InvalidCreator:
+                        validation.Add(new InsertValidationModel(null, "InvalidCreator"));
+                        break;
+                }
+            }
+
+            if (validation.Count > 0)
+            {
+                //Response.StatusCode = 406;
+                return JsonP(new
+                {
+                    Errors = validation
+                });
+            }
+
+            DataService = DependencyResolver.Current.GetService<IFormDataService>(); //TODO: Never mind! 'Hack' for creating new DataContext
+            return GetFormData(model.FormPublicIdentifier, 1, 0);
+        }
+
+        
+        [HttpGet]
+        [Url("ws/{formPublicIdentifier}/inquiry-insert")]
+        public ActionResult InsertInquiryData(string formPublicIdentifier, string fieldPublicIdentifier)
+        {
+            List<InsertValidationModel> validation = new List<InsertValidationModel>();
+            IInquiryDataCreator creator = DataService.CreateInquiry();
+
+            SetPublicIdentifierStatus spi = creator.PublicIdentifier(formPublicIdentifier);
+            if (spi == SetPublicIdentifierStatus.NoSuchFormDefinition)
+                validation.Add(new InsertValidationModel(null, "NoSuchFormDefinition"));
+
+            AddInquiryAnswerStatus aias = creator.AddAnswer(fieldPublicIdentifier);
+            switch (aias)
+            {
+                case AddInquiryAnswerStatus.NoSuchFormDefinition:
+                    validation.Add(new InsertValidationModel(fieldPublicIdentifier, "NoSuchFormDefinition"));
+                    break;
+                case AddInquiryAnswerStatus.NoSuchFieldDefinition:
+                    validation.Add(new InsertValidationModel(fieldPublicIdentifier, "NoSuchFieldDefinition"));
+                    break;
+            }
+
+            CreateFormDataStatus status = creator.Save();
+            switch (status)
+            {
+                case CreateFormDataStatus.InvalidCreator:
+                    validation.Add(new InsertValidationModel(null, "InvalidCreator"));
+                    break;
+            }
+
+            if (validation.Count > 0)
+                return JsonP(validation);
+
+            //TODO: Should return something! (Inserted data?)
             return new EmptyResult();
         }
     }

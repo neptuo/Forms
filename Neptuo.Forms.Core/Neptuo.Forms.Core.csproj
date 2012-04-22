@@ -119,8 +119,10 @@
     <Compile Include="Service\FormDefinitionService.cs" />
     <Compile Include="Service\IActivityService.cs" />
     <Compile Include="Service\IArticleService.cs" />
+    <Compile Include="Service\IFileStorage.cs" />
     <Compile Include="Service\IFormDataService.cs" />
     <Compile Include="Service\IFormDefinitionService.cs" />
+    <Compile Include="Service\MemoryFileStorage.cs" />
     <Compile Include="Service\IProjectService.cs" />
     <Compile Include="Service\IUserService.cs" />
     <Compile Include="Service\ProjectService.cs" />

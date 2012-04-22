@@ -16,7 +16,7 @@ namespace Neptuo.Forms.Core
         /// Register types for this assembly.
         /// </summary>
         /// <param name="container">Unity container isntance.</param>
-        public static void RegisterTypes(UnityContainer container)
+        public static void RegisterTypes(UnityContainer container, FileStorageType fileStorageType)
         {
             container
                 .RegisterType<IActivityService, ActivityService>()
@@ -32,6 +32,22 @@ namespace Neptuo.Forms.Core
                 .RegisterType<IRepository<Article>, GenericRepository<Article, DataContext>>()
                 .RegisterType<IArticleService, ArticleService>()
             ;
+
+            switch (fileStorageType)
+            {
+                case FileStorageType.Azure:
+                    throw new NotImplementedException();
+                case FileStorageType.FileSystem:
+                    throw new NotImplementedException();
+                case FileStorageType.Memory:
+                    container.RegisterType<IFileStorage, MemoryFileStorage>();
+                    break;
+            }
         }
+    }
+
+    public enum FileStorageType
+    {
+        Azure, FileSystem, Memory
     }
 }

@@ -11,6 +11,8 @@ namespace Neptuo.Forms.Web.Models.WebService
 
         public bool PublicContent { get; set; }
 
+        public string Type { get; set; }
+
         public IEnumerable<FieldDefinitionModel> Fields { get; set; }
     }
 

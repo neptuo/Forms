@@ -26,6 +26,7 @@ namespace Neptuo.Forms.Core.Service
 
         /// <summary>
         /// Returns form definition by <paramref name="publicIdentifier"/>.
+        /// Don't check user access.
         /// </summary>
         /// <param name="publicIdentifier">Form public identifier.</param>
         /// <returns>Form definition by <paramref name="publicIdentifier"/>.</returns>

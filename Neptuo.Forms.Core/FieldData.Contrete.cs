@@ -72,7 +72,7 @@ namespace Neptuo.Forms.Core
     {
         [ForeignKey("Data")]
         public int ReferenceDataID { get; set; }
-        public FormData Data { get; set; }
+        public virtual FormData Data { get; set; }
 
         public override string GetDisplayValue()
         {

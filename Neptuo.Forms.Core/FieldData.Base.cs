@@ -13,14 +13,14 @@ namespace Neptuo.Forms.Core
     {
         [ForeignKey("FormData")]
         public int FormDataID { get; set; }
-        public FormData FormData { get; set; }
+        public virtual FormData FormData { get; set; }
 
         /// <summary>
         /// Field definition.
         /// </summary>
         [ForeignKey("FieldDefinition")]
         public int FieldDefinitionID { get; set; }
-        public FieldDefinition FieldDefinition { get; set; }
+        public virtual FieldDefinition FieldDefinition { get; set; }
 
         /// <summary>
         /// Returns data representation for displaying.

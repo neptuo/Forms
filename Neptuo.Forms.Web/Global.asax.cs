@@ -12,7 +12,6 @@ using Neptuo.Web.Mvc.Auth;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Web.Mvc.Unity;
 using Neptuo.Forms.Core;
-using Neptuo.Forms.Web.Models.WebService;
 
 namespace Neptuo.Forms.Web
 {
@@ -34,7 +33,7 @@ namespace Neptuo.Forms.Web
 
         private void RegisterUnity(UnityContainer container)
         {
-            FormsCore.RegisterTypes(container);
+            FormsCore.RegisterTypes(container, FileStorageType.Memory);
 
             container
                 .RegisterType<UserContext, CurrentUserContext>(new PerHttpRequestLifetimeManager())
@@ -149,8 +148,6 @@ namespace Neptuo.Forms.Web
                 .SetupGlobalFilters()
                 .SetupRoutes(RegisterRoutes)
                 .SetupViewEngine(true);
-
-            ModelBinders.Binders.Add(typeof(FormInsertModel), new FormInsertModelBinder());
         }
     }
 }
