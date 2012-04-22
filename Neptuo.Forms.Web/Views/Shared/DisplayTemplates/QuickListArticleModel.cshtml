@@ -5,12 +5,12 @@
     foreach (var item in Model.Items)
     {
     <div class="news-item">
-        <div class="news-date">@item.Modified</div>
+        <div class="news-date">@item.Modified.ToShortDateString()</div>
         <h4 class="news-heading">@item.Title</h4>
         @if (!String.IsNullOrEmpty(item.Content) && !String.IsNullOrWhiteSpace(item.Content))
         { 
             <p>
-                @item.Content
+                @Html.Raw(item.Content)
             </p>
         }
     </div>

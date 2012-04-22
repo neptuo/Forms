@@ -43,7 +43,7 @@ Forms.UI.FormBuilder.prototype.CreateSendButton = function (text) {
 
 Forms.UI.FormBuilder.prototype.PrepareDefinition = function () {
     Forms.IO.GetDefinition(formID, function (form) {
-        this.FormDefinition = form;
+        This.FormDefinition = form;
         This.BuildInternal();
     }, function () {
         alert('No such form!');
@@ -52,7 +52,7 @@ Forms.UI.FormBuilder.prototype.PrepareDefinition = function () {
 
 Forms.UI.FormBuilder.prototype.Build = function () {
     if (this.FormDefinition == null) {
-        this.PrepareDefinition(this.BuildInternal);
+        this.PrepareDefinition();
     } else {
         this.BuildInternal();
     }
@@ -111,7 +111,7 @@ Forms.UI.FormBuilder.prototype.ProcessSend = function ($form) {
     }, function (errors) {
         for (var i = 0; i < errors.length; i++) {
             var error = errors[i];
-            $field = $('#field-' + error.PublicIdentifier).css('border', '1px solid red').attr('placeholder', error.Error).focusout(function () {
+            $field = $('#field-' + error.PublicIdentifier).css('border', '1px solid red').attr('placeholder', This.MetaData.ErrorMessages[error.Error]).focusout(function () {
                 $(this).css('border', '').attr('placeholder', '');
             });
 
@@ -130,6 +130,21 @@ Forms.UI.FormBuilder.prototype.CreateMetaDataInternal = function (metaData) {
     }
     if (typeof metaData.Fields == 'undefined' || metaData.Fields == null) {
         metaData.Fields = [];
+    }
+    if (typeof metaData.ErrorMessages == 'undefined' || metaData.ErrorMessages == null) {
+        metaData.ErrorMessages = {};
+    }
+    if (typeof metaData.ErrorMessages['NoSuchFormDefinition'] == 'undefined' || metaData.ErrorMessages['NoSuchFormDefinition'] == null) {
+        metaData.ErrorMessages['NoSuchFormDefinition'] = 'No such form!';
+    }
+    if (typeof metaData.ErrorMessages['NoSuchFieldDefinition'] == 'undefined' || metaData.ErrorMessages['NoSuchFieldDefinition'] == null) {
+        metaData.ErrorMessages['NoSuchFieldDefinition'] = 'No such field!';
+    }
+    if (typeof metaData.ErrorMessages['IncorrectFieldType'] == 'undefined' || metaData.ErrorMessages['IncorrectFieldType'] == null) {
+        metaData.ErrorMessages['IncorrectFieldType'] = 'Not a valid value!';
+    }
+    if (typeof metaData.ErrorMessages['IncorrectValue'] == 'undefined' || metaData.ErrorMessages['IncorrectValue'] == null) {
+        metaData.ErrorMessages['IncorrectValue'] = 'Not a valid value!';
     }
     return metaData;
 };

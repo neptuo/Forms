@@ -1,0 +1,8 @@
+﻿20	Započetí implementace	Dnešním dnem byly započaty implementační práce. Více informací o vývoji bude k nalezení <a href="http://code.google.com/p/neptuo-forms">FormService</a>.	cs	2012-04-07 12:24:00.687	5
+21	Implementation started	Today we started with implementation. More information will available at <a href="http://code.google.com/p/neptuo-forms">FormService</a>.	en	2012-04-07 12:24:00.687	5
+22	Přihlašování pomocí OAuth a OpenID hotovo	Právě jsme dokončili možnosti přihlášení pomocí Google, Yahoo, OpenID, myOpenID a dalších účtů.	cs	2012-04-08 16:24:00.687	5
+23	Authentication with OAuth and OpenID	Right now, we completed authentication agains Google, Yahoo, OpenID, myOpenID and some other account service.	en	2012-04-08 16:24:00.687	5
+24	Správa projektů, formulářů a polí	Každý registrovaný uživatel již může vytvářet a editovat formuláře a jejich pole. Nicméně v současné době není možné data mazat, takže opatrně při vytváření :). Každý uživatelský účet může mít až 25 projektů.	cs	2012-04-09 14:53:05.743	5
+25	Projects, Forms and Fields management	Since now, every registered user can create and modify forms and their fields. But now, you can't delete them, so be careful before clicking 'Save' :). Every user can create up to 25 projects.	en	2012-04-09 14:53:05.743	5
+26	Základ webové služby a javascriptové knihovny	Základní model webové služby a javascriptvoé knihovny, více v sekci "Naučit se".	cs	2012-04-20 09:45:00.867	5
+27	Web service base + Javascript library base	Basic working web service and javascript library has been created today, more in "Learn" section.	en	2012-04-22 20:45:42.427	5
