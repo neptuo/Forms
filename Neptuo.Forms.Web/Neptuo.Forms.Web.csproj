@@ -152,6 +152,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\WebService\FormController.cs" />
+    <Compile Include="FormInsertModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,6 +265,10 @@
     <Content Include="Design\Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Design\Scripts\jquery.validate.js" />
     <Content Include="Design\Scripts\jquery.validate.min.js" />
+    <Content Include="Javascript\Forms.IO.js" />
+    <Content Include="Javascript\Forms.UI.js" />
+    <Content Include="Javascript\jquery-1.7.1.min.js" />
+    <Content Include="Javascript\jquery.jsonp-2.3.0.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

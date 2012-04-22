@@ -27,7 +27,7 @@ namespace Neptuo.Forms.Core.Service
 
         public IFormDataCreator Create()
         {
-            return new FormDataCreator(DataRepository);
+            return new FormDataCreator(DataRepository, FormService);
         }
     }
 
@@ -40,9 +40,10 @@ namespace Neptuo.Forms.Core.Service
         private FormData formData;
         private List<FieldData> fieldData;
 
-        public FormDataCreator(IRepository<FormData> dataRepository)
+        public FormDataCreator(IRepository<FormData> dataRepository, IFormDefinitionService formService)
         {
             this.dataRepository = dataRepository;
+            this.formService = formService;
 
             fieldData = new List<FieldData>();
         }
@@ -112,7 +113,12 @@ namespace Neptuo.Forms.Core.Service
             if (field.FieldType != FieldType.DoubleField)
                 return AddFieldStatus.IncorrectFieldType;
 
-            throw new NotImplementedException();
+            formData.Fields.Add(new DoubleFieldData
+            {
+                Data = value,
+                FieldDefinitionID = field.ID,
+            });
+            return AddFieldStatus.Added;
         }
 
         public AddFieldStatus AddField(string identifier, string value)
@@ -127,8 +133,12 @@ namespace Neptuo.Forms.Core.Service
             if (field.FieldType != FieldType.StringField)
                 return AddFieldStatus.IncorrectFieldType;
 
-            throw new NotImplementedException();
-            //TODO: Continue..
+            formData.Fields.Add(new StringFieldData
+            {
+                Data = value,
+                FieldDefinitionID = field.ID,
+            });
+            return AddFieldStatus.Added;
         }
 
         public AddFieldStatus AddField(string identifier, bool value)
@@ -143,8 +153,12 @@ namespace Neptuo.Forms.Core.Service
             if (field.FieldType != FieldType.BoolField)
                 return AddFieldStatus.IncorrectFieldType;
 
-            throw new NotImplementedException();
-            //TODO: Continue..
+            formData.Fields.Add(new BoolFieldData
+            {
+                Data = value,
+                FieldDefinitionID = field.ID,
+            });
+            return AddFieldStatus.Added;
         }
 
         public AddFieldStatus AddField(string identifier, string filename, string mimetype, byte[] data)
@@ -181,8 +195,11 @@ namespace Neptuo.Forms.Core.Service
 
         public CreateFormDataStatus Save()
         {
-            throw new NotImplementedException();
-            //TODO: Continue..
+            if (formDefinition == null || formData == null)
+                return CreateFormDataStatus.InvalidCreator;
+
+            dataRepository.Insert(formData);
+            return CreateFormDataStatus.Created;
         }
     }
 

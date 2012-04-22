@@ -48,7 +48,8 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
+        //[HttpPost]
         [Url("ws/{formPublicIdentifier}/insert")]
         public ActionResult InsertData(FormInsertModel model)
         {
@@ -75,6 +76,8 @@ namespace Neptuo.Forms.Web.Controllers.WebService
                         throw new Exception();
                 }
             }
+            creator.Save();
+
 
             return new EmptyResult();
         }

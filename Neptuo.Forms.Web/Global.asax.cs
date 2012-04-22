@@ -12,6 +12,7 @@ using Neptuo.Web.Mvc.Auth;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Web.Mvc.Unity;
 using Neptuo.Forms.Core;
+using Neptuo.Forms.Web.Models.WebService;
 
 namespace Neptuo.Forms.Web
 {
@@ -148,6 +149,8 @@ namespace Neptuo.Forms.Web
                 .SetupGlobalFilters()
                 .SetupRoutes(RegisterRoutes)
                 .SetupViewEngine(true);
+
+            ModelBinders.Binders.Add(typeof(FormInsertModel), new FormInsertModelBinder());
         }
     }
 }

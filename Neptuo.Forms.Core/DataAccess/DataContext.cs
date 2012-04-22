@@ -19,10 +19,7 @@ namespace Neptuo.Forms.Core.DataAccess
         public DbSet<FormDefinition> FormDefinitions { get; set; }
         public DbSet<FieldDefinition> FieldDefinitions { get; set; }
 
-        public DbSet<DoubleFieldData> DoubleFields { get; set; }
-        public DbSet<StringFieldData> StringFields { get; set; }
-        public DbSet<BoolFieldData> BoolFields { get; set; }
-        public DbSet<FileFieldData> FileFields { get; set; }
-        public DbSet<ReferenceFieldData> ReferenceFields { get; set; }
+        public DbSet<FormData> FormData { get; set; }
+        public DbSet<FieldData> FieldData { get; set; }
     }
 }

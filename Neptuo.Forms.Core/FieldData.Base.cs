@@ -32,16 +32,16 @@ namespace Neptuo.Forms.Core
     /// <summary>
     /// Base generic field data.
     /// </summary>
-    public abstract class FieldData<T> : FieldData
-    {
-        /// <summary>
-        /// Field data.
-        /// </summary>
-        public T Data { get; set; }
+    //public abstract class FieldData<T> : FieldData
+    //{
+    //    /// <summary>
+    //    /// Field data.
+    //    /// </summary>
+    //    public abstract T Data { get; set; }
 
-        public override string GetDisplayValue()
-        {
-            return Data.ToString();
-        }
-    }
+    //    public override string GetDisplayValue()
+    //    {
+    //        return Data.ToString();
+    //    }
+    //}
 }

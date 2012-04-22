@@ -11,6 +11,12 @@ namespace Neptuo.Forms.Core.Service
     public interface IActivityService
     {
         /// <summary>
+        /// Logs error in application.
+        /// </summary>
+        /// <param name="error">Thrown exception.</param>
+        void ErrorThrown(Exception error);
+
+        /// <summary>
         /// Logs successful user login.
         /// </summary>
         /// <param name="username">Current username.</param>

@@ -31,7 +31,7 @@ namespace Neptuo.Forms.Core
         /// <summary>
         /// Fields.
         /// </summary>
-        //[InverseProperty("FormData")]
-        //public virtual List<FieldData> Fields { get; set; }
+        [InverseProperty("FormData")]
+        public virtual List<FieldData> Fields { get; set; }
     }
 }

@@ -7,6 +7,11 @@ namespace Neptuo.Forms.Core.Service
 {
     public class ActivityService : IActivityService
     {
+        public void ErrorThrown(Exception error)
+        {
+            
+        }
+
         public void UserLoggedIn(string username)
         {
             

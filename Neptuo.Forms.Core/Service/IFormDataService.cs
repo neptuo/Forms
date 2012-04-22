@@ -49,7 +49,7 @@ namespace Neptuo.Forms.Core.Service
 
     public enum AddFieldStatus
     {
-        NoSuchFormDefinition, NoSuchFieldDefinition, IncorrectFieldType, IncorrectValue
+        Added, NoSuchFormDefinition, NoSuchFieldDefinition, IncorrectFieldType, IncorrectValue
     }
 
     public enum AddReferenceFieldStatus

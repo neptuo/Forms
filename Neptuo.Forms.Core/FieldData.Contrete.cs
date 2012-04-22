@@ -9,20 +9,44 @@ namespace Neptuo.Forms.Core
     /// <summary>
     /// Double field.
     /// </summary>
-    public class DoubleFieldData : FieldData<double>
-    { }
+    public class DoubleFieldData : FieldData
+    {
+        [Column("DoubleData")]
+        public double Data { get; set; }
+
+        public override string GetDisplayValue()
+        {
+            return Data.ToString();
+        }
+    }
 
     /// <summary>
     /// String field.
     /// </summary>
-    public class StringFieldData : FieldData<string>
-    { }
+    public class StringFieldData : FieldData
+    {
+        [Column("StringData")]
+        public string Data { get; set; }
+
+        public override string GetDisplayValue()
+        {
+            return Data.ToString();
+        }
+    }
 
     /// <summary>
     /// Bool fields.
     /// </summary>
-    public class BoolFieldData : FieldData<bool>
-    { }
+    public class BoolFieldData : FieldData
+    {
+        [Column("BoolData")]
+        public bool Data { get; set; }
+
+        public override string GetDisplayValue()
+        {
+            return Data.ToString();
+        }
+    }
 
     /// <summary>
     /// File field.
@@ -44,16 +68,17 @@ namespace Neptuo.Forms.Core
     /// <summary>
     /// Reference field.
     /// </summary>
-    public class ReferenceFieldData : FieldData<FormData>
+    public class ReferenceFieldData : FieldData
     {
         [ForeignKey("Data")]
-        public int DataID { get; set; }
+        public int ReferenceDataID { get; set; }
+        public FormData Data { get; set; }
 
         public override string GetDisplayValue()
         {
             //TODO: Check.
-            //return Data.Fields.First(f => f.FieldDefinitionID == FieldDefinition.ReferenceDisplayFieldID).GetDisplayValue();
-            return null;
+            return Data.Fields.First(f => f.FieldDefinitionID == FieldDefinition.ReferenceDisplayFieldID).GetDisplayValue();
+            //return null;
         }
     }
 }
