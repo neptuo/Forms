@@ -42,7 +42,7 @@ Forms.UI.FormBuilder.prototype.CreateSendButton = function (text) {
 };
 
 Forms.UI.FormBuilder.prototype.PrepareDefinition = function () {
-    Forms.IO.GetDefinition(formID, function (form) {
+    Forms.IO.GetDefinition(this.FormID, function (form) {
         This.FormDefinition = form;
         This.BuildInternal();
     }, function () {
@@ -71,7 +71,7 @@ Forms.UI.FormBuilder.prototype.BuildInternal = function () {
     $form = $('<form />').appendTo($parent);
     for (var i = 0; i < this.FormDefinition.Fields.length; i++) {
         var field = this.FormDefinition.Fields[i];
-        var fieldMeta = this.CreateFieldMetaDataInternal(this.MetaData.Fields[i], field);
+        var fieldMeta = this.CreateFieldMetaDataInternal(this.MetaData.Fields[field.PublicIdentifier], field);
         this.BuildFieldInternal(field, $form, fieldMeta);
     }
 
@@ -88,9 +88,9 @@ Forms.UI.FormBuilder.prototype.BuildInternal = function () {
 Forms.UI.FormBuilder.prototype.BuildFieldInternal = function (field, parent, metaData) {
     var fieldID = 'field-' + field.PublicIdentifier;
 
-    $item = $('<div class="form-field" />').appendTo($(parent));
-    $label = $('<label for="' + fieldID + '" />').html(metaData.Label).appendTo($item);
-    $field = $(metaData.Template.replace('{id}', fieldID).replace('{name}', fieldID)).appendTo($item);
+    $item = $('<div class="form-field ' + fieldID + '" />').appendTo($(parent));
+    $label = $('<label for="' + fieldID + '" class="field-label" />').html(metaData.Label).appendTo($item);
+    $field = $(metaData.Template.replace('{id}', fieldID).replace('{name}', fieldID).replace('{class}', "field-input").replace('{value}', metaData.DefaultValue)).appendTo($item);
     $validation = $('<div class="field-validation" />').appendTo($item);
 };
 
@@ -165,10 +165,10 @@ Forms.UI.FormBuilder.prototype.CreateFieldMetaDataInternal = function (metaData,
     if (typeof metaData.Template == 'undefined' || metaData.Template == null) {
         switch (metaData.RenderAs) {
             case 'textbox':
-                metaData.Template = '<input type="text" id="{id}" name="{name}" class="{class}" />';
+                metaData.Template = '<input type="text" id="{id}" name="{name}" class="{class}" value="{value}" />';
                 break;
             case 'textarea':
-                metaData.Template = '<textarea id="{id}" name="{name}" class="{class}" />';
+                metaData.Template = '<textarea id="{id}" name="{name}" class="{class}">{value}</textarea>';
                 break;
             case 'checkbox':
                 metaData.Template = '<input type="checkbox" id="{id}" name="{name}" class="{class}" />';
@@ -181,5 +181,94 @@ Forms.UI.FormBuilder.prototype.CreateFieldMetaDataInternal = function (metaData,
     if (typeof metaData.Label == 'undefined' || metaData.Label == null) {
         metaData.Label = field.Name + ':';
     }
+    if (typeof metaData.DefaultValue == 'undefined' || metaData.DefaultValue == null) {
+        metaData.DefaultValue = '';
+    }
     return metaData;
 };
+
+
+
+
+Forms.UI.DataRenderer = function (formID) {
+    This = this;
+    this.FormID = formID;
+    this.ItemTemplate = '<p>Created: {created}</p>';
+    this.Data = null;
+    this.PageSize = 10;
+    this.PageIndex = 0;
+    this.Parent = null;
+    this.DateTimeFormat = null;
+};
+
+Forms.UI.DataRenderer.prototype.SetItemRenderer = function (renderer) {
+    this.RenderItemInternal = renderer;
+    return this;
+};
+
+Forms.UI.DataRenderer.prototype.SetItemTemplate = function (template) {
+    this.ItemTemplate = template;
+    return this;
+};
+
+Forms.UI.DataRenderer.prototype.SetPageSize = function (pageSize) {
+    this.PageSize = pageSize;
+    this.Data = null;
+    return this;
+};
+
+Forms.UI.DataRenderer.prototype.SetPageIndex = function (pageIndex) {
+    this.PageIndex = pageIndex;
+    this.Data = null;
+    return this;
+};
+
+Forms.UI.DataRenderer.prototype.SetParent = function (parent) {
+    this.Parent = parent;
+    return this;
+};
+
+Forms.UI.DataRenderer.prototype.SetDateTimeFormat = function (dateTimeFormat) {
+    this.DateTimeFormat = dateTimeFormat;
+    return this;
+};
+
+Forms.UI.DataRenderer.prototype.LoadData = function (callback) {
+    Forms.IO.GetFormData(this.FormID, this.PageSize, this.PageIndex, function (data) {
+        This.Data = data;
+        callback(data);
+    });
+    return this;
+};
+
+Forms.UI.DataRenderer.prototype.Render = function () {
+    if (this.Data == null) {
+        this.LoadData(function () {
+            This.RenderInternal();
+        });
+    } else {
+        This.RenderInternal();
+    }
+    return this;
+};
+
+Forms.UI.DataRenderer.prototype.RenderInternal = function () {
+    $parent = $(this.Parent);
+    for (var i = 0; i < this.Data.length; i++) {
+        var item = this.Data[i];
+        this.RenderItemInternal(item, $parent);
+    }
+};
+
+Forms.UI.DataRenderer.prototype.RenderItemInternal = function (item, $parent) {
+    var created = eval('new ' + item.Created.replace('/', '').replace('/', ''));
+    var template = this.ItemTemplate;
+    template = template.replace('{created}', this.DateTimeFormat != null ? created.toString(this.DateTimeFormat) : created);
+
+    for (var j = 0; j < item.Fields.length; j++) {
+        var field = item.Fields[j];
+        template = template.replace('{' + field.PublicIdentifier + '}', field.Value);
+    }
+    $(template).appendTo($parent);
+};
+

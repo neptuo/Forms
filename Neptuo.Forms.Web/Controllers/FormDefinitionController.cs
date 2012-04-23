@@ -122,6 +122,7 @@ namespace Neptuo.Forms.Web.Controllers
                 {
                     FieldDefinitionID = f.ID,
                     Name = f.Name,
+                    PublicIdentifier = f.PublicIdentifier,
                     Required = f.Required,
                     FieldType = f.FieldType
                 })

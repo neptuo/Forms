@@ -12,6 +12,7 @@
         UI.Grid(Model.Fields)
             .SetEmptyText((L)"No Fields")
             .AddColumn((L)"ID", f => f.FieldDefinitionID, "w30")
+            .AddColumn((L)"Identifier", f => f.PublicIdentifier, "w50")
             .AddColumn((L)"Name", f => f.Name)
             .AddColumn((L)"Required", f => f.Required ? (L)"Yes" : (L)"No", "w50")
             .AddColumn((L)"Field type", f => (L)Neptuo.Forms.Core.FieldType.GetTypes().First(i => i.Key == f.FieldType).Value, "w100")
