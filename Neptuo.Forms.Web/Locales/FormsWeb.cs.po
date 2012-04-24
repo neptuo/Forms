@@ -2,6 +2,7 @@
 Features=Funkce
 News=Novinky
 Learn=Naučit se
+Examples=Ukázky
 About=O službě
 
 All news=Všechny zprávy

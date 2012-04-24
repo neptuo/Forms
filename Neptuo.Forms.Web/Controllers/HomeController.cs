@@ -103,6 +103,28 @@ namespace Neptuo.Forms.Web.Controllers
 
         #endregion
 
+        #region Examples
+
+        [Url("examples")]
+        public ActionResult Examples()
+        {
+            return View();
+        }
+
+        [Url("examples/basic")]
+        public ActionResult ExamplesBasic()
+        {
+            return View("Examples");
+        }
+
+        [Url("examples/parent-child")]
+        public ActionResult ExamplesParentChild()
+        {
+            return View("Examples");
+        }
+
+        #endregion
+
         [Url("features")]
         public ActionResult Features()
         {

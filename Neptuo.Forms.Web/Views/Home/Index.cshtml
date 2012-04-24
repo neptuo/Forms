@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
     ViewBag.HideSideBar = true;
+    ViewBag.DateTimePattern = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortTimePattern + " " + System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
 }
 
 @section HtmlHead {
@@ -14,10 +15,15 @@
     .news-item .news-date { display: inline; }
     .news-item h4 { margin: 0; display: inline; }
     
-    .form-field label { display: block; }
-    .form-field textarea { width: 535px; height: 80px; }
+    .form-field label { display: block; margin: 5px 0; }
+    .form-field textarea { width: 535px; height: 50px; }
     .field-17734ff6tf0d0 { float: left; }
-    .form-send { float: right; margin-top: 20px !important; }
+    .field-validation { color: red; }
+    .form-send { float: right; margin-top: 30px !important; }
+    
+    .forum-data { margin-top: 15px; }
+    .forum-item { margin-top: 10px; padding: 10px 2px 0 2px; }
+    .forum-item-message { margin-top: 2px; }
     
     </style>
 
@@ -29,6 +35,13 @@
 @section JavascriptDomReady {
     
     var formID = '@Loc("66e9da18r5d92")';
+    
+    var renderer = new Forms.UI.DataRenderer(formID)
+        .SetParent('#forum-data')
+        .SetDateTimeFormat('@ViewBag.DateTimePattern')
+        .SetItemTemplate('<div class="folder-separator forum-item"><strong>{17734ff6tf0d0}</strong> (@Loc("at") {created}) @Loc("said")<div class="forum-item-message">{27460bddaaddd}</div></div>')
+        .Render();
+
     var builder = new Forms.UI.FormBuilder(formID)
         .SetParent('#forum-form')
         .SetMetaData({
@@ -41,7 +54,14 @@
                 }
             }
         })
-        .CreateSendButton('@Loc("Send")')
+        .SetSavedHandler(function (item) {
+            if (renderer != null) {
+                renderer.SetData(item.concat(renderer.GetData()));
+                renderer.ReRender();
+            }
+            this.Clear();
+        })
+        .CreateSendButton('@Loc("Send message")')
         .Build();
 
 }
@@ -54,7 +74,7 @@
 
         <div id="forum-form"></div>
         <div class="clear"></div>
-        <div id="forum-data"></div>
+        <div id="forum-data" class="forum-data"></div>
     </div>
 </div>
 <div class="home-side">

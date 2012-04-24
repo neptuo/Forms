@@ -194,6 +194,7 @@
     <Content Include="Design\Images\Buttons\button-right.png" />
     <Content Include="Design\Images\Langs\cs.png" />
     <Content Include="Design\Images\Langs\en.png" />
+    <Content Include="Design\Images\Layout\HeadLogoActive.png" />
     <Content Include="Design\Images\MessageIcons.png" />
     <Content Include="Design\Images\Admin\Users.png" />
     <Content Include="Design\Images\Admin\Projects.png" />
@@ -332,6 +333,7 @@
     <Content Include="Views\Home\LearnWebService.cs.cshtml" />
     <Content Include="Views\Home\LearnJavascript.cshtml" />
     <Content Include="Views\Home\LearnJavascript.cs.cshtml" />
+    <Content Include="Views\Home\Examples.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\RestApi\" />

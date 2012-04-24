@@ -24,6 +24,10 @@ body {
     background: url('../Images/Layout/HeadLogo.png') no-repeat left top;
 }
 
+.head .heading-active {
+    background: url('../Images/Layout/HeadLogoActive.png') no-repeat left top;
+}
+
 .head .by-neptuo {
     width: 122px;
     height: 21px;

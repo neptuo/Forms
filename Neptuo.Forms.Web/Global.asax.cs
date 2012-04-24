@@ -55,11 +55,6 @@ namespace Neptuo.Forms.Web
             //Main menu
             menu.Register("MainMenu", new MenuItem
             {
-                LinkText = "Home",
-                Controller = "Home",
-                Action = "Index"
-            }, new MenuItem
-            {
                 LinkText = "Features",
                 Controller = "Home",
                 Action = "Features"
@@ -69,6 +64,12 @@ namespace Neptuo.Forms.Web
                 Controller = "Home",
                 Action = "Learn",
                 ActiveOn = c => c.RouteData.Values["action"].ToString().StartsWith("Learn")
+            }, new MenuItem
+            {
+                LinkText = "Examples",
+                Controller = "Home",
+                Action = "Examples",
+                ActiveOn = c => c.RouteData.Values["action"].ToString().StartsWith("Example")
             }, new MenuItem
             {
                 LinkText = "News",
@@ -135,6 +136,19 @@ namespace Neptuo.Forms.Web
                 LinkText = "Javascript library",
                 Controller = "Home",
                 Action = "LearnJavascript"
+            });
+
+            //Learn sidebar menu
+            menu.Register("ExamplesMenu", new MenuItem
+            {
+                LinkText = "Basic",
+                Controller = "Home",
+                Action = "ExamplesBasic"
+            }, new MenuItem
+            {
+                LinkText = "Parent/Child data",
+                Controller = "Home",
+                Action = "ExamplesParentChild"
             });
         }
 
