@@ -22,9 +22,11 @@ namespace Neptuo.Forms.Core.Service
 
         void Tag(string tag);
 
+        SetParentDataStatus Parent(string parentIdentifier);
+
         /// <summary>
         /// Tries to convert <paramref name="value"/> to match concrete field type.
-        /// Works for DoubleField, StringField, BoolField.
+        /// Works for DoubleField, StringField, BoolField and ReferenceField.
         /// </summary>
         /// <param name="identifier">Field public identifier.</param>
         /// <param name="value">Field value.</param>
@@ -39,7 +41,7 @@ namespace Neptuo.Forms.Core.Service
 
         AddFieldStatus AddField(string identifier, string filename, string mimetype, byte[] data);
 
-        AddReferenceFieldStatus AddReferenceField(string identifier, int selectedID);
+        AddFieldStatus AddReferenceField(string identifier, string selectedIdentifier);
 
         CreateFormDataStatus Save();
     }
@@ -60,14 +62,14 @@ namespace Neptuo.Forms.Core.Service
         Set, NoSuchFormDefinition, InvalidFormType
     }
 
-    public enum AddFieldStatus
+    public enum SetParentDataStatus
     {
-        Added, NoSuchFormDefinition, NoSuchFieldDefinition, IncorrectFieldType, IncorrectValue
+        Set, NoSuchFormData, NoSuchFormDefinition
     }
 
-    public enum AddReferenceFieldStatus
+    public enum AddFieldStatus
     {
-        Added, NoSuchFormDefinition, NoSuchFieldDefinition, NoSuchFormData, IncorrectFieldType
+        Added, NoSuchFormDefinition, NoSuchFieldDefinition, IncorrectFieldType, IncorrectValue, NoSuchFormData
     }
 
     public enum AddInquiryAnswerStatus

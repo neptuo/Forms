@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Unity;
 using Neptuo.Web.DataAccess;
+using Neptuo.Forms.Core.Utils;
 
 namespace Neptuo.Forms.Core.Service
 {
@@ -61,13 +62,13 @@ namespace Neptuo.Forms.Core.Service
             if (formDefinition == null)
                 return SetPublicIdentifierStatus.NoSuchFormDefinition;
 
-
             if (formDefinition.FormType != formType)
                 return SetPublicIdentifierStatus.InvalidFormType;
 
             formData = new FormData
             {
                 FormDefinitionID = formDefinition.ID,
+                PublicIdentifier = HashHelper.ComputePublicIdentifier(typeof(FormData).Name, formDefinition.ID.ToString()),
                 Created = DateTime.Now,
                 Fields = new List<FieldData>()
             };
@@ -101,6 +102,19 @@ namespace Neptuo.Forms.Core.Service
             this.fileStorage = fileStorage;
         }
 
+        public SetParentDataStatus Parent(string parentIdentifier)
+        {
+            if (formDefinition == null)
+                return SetParentDataStatus.NoSuchFormDefinition;
+
+            FormData parent = dataRepository.FirstOrDefault(d => d.PublicIdentifier == parentIdentifier);
+            if (parent == null)
+                return SetParentDataStatus.NoSuchFormData;
+
+            formData.ParentFormDataID = parent.ID;
+            return SetParentDataStatus.Set;
+        }
+
         public AddFieldStatus AddFieldConvert(string identifier, string value)
         {
             if (formDefinition == null)
@@ -129,6 +143,10 @@ namespace Neptuo.Forms.Core.Service
             else if (field.FieldType == FieldType.StringField)
             {
                 return AddField(identifier, value);
+            }
+            else if (field.FieldType == FieldType.ReferenceField)
+            {
+                return AddReferenceField(identifier, value);
             }
 
             return AddFieldStatus.IncorrectFieldType;
@@ -220,24 +238,28 @@ namespace Neptuo.Forms.Core.Service
             return AddFieldStatus.Added;
         }
 
-        public AddReferenceFieldStatus AddReferenceField(string identifier, int selectedID)
+        public AddFieldStatus AddReferenceField(string identifier, string selectedIdentifier)
         {
             if (formDefinition == null)
-                return AddReferenceFieldStatus.NoSuchFormDefinition;
+                return AddFieldStatus.NoSuchFormDefinition;
 
             FieldDefinition field = formDefinition.Fields.FirstOrDefault(f => f.PublicIdentifier == identifier);
             if (field == null)
-                return AddReferenceFieldStatus.NoSuchFieldDefinition;
+                return AddFieldStatus.NoSuchFieldDefinition;
 
             if (field.FieldType != FieldType.ReferenceField)
-                return AddReferenceFieldStatus.IncorrectFieldType;
+                return AddFieldStatus.IncorrectFieldType;
+
+            FormData selected = dataRepository.FirstOrDefault(d => d.PublicIdentifier == selectedIdentifier);
+            if (selected == null)
+                return AddFieldStatus.NoSuchFormData;
 
             formData.Fields.Add(new ReferenceFieldData
             {
-                ReferenceDataID = selectedID,
+                ReferenceDataID = selected.ID,
                 FieldDefinitionID = field.ID
             });
-            return AddReferenceFieldStatus.Added;
+            return AddFieldStatus.Added;
         }
     }
 

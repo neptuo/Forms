@@ -10,6 +10,11 @@ Forms.UI.FormBuilder = function (formID) {
     this.SendButton = null;
     this.$Form = null;
     this.FormID = formID;
+    this.ParentDataID = null;
+
+    this.SetParentDataID = function (dataID) {
+        This.ParentDataID = dataID;
+    };
 
     this.SetDefinition = function (formDefinition) {
         This.FormDefinition = formDefinition;
@@ -173,32 +178,38 @@ Forms.UI.FormBuilder = function (formID) {
         if (metaData == null) {
             metaData = {};
         }
-        if (typeof metaData.Fields == 'undefined' || metaData.Fields == null) {
+        if (This.IsNullOrUndefined(metaData.Fields)) {
             metaData.Fields = [];
         }
-        if (typeof metaData.ErrorMessages == 'undefined' || metaData.ErrorMessages == null) {
+        if (This.IsNullOrUndefined(metaData.ErrorMessages)) {
             metaData.ErrorMessages = {};
         }
-        if (typeof metaData.ErrorMessages['NoSuchFormDefinition'] == 'undefined' || metaData.ErrorMessages['NoSuchFormDefinition'] == null) {
+        if (This.IsNullOrUndefined(metaData.ErrorMessages['NoSuchFormDefinition'])) {
             metaData.ErrorMessages['NoSuchFormDefinition'] = 'No such form!';
         }
-        if (typeof metaData.ErrorMessages['NoSuchFieldDefinition'] == 'undefined' || metaData.ErrorMessages['NoSuchFieldDefinition'] == null) {
+        if (This.IsNullOrUndefined(metaData.ErrorMessages['NoSuchFieldDefinition'])) {
             metaData.ErrorMessages['NoSuchFieldDefinition'] = 'No such field!';
         }
-        if (typeof metaData.ErrorMessages['IncorrectFieldType'] == 'undefined' || metaData.ErrorMessages['IncorrectFieldType'] == null) {
+        if (This.IsNullOrUndefined(metaData.ErrorMessages['IncorrectFieldType'])) {
             metaData.ErrorMessages['IncorrectFieldType'] = 'Not a valid value!';
         }
-        if (typeof metaData.ErrorMessages['IncorrectValue'] == 'undefined' || metaData.ErrorMessages['IncorrectValue'] == null) {
+        if (This.IsNullOrUndefined(metaData.ErrorMessages['IncorrectValue'])) {
             metaData.ErrorMessages['IncorrectValue'] = 'Not a valid value!';
+        }
+        if (This.IsNullOrUndefined(metaData.ErrorMessages['InvalidCreator'])) {
+            metaData.ErrorMessages['InvalidCreator'] = 'Some invalid values!';
+        }
+        if (This.IsNullOrUndefined(metaData.ErrorMessages['NoSuchFormData'])) {
+            metaData.ErrorMessages['NoSuchFormData'] = 'No such parent data!';
         }
         return metaData;
     };
 
     this.CreateFieldMetaDataInternal = function (metaData, field) {
-        if (typeof metaData == 'undefined' || metaData == null) {
+        if (This.IsNullOrUndefined(metaData)) {
             metaData = {};
         }
-        if (typeof metaData.RenderAs == 'undefined' || metaData.RenderAs == null) {
+        if (This.IsNullOrUndefined(metaData.RenderAs)) {
             if (field.Type == 'StringField' || field.Type == 'DoubleField') {
                 metaData.RenderAs = 'textbox';
             } else if (field.Type == 'BoolField') {
@@ -207,7 +218,7 @@ Forms.UI.FormBuilder = function (formID) {
                 metaData.RenderAs = 'dropdown';
             }
         }
-        if (typeof metaData.Template == 'undefined' || metaData.Template == null) {
+        if (This.IsNullOrUndefined(metaData.Template)) {
             switch (metaData.RenderAs) {
                 case 'textbox':
                     metaData.Template = '<input type="text" id="{id}" name="{name}" class="{class}" value="{value}" />';
@@ -223,13 +234,17 @@ Forms.UI.FormBuilder = function (formID) {
                     break;
             }
         }
-        if (typeof metaData.Label == 'undefined' || metaData.Label == null) {
+        if (This.IsNullOrUndefined(metaData.Label)) {
             metaData.Label = field.Name + ':';
         }
-        if (typeof metaData.DefaultValue == 'undefined' || metaData.DefaultValue == null) {
+        if (This.IsNullOrUndefined(metaData.DefaultValue)) {
             metaData.DefaultValue = '';
         }
         return metaData;
+    };
+
+    this.IsNullOrUndefined = function (value) {
+        return typeof value == 'undefined' || value == null;
     };
 };
 

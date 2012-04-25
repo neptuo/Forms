@@ -9,6 +9,8 @@ namespace Neptuo.Forms.Web.Models.WebService
     {
         public DateTime Created { get; set; }
 
+        public string PublicIdentifier { get; set; }
+
         public IEnumerable<FieldListDataModel> Fields { get; set; }
 
         public FormListDataModel()

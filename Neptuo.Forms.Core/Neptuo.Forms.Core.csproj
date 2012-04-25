@@ -109,6 +109,14 @@
     <Compile Include="Migrations\201204220738594_AddFormFieldDataHierarchy.Designer.cs">
       <DependentUpon>201204220738594_AddFormFieldDataHierarchy.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201204251332571_AddFormDataPublicIdentifier.cs" />
+    <Compile Include="Migrations\201204251332571_AddFormDataPublicIdentifier.Designer.cs">
+      <DependentUpon>201204251332571_AddFormDataPublicIdentifier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201204251402233_AddFormDataParent.cs" />
+    <Compile Include="Migrations\201204251402233_AddFormDataParent.Designer.cs">
+      <DependentUpon>201204251402233_AddFormDataParent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

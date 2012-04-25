@@ -17,6 +17,11 @@ namespace Neptuo.Forms.Core
         public DateTime Created { get; set; }
 
         /// <summary>
+        /// Public Identifier
+        /// </summary>
+        public string PublicIdentifier { get; set; }
+
+        /// <summary>
         /// Custom tag.
         /// </summary>
         public string Tag { get; set; }
@@ -33,5 +38,11 @@ namespace Neptuo.Forms.Core
         /// </summary>
         [InverseProperty("FormData")]
         public virtual List<FieldData> Fields { get; set; }
+
+        /// <summary>
+        /// Parent inserted data (for tree structure).
+        /// </summary>
+        public int? ParentFormDataID { get; set; }
+        public virtual FormData ParentFormData { get; set; }
     }
 }

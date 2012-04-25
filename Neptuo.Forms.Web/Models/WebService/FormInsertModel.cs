@@ -12,6 +12,8 @@ namespace Neptuo.Forms.Web.Models.WebService
     {
         public string FormPublicIdentifier { get; set; }
 
+        public string ParentPublicIdentifier { get; set; }
+
         public string FormTag { get; set; }
 
         public List<FieldInsertModel> Fields { get; set; }

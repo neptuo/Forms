@@ -46,14 +46,15 @@ namespace Neptuo.Forms.Web.Controllers.WebService
         [Url("ws/{formPublicIdentifier}/data")]
         public ActionResult GetFormData(string formPublicIdentifier, int pageSize = 20, int pageIndex = 0)
         {
+            //TODO: Ordering,filtering,column selection
             FormDefinition form = FormService.Get(formPublicIdentifier);
             if (form == null)
                 return new HttpStatusCodeResult(404);
 
             IEnumerable<FormData> formData = DataService.GetList(form.ID).OrderByDescending(d => d.Created).Skip(pageSize * pageIndex).Take(pageSize).ToArray();
-
             return JsonP(formData.Select(d => new FormListDataModel {
                 Created = d.Created,
+                PublicIdentifier = d.PublicIdentifier,
                 Fields = d.Fields.Select(f => new FieldListDataModel {
                     PublicIdentifier = f.FieldDefinition.PublicIdentifier,
                     Name = f.FieldDefinition.Name,
@@ -83,6 +84,20 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             SetPublicIdentifierStatus spi = creator.PublicIdentifier(model.FormPublicIdentifier);
             if (spi == SetPublicIdentifierStatus.NoSuchFormDefinition)
                 validation.Add(new InsertValidationModel(null, "NoSuchFormDefinition"));
+
+            if (!String.IsNullOrEmpty(model.ParentPublicIdentifier))
+            {
+                SetParentDataStatus spd = creator.Parent(model.ParentPublicIdentifier);
+                switch (spd)
+                {
+                    case SetParentDataStatus.NoSuchFormData:
+                        validation.Add(new InsertValidationModel(null, "NoSuchFormData"));
+                        break;
+                    case SetParentDataStatus.NoSuchFormDefinition:
+                        validation.Add(new InsertValidationModel(null, "NoSuchFormDefinition"));
+                        break;
+                }
+            }
 
             creator.Tag(model.FormTag);
 
