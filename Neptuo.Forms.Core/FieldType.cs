@@ -41,11 +41,11 @@ namespace Neptuo.Forms.Core
         /// <returns>Map of ID(storage value of field type)/Name(Constant name).</returns>
         public static IEnumerable<KeyValuePair<int, string>> GetTypes()
         {
-            yield return new KeyValuePair<int, string>(1, "DoubleField");
-            yield return new KeyValuePair<int, string>(2, "StringField");
-            yield return new KeyValuePair<int, string>(3, "BoolField");
-            yield return new KeyValuePair<int, string>(4, "FileField");
-            yield return new KeyValuePair<int, string>(5, "ReferenceField");
+            yield return new KeyValuePair<int, string>(DoubleField, "DoubleField");
+            yield return new KeyValuePair<int, string>(StringField, "StringField");
+            yield return new KeyValuePair<int, string>(BoolField, "BoolField");
+            yield return new KeyValuePair<int, string>(FileField, "FileField");
+            yield return new KeyValuePair<int, string>(ReferenceField, "ReferenceField");
         }
     }
 }

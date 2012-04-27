@@ -26,7 +26,6 @@ Global
 		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46BD8AB8-D413-473A-8D78-C45538136F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
@@ -34,7 +33,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

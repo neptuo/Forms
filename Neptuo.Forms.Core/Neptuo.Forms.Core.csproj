@@ -76,6 +76,7 @@
     <Compile Include="FormDefinition.cs" />
     <Compile Include="FormsCore.cs" />
     <Compile Include="FormType.cs" />
+    <Compile Include="ProjectInvitation.cs" />
     <Compile Include="LocalCredentials.cs" />
     <Compile Include="Migrations\201204071928135_Nullableforcredentials.cs" />
     <Compile Include="Migrations\201204071928135_Nullableforcredentials.Designer.cs">
@@ -127,9 +128,11 @@
     <Compile Include="Service\FormDefinitionService.cs" />
     <Compile Include="Service\IActivityService.cs" />
     <Compile Include="Service\IArticleService.cs" />
+    <Compile Include="Service\ICleanUpService.cs" />
     <Compile Include="Service\IFileStorage.cs" />
     <Compile Include="Service\IFormDataService.cs" />
     <Compile Include="Service\IFormDefinitionService.cs" />
+    <Compile Include="Service\IInvitationService.cs" />
     <Compile Include="Service\MemoryFileStorage.cs" />
     <Compile Include="Service\IProjectService.cs" />
     <Compile Include="Service\IUserService.cs" />
