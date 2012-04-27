@@ -16,8 +16,9 @@ namespace Neptuo.Forms.Core.Service
         /// </summary>
         /// <param name="projectID">Target project ID.</param>
         /// <param name="accountPublicIdentifier">Target account public identifier.</param>
+        /// <param name="type">Type of role of target user in project.</param>
         /// <returns>Creation status, <see cref="CreateInvitationStatus"/>.</returns>
-        CreateInvitationStatus InviteToProject(int projectID, string accountPublicIdentifier);
+        CreateInvitationStatus InviteToProject(int projectID, string accountPublicIdentifier, int type);
 
         /// <summary>
         /// Tries to accept invitation.
@@ -45,6 +46,11 @@ namespace Neptuo.Forms.Core.Service
         /// Invitation created.
         /// </summary>
         Created, 
+
+        /// <summary>
+        /// Type of currently existing invitation was updated.
+        /// </summary>
+        UpdatedExisting,
         
         /// <summary>
         /// Error state, current user isn't project owner.
@@ -54,7 +60,17 @@ namespace Neptuo.Forms.Core.Service
         /// <summary>
         /// Error state, same invitation already exists.
         /// </summary>
-        AlreadyExists
+        AlreadyExists,
+        
+        /// <summary>
+        /// Error state, no such project.
+        /// </summary>
+        NoSuchProject,
+
+        /// <summary>
+        /// Error state, no such target user.
+        /// </summary>
+        NoSuchUser
     }
 
     /// <summary>

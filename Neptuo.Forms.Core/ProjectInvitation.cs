@@ -18,7 +18,7 @@ namespace Neptuo.Forms.Core
         public int TargetProjectID { get; set; }
         public virtual Project TargetProject { get; set; }
 
-        public int ProjectInvitationType { get; set; }
+        public int Type { get; set; }
     }
 
     /// <summary>
