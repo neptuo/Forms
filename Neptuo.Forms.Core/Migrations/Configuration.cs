@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using Neptuo.Forms.Core.DataAccess;
+using Neptuo.Forms.Core.Utils;
 
 namespace Neptuo.Forms.Core.Migrations
 {
@@ -15,18 +16,25 @@ namespace Neptuo.Forms.Core.Migrations
 
         protected override void Seed(DataContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            if (context.Users.FirstOrDefault(u => u.Fullname == FormsCore.AdminFullname) == null)
+            {
+                context.Users.AddOrUpdate(new UserAccount
+                {
+                    Fullname = FormsCore.AdminFullname,
+                    Created = DateTime.Now,
+                    Enabled = true,
+                    UserRole = UserRole.Admin,
+                    PublicIdentifier = HashHelper.ComputePublicIdentifier(typeof(UserAccount).Name, FormsCore.AdminFullname),
+                    Email = FormsCore.AdminEmail,
+                    LocalCredentials = new LocalCredentials
+                    {
+                        Username = FormsCore.AdminUsername,
+                        Password = HashHelper.ComputePassword(FormsCore.AdminUsername, FormsCore.AdminPassword)
+                    }
+                });
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+                //TODO: Create app forms+projects+data
+            }
         }
     }
 }

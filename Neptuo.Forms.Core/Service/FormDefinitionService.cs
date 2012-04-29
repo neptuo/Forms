@@ -72,6 +72,9 @@ namespace Neptuo.Forms.Core.Service
 
         public CreateFormDefinitionStatus CreateForm(string name, int formType, bool publicContent, int projectID)
         {
+            if (GetList(projectID).Count() == Validator.MaxUserProjects)
+                return CreateFormDefinitionStatus.FormCountExceeded;
+
             if(!Validator.CheckName(name))
                 return CreateFormDefinitionStatus.InvalidName;
 

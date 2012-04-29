@@ -1,0 +1,52 @@
+﻿@model Neptuo.Forms.Web.Models.ListInvitationModel
+
+@{
+    ViewBag.Title = "Invitations";
+    var types = Neptuo.Forms.Core.ProjectInvitationType.GetTypes();
+}
+
+<div class="folder">
+    <h2 class="folder-heading">@Loc("Project invitations")</h2>
+
+    @{
+        
+        UI.Grid(Model.Invitations)
+            .SetEmptyText((L)"No invitations")
+            .AddColumn((L)"User full name", i => i.TargetUserFullname)
+            .AddColumn((L)"User identifier", i => i.TargetUserPublicIdentifier)
+            .AddColumn((L)"Type", i => (L)types.First(t => t.Key == i.Type).Value, "w50")
+            .AddColumn("", i => "[Delete link]", "w100")
+            .Render();
+        
+    }
+</div>
+
+<div class="folder">
+    <h2 class="folder-heading">@Loc("Create invitation")</h2>
+
+    @using (Html.BeginForm("CreateInvitation", "project", FormMethod.Post))
+    {
+        <div class="editor-item w300">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.CreateModel.TargetUserPublicIdentifier)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.CreateModel.TargetUserPublicIdentifier)
+                @Html.ValidationMessageFor(m => m.CreateModel.TargetUserPublicIdentifier)
+            </div>
+        </div>
+        
+        <div class="editor-item w130">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.CreateModel.Type)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(m => m.CreateModel.Type, Model.CreateModel.GetTypes())
+                @Html.ValidationMessageFor(m => m.CreateModel.Type)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        <input type="submit" name="save" value="@Loc("Create invitation")" />
+    }
+</div>

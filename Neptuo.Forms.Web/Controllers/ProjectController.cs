@@ -19,6 +19,9 @@ namespace Neptuo.Forms.Web.Controllers
         public IProjectService ProjectService { get; set; }
 
         [Dependency]
+        public IInvitationService InvitationService { get; set; }
+
+        [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
         [Url("user/projects")]
@@ -28,7 +31,8 @@ namespace Neptuo.Forms.Web.Controllers
             {
                 ProjectID = p.ID,
                 Name = p.Name,
-                Created = p.Created
+                Created = p.Created,
+                IsOwner = p.OwnerUserID == UserContext.AccountID
             }));
         }
 
@@ -122,5 +126,83 @@ namespace Neptuo.Forms.Web.Controllers
             });
         }
 
+        [Url("user/project-{projectID}/invitations")]
+        public ActionResult Invitations(int projectID)
+        {
+            if (!ProjectService.IsUserOwner(projectID))
+            {
+                ShowMessage((L)"You are not project onwer! Only project owner can manage invitations.", HtmlMessageType.Warning);
+                return RedirectToAction("index");
+            }
+
+            return View(new ListInvitationModel
+            {
+                Invitations = InvitationService.GetCreatedProjectInvitations(projectID).Select(pi => new ListItemInvitationModel
+                {
+                    ID = pi.ID,
+                    ProjectName = pi.TargetProject.Name,
+                    OwnerFullname = pi.TargetProject.Owner.Fullname,
+                    OwnerPublicIdentifier = pi.TargetProject.Owner.PublicIdentifier,
+                    TargetUserFullname = pi.TargetUser.Fullname,
+                    TargetUserPublicIdentifier = pi.TargetUser.PublicIdentifier,
+                    Created = pi.Created,
+                    Type = pi.Type
+                }),
+                CreateModel = new CreateInvitationModel()
+            });
+        }
+
+        [HttpPost]
+        [Url("user/project-{projectID}/delete-invitation-{invitationID}")]
+        public ActionResult DeleteInvitation(int projectID, int invitationID)
+        {
+            DeleteInvitationStatus status = InvitationService.DeleteProjectInvitation(invitationID);
+            switch (status)
+            {
+                case DeleteInvitationStatus.Deleted:
+                    ShowMessage((L)"Invitation deleted.");
+                    return RedirectToAction("index");
+                case DeleteInvitationStatus.NotOwner:
+                    ShowMessage((L)"You are not project onwer! Only project owner can delete invitations.", HtmlMessageType.Warning);
+                    return RedirectToAction("index");
+                case DeleteInvitationStatus.NoSuchInvitation:
+                    ShowMessage((L)"No such project invitation.", HtmlMessageType.Warning);
+                    return RedirectToAction("Invitations", new { projectID = projectID });
+            }
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        [Url("user/project-{projectID}/create-invitation")]
+        public ActionResult CreateInvitation(int projectID, [Bind(Prefix="CreateModel")] CreateInvitationModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                CreateInvitationStatus status = InvitationService.InviteToProject(projectID, model.TargetUserPublicIdentifier, model.Type);
+                switch (status)
+                {
+                    case CreateInvitationStatus.Created:
+                        ShowMessage((L)"Invitation created.");
+                        return RedirectToAction("Invitations", new { projectID = projectID });
+                    case CreateInvitationStatus.UpdatedExisting:
+                        ShowMessage((L)"Existing invitation was updated.");
+                        return RedirectToAction("Invitations", new { projectID = projectID });
+                    case CreateInvitationStatus.NotOwner:
+                        ShowMessage((L)"You're not owner! Only project owner can create invitations.", HtmlMessageType.Warning);
+                        return RedirectToAction("index");
+                    case CreateInvitationStatus.AlreadyExists:
+                        ShowMessage((L)"Invitation already exists.", HtmlMessageType.Warning);
+                        return RedirectToAction("Invitations", new { projectID = projectID });
+                    case CreateInvitationStatus.NoSuchProject:
+                        ShowMessage((L)"No such project.", HtmlMessageType.Warning);
+                        return RedirectToAction("index");
+                    case CreateInvitationStatus.NoSuchUser:
+                        ShowMessage((L)"Target user doesn't exist.", HtmlMessageType.Warning);
+                        return RedirectToAction("Invitations", new { projectID = projectID });
+                }
+            }
+
+            return RedirectToAction("Invitations", new { projectID = projectID });
+        }
     }
 }

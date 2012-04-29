@@ -21,6 +21,11 @@ namespace Neptuo.Forms.Core.Validation
         public const int MaxUserProjects = 25;
 
         /// <summary>
+        /// Maximum of forms in project.
+        /// </summary>
+        public const int MaxProjectForms = 15;
+
+        /// <summary>
         /// Checks that <paramref name="value"/> is not null or empty or whitespace.
         /// </summary>
         /// <param name="value">String to test.</param>

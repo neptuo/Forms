@@ -14,7 +14,7 @@
                 .AddColumn((L)"ID", p => p.ProjectID, "w30")
                 .AddColumn((L)"Name", p => p.Name)
                 .AddColumn((L)"Created", p => p.Created, "w130")
-                .AddColumn("", p => Html.ActionLink((L)"Edit", "edit", new { projectID = p.ProjectID }) + " " + Html.ActionLink((L)"Forms", "forms", new { projectID = p.ProjectID }), "w100")
+                .AddColumn("", p => Html.ActionLink((L)"Edit", "edit", new { projectID = p.ProjectID }) + " " + Html.ActionLink((L)"Forms", "forms", new { projectID = p.ProjectID }) + (p.IsOwner ? (" " + Html.ActionLink((L)"Invitations", "invitations", new { projectID = p.ProjectID })) : ""), "w140")
                 .Render();
         }
         else

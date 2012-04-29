@@ -81,7 +81,14 @@ namespace Neptuo.Forms.Core.Service
         /// </summary>
         /// <param name="username">Account username/claimed identifier.</param>
         /// <returns>User account with <paramref name="username"/>.</returns>
-        UserAccount Get(string username);
+        UserAccount Get(string username = null);
+
+        /// <summary>
+        /// Gets account by public identifier.
+        /// </summary>
+        /// <param name="publicIdentifier">Account public identifier.</param>
+        /// <returns>User account with <paramref name="publicIdentifier"/>.</returns>
+        UserAccount GetByIdentifier(string publicIdentifier);
 
         /// <summary>
         /// Gets list of all user accounts.

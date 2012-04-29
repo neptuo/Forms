@@ -171,6 +171,11 @@ namespace Neptuo.Forms.Core.Service
             return Repository.FirstOrDefault(u => (u.LocalCredentials != null && u.LocalCredentials.Username == username) || (u.RemoteCredentials != null && u.RemoteCredentials.Username == username));
         }
 
+        public UserAccount GetByIdentifier(string publicIdentifier)
+        {
+            return Repository.FirstOrDefault(u => u.PublicIdentifier == publicIdentifier);
+        }
+
         public IQueryable<UserAccount> GetList()
         {
             return Repository;

@@ -12,5 +12,7 @@ namespace Neptuo.Forms.Web.Models
         public string Name { get; set; }
 
         public DateTime Created { get; set; }
+
+        public bool IsOwner { get; set; }
     }
 }

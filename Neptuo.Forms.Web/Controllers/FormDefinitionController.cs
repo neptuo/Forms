@@ -89,6 +89,9 @@ namespace Neptuo.Forms.Web.Controllers
                         case CreateFormDefinitionStatus.NoSuchProject:
                             ShowMessage((L)"No such project!", HtmlMessageType.Warning);
                             return RedirectToAction("index", "project");
+                        case CreateFormDefinitionStatus.FormCountExceeded:
+                            ShowMessage((L)"Maximum forms in project count exceeded!", HtmlMessageType.Warning);
+                            return RedirectToAction("forms", "project", new { projectID = model.ProjectID });
                     }
                 }
                 else

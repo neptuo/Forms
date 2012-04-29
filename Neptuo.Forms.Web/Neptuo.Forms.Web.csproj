@@ -189,6 +189,7 @@
     <Compile Include="Models\FormDefinition\EditFormDefinitionModel.cs" />
     <Compile Include="Models\FieldDefinition\ListFieldDefinitionModel.cs" />
     <Compile Include="Models\FormDefinition\ListFormDefinitionModel.cs" />
+    <Compile Include="Models\Project\ListInvitationModel.cs" />
     <Compile Include="Models\WebService\FormInsertModel.cs" />
     <Compile Include="Models\Project\EditProjectModel.cs" />
     <Compile Include="Models\Project\ListProjectModel.cs" />
@@ -352,6 +353,7 @@
     <Content Include="Views\Home\LearnJavascript.cshtml" />
     <Content Include="Views\Home\LearnJavascript.cs.cshtml" />
     <Content Include="Views\Home\Examples.cshtml" />
+    <Content Include="Views\Project\Invitations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\RestApi\" />

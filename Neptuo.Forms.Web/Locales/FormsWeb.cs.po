@@ -6,3 +6,8 @@ Examples=Ukázky
 About=O službě
 
 All news=Všechny zprávy
+
+Get started=Začínáme
+REST API=Rozhraní REST
+WebService API=Webservice rozhraní
+Javascript library=Javascriptová knihovna

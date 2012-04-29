@@ -18,6 +18,9 @@ namespace Neptuo.Forms.Core
         public int TargetProjectID { get; set; }
         public virtual Project TargetProject { get; set; }
 
+        public int OwnerUserID { get; set; }
+        public virtual UserAccount OwnerUser { get; set; }
+
         public int Type { get; set; }
     }
 
@@ -34,7 +37,12 @@ namespace Neptuo.Forms.Core
         /// <summary>
         /// Can read/create/update/delete defintinions.
         /// </summary>
-        public const int Manager = 1;
+        public const int Manager = 2;
+
+        /// <summary>
+        /// Transfers project ownership.
+        /// </summary>
+        public const int Owner = 3;
 
         /// <summary>
         /// Returns map of ID(storage value of project invitation type)/Name(Constant name).
@@ -43,7 +51,8 @@ namespace Neptuo.Forms.Core
         public static IEnumerable<KeyValuePair<int, string>> GetTypes()
         {
             yield return new KeyValuePair<int, string>(Reader, "Reader");
-            yield return new KeyValuePair<int, string>(Reader, "Manager");
+            yield return new KeyValuePair<int, string>(Manager, "Manager");
+            yield return new KeyValuePair<int, string>(Owner, "Owner");
         }
     }
 }

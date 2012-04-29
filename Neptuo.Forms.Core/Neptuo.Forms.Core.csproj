@@ -76,6 +76,10 @@
     <Compile Include="FormDefinition.cs" />
     <Compile Include="FormsCore.cs" />
     <Compile Include="FormType.cs" />
+    <Compile Include="Migrations\201204271733396_AddInvitations.cs" />
+    <Compile Include="Migrations\201204271733396_AddInvitations.Designer.cs">
+      <DependentUpon>201204271733396_AddInvitations.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProjectInvitation.cs" />
     <Compile Include="LocalCredentials.cs" />
     <Compile Include="Migrations\201204071928135_Nullableforcredentials.cs" />
@@ -124,6 +128,7 @@
     <Compile Include="RemoteCredentials.cs" />
     <Compile Include="Service\ActivityService.cs" />
     <Compile Include="Service\ArticleService.cs" />
+    <Compile Include="Service\DirectCleanUpService.cs" />
     <Compile Include="Service\FormDataService.cs" />
     <Compile Include="Service\FormDefinitionService.cs" />
     <Compile Include="Service\IActivityService.cs" />

@@ -118,7 +118,12 @@ namespace Neptuo.Forms.Core.Service
         /// <summary>
         /// Error state, there was provided ID to non-existing projekt.
         /// </summary>
-        NoSuchProject
+        NoSuchProject,
+        
+        /// <summary>
+        /// Error state, user has too many forms in project (<see cref="Validator.MaxUserProjects"/>).
+        /// </summary>
+        FormCountExceeded
     }
 
     /// <summary>

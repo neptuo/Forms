@@ -78,5 +78,30 @@ namespace Neptuo.Forms.Core.Service
         /// </summary>
         /// <param name="fieldID">Updated field ID.</param>
         void FieldDefinitionUpdated(int fieldID);
+
+
+        /// <summary>
+        /// Logs invitation creation.
+        /// </summary>
+        /// <param name="invitationID">New project invitation ID.</param>
+        void ProjectInvitationCreated(int invitationID);
+
+        /// <summary>
+        /// Logs invitation acception.
+        /// </summary>
+        /// <param name="invitationID">Accepted project invitation ID.</param>
+        void ProjectInvitationAccepted(int invitationID);
+
+        /// <summary>
+        /// Logs invitation declination.
+        /// </summary>
+        /// <param name="invitationID">Declined project invitation ID.</param>
+        void ProjectInvitationDeclined(int invitationID);
+
+        /// <summary>
+        /// Logs invitation deletion.
+        /// </summary>
+        /// <param name="invitationID">Deleted project invitation ID.</param>
+        void ProjectInvitationDeleted(int invitationID);
     }
 }

@@ -12,6 +12,11 @@ namespace Neptuo.Forms.Core
 {
     public static class FormsCore
     {
+        public const string AdminFullname = "Forms Admin";
+        public const string AdminEmail = "forms@neptuo.com";
+        public const string AdminUsername = "admin";
+        public const string AdminPassword = "f0rms.@dmin";
+
         /// <summary>
         /// Register types for this assembly.
         /// </summary>
@@ -29,6 +34,9 @@ namespace Neptuo.Forms.Core
                 .RegisterType<IFormDefinitionService, FormDefinitionService>()
                 .RegisterType<IRepository<FormData>, GenericRepository<FormData, DataContext>>()
                 .RegisterType<IFormDataService, FormDataService>()
+                .RegisterType<IRepository<ProjectInvitation>, GenericRepository<ProjectInvitation, DataContext>>()
+                .RegisterType<IInvitationService, InvitationService>()
+                .RegisterType<ICleanUpService, DirectCleanUpService>()
                 .RegisterType<IRepository<Article>, GenericRepository<Article, DataContext>>()
                 .RegisterType<IArticleService, ArticleService>()
             ;

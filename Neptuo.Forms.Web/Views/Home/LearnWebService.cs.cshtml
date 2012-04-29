@@ -43,27 +43,7 @@
 <div class="folder">
     <h2 class="folder-heading">Odeslání dat</h2>
     <p class="first">
-        Pro deslání dat pak stačí mít formulář, který využívá HTTP POST metodu a jehož názvy jednotlivých polí se shodují s <strong>PublicIdentifier</strong> jednotlivých polí v definici formuláře.
+        Odeslání dat probíhá obdobně jako stažení, pomocí HTTP GET stačí odeslat požadavek a query stringu serializovat data z formuláře. Příklad url:
     </p>
-    <dl>
-        <dd>
-            &lt;form method="post" action="http://forms.neptuo.com/ws/4600454eu1ae9/insert"&gt;
-            <dl>
-                <dd>
-                &lt;label for="name"&gt;Jméno&lt;/label&gt;<br />
-                &lt;input type="text" name="224b9d76Nf49c" id="name" value="" /&gt;<br />
-                <br />
-                &lt;label for="message"&gt;Zpáva&lt;/label&gt;<br />
-                &lt;input type="text" name="5825c2feab1d6" id="message" value="" /&gt;<br />
-                <br />
-                &lt;label for="author"&gt;Autor&lt;/label&gt;<br />
-                &lt;input type="text" name="e400b9b8u42df" id="author" value="" /&gt;<br />
-                </dd>
-            </dl>
-            &lt;form&gt;
-        </dd>
-    </dl>
-    <p class="last">
-        Samozřejmě tento formulář může mít nastavený atribut target tak, aby se odesílal do skrytého iframu, a uživatel tak nebyl přesměrován na naši stránku.
-    </p>
+    <dd>http://forms.neptuo.com/ws/4600454eu1ae9/insert</dd>
 </div>

@@ -32,6 +32,9 @@ namespace Neptuo.Forms.Web.Controllers
         public IUserService UserService { get; set; }
 
         [Dependency]
+        public IInvitationService InvitationService { get; set; }
+
+        [Dependency]
         public IRemoteAuthProvider RemoteAuthProvider { get; set; }
 
         protected override ActionResult AfterLoginFailure(LocalLoginModel model)
@@ -44,7 +47,13 @@ namespace Neptuo.Forms.Web.Controllers
         protected override ActionResult AfterSuccessfulLogin(LocalLoginModel model)
         {
             ActivityService.UserLoggedIn(model.Username);
-            ShowMessage(String.Format((L)"Welcome back, {0}!", model.Username));
+            string message = (L)"Welcome back, {0}!";
+
+            IQueryable<ProjectInvitation> invitations = InvitationService.GetProjectInvitations();
+            if (invitations.Count() > 0)
+                message = String.Format("{1} " + (L)"You have {0} invitation(s).", invitations.Count(), message);
+
+            ShowMessage(String.Format(message, model.Username));
             return base.AfterSuccessfulLogin(model);
         }
 

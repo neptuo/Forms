@@ -61,5 +61,25 @@ namespace Neptuo.Forms.Core.Service
         {
             
         }
+
+        public void ProjectInvitationCreated(int invitationID)
+        {
+            
+        }
+
+        public void ProjectInvitationAccepted(int invitationID)
+        {
+            
+        }
+
+        public void ProjectInvitationDeclined(int invitationID)
+        {
+            
+        }
+
+        public void ProjectInvitationDeleted(int invitationID)
+        {
+            
+        }
     }
 }
