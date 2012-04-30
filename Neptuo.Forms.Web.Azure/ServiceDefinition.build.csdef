@@ -24,5 +24,6 @@
       <Import moduleName="Diagnostics" />
     </Imports>
     <Certificates></Certificates>
+    <ConfigurationSettings></ConfigurationSettings>
   </WebRole>
 </ServiceDefinition>

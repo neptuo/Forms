@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <AzureCredentials>FormsApp</AzureCredentials>
+    <AzureHostedServiceName>neptuo-forms</AzureHostedServiceName>
+    <AzureHostedServiceLabel>neptuo-forms</AzureHostedServiceLabel>
+    <AzureSlot>Production</AzureSlot>
+    <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
+    <AzureEnableProfiling>False</AzureEnableProfiling>
+    <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
+    <AzureStorageAccountName>neptuoforms</AzureStorageAccountName>
+    <AzureStorageAccountLabel>neptuoforms</AzureStorageAccountLabel>
+    <AzureDeploymentLabel>Neptuo.Forms.Web.Azure</AzureDeploymentLabel>
+    <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
+    <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
+    <AzureAppendTimestampToDeploymentLabel>False</AzureAppendTimestampToDeploymentLabel>
+    <AzureAllowUpgrade>True</AzureAllowUpgrade>
+    <AzureEnableRemoteDesktop>False</AzureEnableRemoteDesktop>
+  </PropertyGroup>
+</Project>
