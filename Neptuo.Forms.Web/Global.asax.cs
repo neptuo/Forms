@@ -33,7 +33,7 @@ namespace Neptuo.Forms.Web
 
         private void RegisterUnity(UnityContainer container)
         {
-            FormsCore.RegisterTypes(container, FileStorageType.Memory);
+            FormsCore.RegisterTypes(container, FileStorageType.Memory, LoggerType.Trace);
 
             container
                 .RegisterType<UserContext, CurrentUserContext>(new PerHttpRequestLifetimeManager())

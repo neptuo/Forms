@@ -21,7 +21,9 @@ namespace Neptuo.Forms.Core
         /// Register types for this assembly.
         /// </summary>
         /// <param name="container">Unity container isntance.</param>
-        public static void RegisterTypes(UnityContainer container, FileStorageType fileStorageType)
+        /// <param name="fileStorageType">File storage type.</param>
+        /// <param name="loggerType">Logger type.</param>
+        public static void RegisterTypes(UnityContainer container, FileStorageType fileStorageType, LoggerType loggerType)
         {
             container
                 .RegisterType<IActivityService, ActivityService>()
@@ -51,11 +53,25 @@ namespace Neptuo.Forms.Core
                     container.RegisterType<IFileStorage, MemoryFileStorage>();
                     break;
             }
+
+            switch (loggerType)
+            {
+                case LoggerType.Azure:
+                    throw new NotImplementedException();
+                case LoggerType.Trace:
+                    container.RegisterType<ILogger, TraceLogger>();
+                    break;
+            }
         }
     }
 
     public enum FileStorageType
     {
-        Azure, FileSystem, Memory
+        Azure, FileSystem, Memory, Custom
+    }
+
+    public enum LoggerType
+    {
+        Azure, Trace, Custom
     }
 }

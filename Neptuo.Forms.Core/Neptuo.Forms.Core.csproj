@@ -145,6 +145,7 @@
     <Compile Include="Service\IProjectService.cs" />
     <Compile Include="Service\IUserService.cs" />
     <Compile Include="Service\ProjectService.cs" />
+    <Compile Include="Service\TraceLogger.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="UserAccount.cs" />
     <Compile Include="UserContext.cs" />
