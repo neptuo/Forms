@@ -10,12 +10,22 @@ using Neptuo.Forms.Core.Service;
 
 namespace Neptuo.Forms.Core
 {
-    public static class FormsCore
+    public class FormsCore
     {
         public const string AdminFullname = "Forms Admin";
         public const string AdminEmail = "forms@neptuo.com";
         public const string AdminUsername = "admin";
         public const string AdminPassword = "f0rms.@dmin";
+
+        public static FormsCore Instance { get; private set; }
+
+        public static void CreateInstance()
+        {
+            if (Instance != null)
+                return;
+
+            Instance = new FormsCore();
+        }
 
         /// <summary>
         /// Register types for this assembly.
@@ -23,7 +33,7 @@ namespace Neptuo.Forms.Core
         /// <param name="container">Unity container isntance.</param>
         /// <param name="fileStorageType">File storage type.</param>
         /// <param name="loggerType">Logger type.</param>
-        public static void RegisterTypes(UnityContainer container, FileStorageType fileStorageType, LoggerType loggerType)
+        public void RegisterTypes(UnityContainer container)
         {
             container
                 .RegisterType<IActivityService, ActivityService>()
@@ -42,36 +52,6 @@ namespace Neptuo.Forms.Core
                 .RegisterType<IRepository<Article>, GenericRepository<Article, DataContext>>()
                 .RegisterType<IArticleService, ArticleService>()
             ;
-
-            switch (fileStorageType)
-            {
-                case FileStorageType.Azure:
-                    throw new NotImplementedException();
-                case FileStorageType.FileSystem:
-                    throw new NotImplementedException();
-                case FileStorageType.Memory:
-                    container.RegisterType<IFileStorage, MemoryFileStorage>();
-                    break;
-            }
-
-            switch (loggerType)
-            {
-                case LoggerType.Azure:
-                    throw new NotImplementedException();
-                case LoggerType.Trace:
-                    container.RegisterType<ILogger, TraceLogger>();
-                    break;
-            }
         }
-    }
-
-    public enum FileStorageType
-    {
-        Azure, FileSystem, Memory, Custom
-    }
-
-    public enum LoggerType
-    {
-        Azure, Trace, Custom
     }
 }

@@ -9,7 +9,7 @@ namespace Neptuo.Forms.Core.Service
 {
     /// <summary>
     /// Directly (synchronously) deletes data.
-    /// TODO: Use single transaction in deleting (implement in GenericRepository)!
+    /// TODO: Use single transaction in deleting (implement in GenericRepository -- over single instance of DataContext)!
     /// </summary>
     public class DirectCleanUpService : ICleanUpService
     {
@@ -26,13 +26,7 @@ namespace Neptuo.Forms.Core.Service
         public IRepository<FormDefinition> FormDefinitionRepository { get; set; }
 
         [Dependency]
-        public IRepository<FieldDefinition> FieldDefinitionRepository { get; set; }
-
-        [Dependency]
         public IRepository<FormData> FormDataRepository { get; set; }
-
-        [Dependency]
-        public IRepository<FieldData> FieldDataRepository { get; set; }
 
 
         public DeleteProjectStatus DeleteProject(int projectID)
@@ -65,8 +59,8 @@ namespace Neptuo.Forms.Core.Service
                     foreach (int itemID in data)
                         DeleteFormData(itemID);
 
-                    foreach (FieldDefinition field in form.Fields)
-                        FieldDefinitionRepository.Delete(field);
+                    //foreach (FieldDefinition field in form.Fields)
+                    //    FieldDefinitionRepository.Delete(field);
 
                     FormDefinitionRepository.Delete(form);
                     return DeleteFormDefinitionStatus.Deleted;
@@ -83,8 +77,8 @@ namespace Neptuo.Forms.Core.Service
             {
                 if (ProjectService.CanUserManage(data.FormDefinition.ProjectID))
                 {
-                    foreach (FieldData field in data.Fields)
-                        FieldDataRepository.Delete(field);
+                    //foreach (FieldData field in data.Fields)
+                    //    FieldDataRepository.Delete(field);
 
                     FormDataRepository.Delete(data);
                     return DeleteFormDataStatus.Deleted;

@@ -31,7 +31,7 @@ namespace Neptuo.Forms.Core
         /// </summary>
         [ForeignKey("FormDefinition")]
         public int FormDefinitionID { get; set; }
-        public FormDefinition FormDefinition { get; set; }
+        public virtual FormDefinition FormDefinition { get; set; }
 
         /// <summary>
         /// Fields.

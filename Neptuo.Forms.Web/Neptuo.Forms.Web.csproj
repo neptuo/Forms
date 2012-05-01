@@ -189,6 +189,7 @@
     <Compile Include="Models\FormDefinition\EditFormDefinitionModel.cs" />
     <Compile Include="Models\FieldDefinition\ListFieldDefinitionModel.cs" />
     <Compile Include="Models\FormDefinition\ListFormDefinitionModel.cs" />
+    <Compile Include="Models\ListFormDataModel.cs" />
     <Compile Include="Models\Project\ListInvitationModel.cs" />
     <Compile Include="Models\WebService\FormInsertModel.cs" />
     <Compile Include="Models\Project\EditProjectModel.cs" />
@@ -309,6 +310,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Forms.AzureSupport\Neptuo.Forms.AzureSupport.csproj">
+      <Project>{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}</Project>
+      <Name>Neptuo.Forms.AzureSupport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Forms.Core\Neptuo.Forms.Core.csproj">
       <Project>{A012144F-7147-460B-BEE2-6E9AF3204BCC}</Project>
       <Name>Neptuo.Forms.Core</Name>

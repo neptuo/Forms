@@ -128,7 +128,6 @@
     <Compile Include="RemoteCredentials.cs" />
     <Compile Include="Service\ActivityService.cs" />
     <Compile Include="Service\ArticleService.cs" />
-    <Compile Include="Service\AzureBlobLogger.cs" />
     <Compile Include="Service\DirectCleanUpService.cs" />
     <Compile Include="Service\FormDataService.cs" />
     <Compile Include="Service\FormDefinitionService.cs" />

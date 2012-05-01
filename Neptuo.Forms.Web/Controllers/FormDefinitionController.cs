@@ -9,17 +9,26 @@ using Neptuo.Web.Mvc.Html;
 using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
 using Neptuo.Forms.Web.Models;
+using Neptuo.Web.Mvc.Models;
 
 namespace Neptuo.Forms.Web.Controllers
 {
     [AuthorizeUser]
     public class FormDefinitionController : BaseController
     {
+        private int pageSize = 10;
+
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
         [Dependency]
         public IProjectService ProjectService { get; set; }
+
+        [Dependency]
+        public IFormDataService DataService { get; set; }
+
+        [Dependency]
+        public ICleanUpService CleanUpService { get; set; }
 
         [Url("user/forms")]
         public ActionResult Index()
@@ -115,6 +124,27 @@ namespace Neptuo.Forms.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Url("user/form-definition-{formDefinitionID}/delete")]
+        public ActionResult Delete(int formDefinitionID)
+        {
+            FormDefinition form = FormService.Get(formDefinitionID);
+            DeleteFormDefinitionStatus status = CleanUpService.DeleteFormDefinition(formDefinitionID);
+            switch (status)
+            {
+                case DeleteFormDefinitionStatus.Deleted:
+                    ShowMessage((L)"Form definition deleted.");
+                    return RedirectToAction("forms", "project", new { projectID = form.ProjectID });
+                case DeleteFormDefinitionStatus.PermissionDenied:
+                    ShowMessage((L)"Permission denied!", HtmlMessageType.Warning);
+                    return RedirectToAction("forms", "project", new { projectID = form.ProjectID });
+                case DeleteFormDefinitionStatus.NoSuchFormDefinition:
+                    ShowMessage((L)"No such form definition.");
+                    return RedirectToAction("index", "project");
+            }
+            return RedirectToAction("index", "project");
+        }
+
         [Url("user/form-{formDefinitionID}/fields")]
         public ActionResult Fields(int formDefinitionID)
         {
@@ -129,6 +159,31 @@ namespace Neptuo.Forms.Web.Controllers
                     Required = f.Required,
                     FieldType = f.FieldType
                 })
+            });
+        }
+
+        [Url("user/form-{formDefinitionID}/data")]
+        public ActionResult FormData(int formDefinitionID, int page = 1)
+        {
+            return View(new ListFormDataModel
+            {
+                Items = DataService.GetList(formDefinitionID).Select(d => new ListItemFormDataModel
+                {
+                    ID = d.ID,
+                    Created = d.Created,
+                    Columns = d.Fields.Select(f => new FieldDataModel {
+                        Name = f.FieldDefinition.Name, 
+                        Value = f.GetDisplayValue()
+                    })
+                })
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = DataService.GetList(formDefinitionID).Count()
+                }
             });
         }
     }

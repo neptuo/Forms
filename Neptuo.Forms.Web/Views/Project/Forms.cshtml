@@ -24,7 +24,8 @@
             .AddColumn((L)"Public", f => f.PublicContent ? (L)"Yes" : (L)"No", "w30")
             .AddColumn("", f => Html.ActionLink((L)"Edit", "edit", "formdefinition", new { formDefinitionID = f.FormDefinitionID }, null)
                 + " " + Html.ActionLink((L)"Fields", "fields", "formdefinition", new { formDefinitionID = f.FormDefinitionID }, null)
-                + " " + Html.ActionLink((L)"Data", "index", "formdata", new { formDefinitionID = f.FormDefinitionID }), "w100")
+                + " " + Html.ActionLink((L)"Data", "index", "formdata", new { formDefinitionID = f.FormDefinitionID })
+                + " " + UI.DeleteLink((L)"Delete", "delete", "formdefinition", new { formDefinitionID = f.FormDefinitionID }), "w140")
             .Render();
         
     }

@@ -11,7 +11,9 @@ using Neptuo.Web.Mvc;
 using Neptuo.Web.Mvc.Auth;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Web.Mvc.Unity;
+using Neptuo.Forms.AzureSupport;
 using Neptuo.Forms.Core;
+using Neptuo.Forms.Core.Service;
 
 namespace Neptuo.Forms.Web
 {
@@ -33,9 +35,11 @@ namespace Neptuo.Forms.Web
 
         private void RegisterUnity(UnityContainer container)
         {
-            FormsCore.RegisterTypes(container, FileStorageType.Memory, LoggerType.Trace);
-
             container
+                //.RegisterType<ILogger, TraceLogger>(new PerHttpRequestLifetimeManager())
+                //.RegisterType<IFileStorage, MemoryFileStorage>()
+                //.RegisterType<ILogger, AzureBlobLogger>(new PerHttpRequestLifetimeManager())
+                //.RegisterType<IFileStorage, AzureFileStorage>()
                 .RegisterType<UserContext, CurrentUserContext>(new PerHttpRequestLifetimeManager())
                 .RegisterType<IUserRoleResolver, CurrentUserContext>(new PerHttpRequestLifetimeManager())
                 .RegisterType<IAuthProvider, LocalAuthProvider>()
@@ -156,7 +160,9 @@ namespace Neptuo.Forms.Web
         {
             Bootstrapper
                 .Initialize()
-                .BuildUnity(RegisterUnity)
+                .BuildFormsCore(RegisterUnity)
+                //.RegisterAzure()
+                .RegisterStandard()
                 .BuildLocalization(RegisterLocales)
                 .BuildStandartMenu(RegisterMenu)
                 .SetupGlobalFilters()
