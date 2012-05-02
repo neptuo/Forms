@@ -23,5 +23,10 @@ namespace Neptuo.Forms.Core.DataAccess
         public DbSet<FieldData> FieldData { get; set; }
 
         public DbSet<ProjectInvitation> ProjectInvitations { get; set; }
+
+        public DataContext()
+        {
+
+        }
     }
 }

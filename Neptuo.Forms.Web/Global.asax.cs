@@ -161,6 +161,7 @@ namespace Neptuo.Forms.Web
             Bootstrapper
                 .Initialize()
                 .BuildFormsCore(RegisterUnity)
+                .InitializeDataContext()
                 //.RegisterAzure()
                 .RegisterStandard()
                 .BuildLocalization(RegisterLocales)

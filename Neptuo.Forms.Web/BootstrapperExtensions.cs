@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.Practices.Unity;
+using Neptuo.Web.DataAccess.EntityFramework;
 using Neptuo.Web.Localization;
 using Neptuo.Web.Localization.Mvc3;
 using Neptuo.Web.Mvc;
+using Neptuo.Web.Mvc.Unity;
 using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
+using Neptuo.Forms.Core.DataAccess;
 
 namespace Neptuo.Forms.Web
 {
@@ -37,6 +40,13 @@ namespace Neptuo.Forms.Web
                 .RegisterType<IFileStorage, MemoryFileStorage>()
                 .RegisterType<ILogger, TraceLogger>();
 
+            return bootstrapper;
+        }
+
+        public static Bootstrapper InitializeDataContext(this Bootstrapper bootstrapper)
+        {
+            bootstrapper.UnityContainer.RegisterType<DataContext>(new PerHttpRequestLifetimeManager());
+            GenericRepositoryHelper<DataContext>.DbContextInitializer = () => bootstrapper.UnityContainer.Resolve<DataContext>();
             return bootstrapper;
         }
     }

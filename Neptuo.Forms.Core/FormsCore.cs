@@ -19,6 +19,8 @@ namespace Neptuo.Forms.Core
 
         public static FormsCore Instance { get; private set; }
 
+        public UnityContainer UnityContainer { get; set; }
+
         public static void CreateInstance()
         {
             if (Instance != null)
@@ -35,7 +37,7 @@ namespace Neptuo.Forms.Core
         /// <param name="loggerType">Logger type.</param>
         public void RegisterTypes(UnityContainer container)
         {
-            container
+            (UnityContainer = container)
                 .RegisterType<IActivityService, ActivityService>()
                 .RegisterType<IRepository<UserAccount>, GenericRepository<UserAccount, DataContext>>()
                 .RegisterType<IUserService, UserService>()
