@@ -93,6 +93,9 @@ namespace Neptuo.Forms.Web.Controllers
                     case CreateFieldDefinitionStatus.NoSuchTargetFieldDefinition:
                         ShowMessage((L)"No such target field definition!", HtmlMessageType.Warning);
                         break;
+                    case CreateFieldDefinitionStatus.PermissionDenied:
+                        ShowMessage((L)"You can't create field in this form!", HtmlMessageType.Warning);
+                        return RedirectToAction("fields", "formdefinition", new { formDefinitionID = model.FormDefinitionID });
                 }
             }
             return View(model);
@@ -142,6 +145,9 @@ namespace Neptuo.Forms.Web.Controllers
                         case CreateFieldDefinitionStatus.NoSuchFormDefinition:
                             ShowMessage((L)"No such form definition!", HtmlMessageType.Warning);
                             return RedirectToAction("index", "project");
+                        case CreateFieldDefinitionStatus.PermissionDenied:
+                            ShowMessage((L)"You can't create field in this form!", HtmlMessageType.Warning);
+                            return RedirectToAction("fields", "formdefinition", new { formDefinitionID = model.FormDefinitionID });
                     }
                 }
                 else
@@ -158,6 +164,9 @@ namespace Neptuo.Forms.Web.Controllers
                         case UpdateFieldDefinitionStatus.NoSuchFieldDefinition:
                             ShowMessage((L)"No such form definition!", HtmlMessageType.Warning);
                             return RedirectToAction("index", "project");
+                        case UpdateFieldDefinitionStatus.PermissionDenied:
+                            ShowMessage((L)"You can't update field in this form!", HtmlMessageType.Warning);
+                            return RedirectToAction("fields", "formdefinition", new { formDefinitionID = model.FormDefinitionID });
                     }
                 }
             }

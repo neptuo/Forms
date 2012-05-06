@@ -30,6 +30,13 @@
     <UseMerge>true</UseMerge>
     <SingleAssemblyName>Neptuo.Forms.Web.Deploy</SingleAssemblyName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Cloud|AnyCPU'">
+    <EnableUpdateable>true</EnableUpdateable>
+    <UseMerge>true</UseMerge>
+    <UseWebConfigReplacement>false</UseWebConfigReplacement>
+    <SingleAssemblyName>Neptuo.Forms.Web.Deploy</SingleAssemblyName>
+    <OutputPath>.\Cloud</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.Forms.Web\Neptuo.Forms.Web.csproj">
       <Project>{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}</Project>

@@ -85,6 +85,9 @@ namespace Neptuo.Forms.Core.Service
             if(project == null)
                 return CreateFormDefinitionStatus.NoSuchProject;
 
+            if(!ProjectService.CanUserManage(projectID))
+                return CreateFormDefinitionStatus.PermissionDenied;
+
             FormDefinition form = new FormDefinition
             {
                 Name = name,
@@ -108,6 +111,9 @@ namespace Neptuo.Forms.Core.Service
             if (form == null)
                 return UpdateFormDefinitionStatus.NoSuchFormDefinition;
 
+            if (!ProjectService.CanUserManage(form.ProjectID))
+                return UpdateFormDefinitionStatus.PermissionDenied;
+
             form.Name = name;
             form.PublicContent = publicContent;
             FormRepository.Update(form);
@@ -126,6 +132,9 @@ namespace Neptuo.Forms.Core.Service
 
             if (String.IsNullOrEmpty(name))
                 return CreateFieldDefinitionStatus.InvalidName;
+
+            if (!ProjectService.CanUserManage(form.ProjectID))
+                return CreateFieldDefinitionStatus.PermissionDenied;
 
             form.Fields.Add(new FieldDefinition
             {
@@ -157,6 +166,9 @@ namespace Neptuo.Forms.Core.Service
             if (targetForm == null)
                 return CreateFieldDefinitionStatus.NoSuchTargetFormDefinition;
 
+            if (!ProjectService.CanUserManage(form.ProjectID))
+                return CreateFieldDefinitionStatus.PermissionDenied;
+
             form.Fields.Add(new FieldDefinition
             {
                 Name = name,
@@ -180,6 +192,9 @@ namespace Neptuo.Forms.Core.Service
 
             if (!Validator.CheckName(name))
                 return UpdateFieldDefinitionStatus.InvalidName;
+
+            if (!ProjectService.CanUserManage(field.FormDefinition.ProjectID))
+                return UpdateFieldDefinitionStatus.PermissionDenied;
 
             field.Name = name;
             field.Required = required;

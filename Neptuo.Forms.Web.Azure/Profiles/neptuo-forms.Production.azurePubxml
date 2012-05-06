@@ -11,7 +11,7 @@
     <AzureStorageAccountName>neptuoforms</AzureStorageAccountName>
     <AzureStorageAccountLabel>neptuoforms</AzureStorageAccountLabel>
     <AzureDeploymentLabel>Neptuo.Forms.Web.Azure</AzureDeploymentLabel>
-    <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
+    <AzureSolutionConfiguration>Cloud</AzureSolutionConfiguration>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureAppendTimestampToDeploymentLabel>False</AzureAppendTimestampToDeploymentLabel>
     <AzureAllowUpgrade>True</AzureAllowUpgrade>

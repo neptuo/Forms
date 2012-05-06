@@ -123,7 +123,12 @@ namespace Neptuo.Forms.Core.Service
         /// <summary>
         /// Error state, user has too many forms in project (<see cref="Validator.MaxUserProjects"/>).
         /// </summary>
-        FormCountExceeded
+        FormCountExceeded,
+
+        /// <summary>
+        /// Error state, user can't create form.
+        /// </summary>
+        PermissionDenied
     }
 
     /// <summary>
@@ -144,7 +149,12 @@ namespace Neptuo.Forms.Core.Service
         /// <summary>
         /// Error state, there was provided ID to non-existing form definition.
         /// </summary>
-        NoSuchFormDefinition
+        NoSuchFormDefinition,
+
+        /// <summary>
+        /// Error state, user can't create form.
+        /// </summary>
+        PermissionDenied
     }
 
     /// <summary>
@@ -180,7 +190,12 @@ namespace Neptuo.Forms.Core.Service
         /// <summary>
         /// Error state, there was provided ID to non-existing target field definition when creating reference field.
         /// </summary>
-        NoSuchTargetFieldDefinition
+        NoSuchTargetFieldDefinition,
+
+        /// <summary>
+        /// Error state, user can't create form.
+        /// </summary>
+        PermissionDenied
     }
 
     /// <summary>
@@ -201,6 +216,11 @@ namespace Neptuo.Forms.Core.Service
         /// <summary>
         /// Error state, there was provided ID to non-existing field definition.
         /// </summary>
-        NoSuchFieldDefinition
+        NoSuchFieldDefinition,
+
+        /// <summary>
+        /// Error state, user can't create form.
+        /// </summary>
+        PermissionDenied
     }
 }

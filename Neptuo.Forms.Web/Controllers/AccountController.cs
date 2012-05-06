@@ -49,13 +49,7 @@ namespace Neptuo.Forms.Web.Controllers
         protected override ActionResult AfterSuccessfulLogin(LocalLoginModel model)
         {
             ActivityService.UserLoggedIn(model.Username);
-            string message = (L)"Welcome back, {0}!";
-
-            IQueryable<ProjectInvitation> invitations = InvitationService.GetProjectInvitations();
-            if (invitations.Count() > 0)
-                message = String.Format("{1} " + (L)"You have {0} invitation(s).", invitations.Count(), message);
-
-            ShowMessage(String.Format(message, model.Username));
+            ShowMessage(String.Format((L)"Welcome back, {0}!", UserContext.Account.Fullname));
             return base.AfterSuccessfulLogin(model);
         }
 
@@ -102,6 +96,7 @@ namespace Neptuo.Forms.Web.Controllers
                 case AuthenticationStatus.Authenticated:
                     if (RemoteAuthProvider.Authenticate(response.ClaimedIdentifier, false))
                     {
+                        UserContext = DependencyResolver.Current.GetService<UserContext>();
                         return AfterSuccessfulLogin(new LocalLoginModel
                         {
                             Username = response.ClaimedIdentifier
@@ -189,6 +184,7 @@ namespace Neptuo.Forms.Web.Controllers
         {
             return View("change", new ChangeAccountModel
             {
+                PublicIdentifier = UserContext.Account.PublicIdentifier,
                 Email = UserContext.Account.Email,
                 Fullname = UserContext.Account.Fullname
             });

@@ -17,5 +17,9 @@ namespace Neptuo.Forms.Core
         [ForeignKey("Owner")]
         public int OwnerUserID { get; set; }
         public virtual UserAccount Owner { get; set; }
+
+        public virtual List<UserAccount> Managers { get; set; }
+
+        public virtual List<UserAccount> Readers { get; set; }
     }
 }

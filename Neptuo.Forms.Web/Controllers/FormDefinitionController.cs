@@ -101,6 +101,9 @@ namespace Neptuo.Forms.Web.Controllers
                         case CreateFormDefinitionStatus.FormCountExceeded:
                             ShowMessage((L)"Maximum forms in project count exceeded!", HtmlMessageType.Warning);
                             return RedirectToAction("forms", "project", new { projectID = model.ProjectID });
+                        case CreateFormDefinitionStatus.PermissionDenied:
+                            ShowMessage((L)"You can't create form!", HtmlMessageType.Warning);
+                            return RedirectToAction("forms", "project", new { projectID = model.ProjectID });
                     }
                 }
                 else
@@ -116,6 +119,9 @@ namespace Neptuo.Forms.Web.Controllers
                             break;
                         case UpdateFormDefinitionStatus.NoSuchFormDefinition:
                             ShowMessage((L)"No such form definition!", HtmlMessageType.Warning);
+                            return RedirectToAction("forms", "project", new { projectID = model.ProjectID });
+                        case UpdateFormDefinitionStatus.PermissionDenied:
+                            ShowMessage((L)"You can't update this form!", HtmlMessageType.Warning);
                             return RedirectToAction("forms", "project", new { projectID = model.ProjectID });
                     }
                 }

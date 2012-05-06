@@ -13,6 +13,17 @@
     {
         <div class="editor-item w300">
             <div class="editor-label">
+                @Html.LabelFor(m => m.PublicIdentifier)
+            </div>
+            <div class="editor-field">
+                @Html.DisplayFor(m => m.PublicIdentifier)
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+
+        <div class="editor-item w300">
+            <div class="editor-label">
                 @Html.LabelFor(m => m.Fullname)
             </div>
             <div class="editor-field">
@@ -21,8 +32,7 @@
             </div>
         </div>
         <div class="clear"></div>
-        
-        <div class="editor-item w300">
+                <div class="editor-item w300">
             <div class="editor-label">
                 @Html.LabelFor(m => m.Email)
             </div>
@@ -41,7 +51,7 @@
     <h2 class="folder-heading">@Loc("Change password")</h2>
 
     @if (UserContext.HasLocalCredentials())
-    { 
+    {
         using (Html.BeginForm("changepassword", "account"))
         {
             <div class="editor-item w300">

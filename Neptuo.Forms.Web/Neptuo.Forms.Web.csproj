@@ -33,6 +33,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Cloud|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Neptuo.Forms.Web.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetOpenAuth.Core">
       <HintPath>..\packages\DotNetOpenAuth.Core.4.0.1.12097\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
@@ -190,6 +204,7 @@
     <Compile Include="Models\FieldDefinition\ListFieldDefinitionModel.cs" />
     <Compile Include="Models\FormDefinition\ListFormDefinitionModel.cs" />
     <Compile Include="Models\ListFormDataModel.cs" />
+    <Compile Include="Models\MyInvitationModel.cs" />
     <Compile Include="Models\Project\ListInvitationModel.cs" />
     <Compile Include="Models\WebService\FormInsertModel.cs" />
     <Compile Include="Models\Project\EditProjectModel.cs" />
@@ -300,6 +315,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -364,6 +380,10 @@
     <Content Include="Views\Project\Invitations.cshtml" />
     <Content Include="Views\FormDefinition\FormData.cshtml" />
     <Content Include="Views\Account\Settings.cshtml" />
+    <Content Include="Web.Cloud.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Project\MyInvitations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\RestApi\" />

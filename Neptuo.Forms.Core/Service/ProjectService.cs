@@ -21,12 +21,12 @@ namespace Neptuo.Forms.Core.Service
 
         public IQueryable<Project> GetList()
         {
-            return Repository.Where(p => p.OwnerUserID == UserContext.AccountID).OrderBy(p => p.ID);
+            return Repository.Where(p => p.OwnerUserID == UserContext.AccountID || p.Managers.Select(u => u.ID).Contains(UserContext.AccountID) || p.Readers.Select(u => u.ID).Contains(UserContext.AccountID)).OrderBy(p => p.ID);
         }
 
         public Project Get(int id)
         {
-            return Repository.FirstOrDefault(p => p.ID == id && p.OwnerUserID == UserContext.AccountID);
+            return Repository.FirstOrDefault(p => p.ID == id && (p.Readers.Select(m => m.ID).Contains(UserContext.AccountID) || p.Managers.Select(m => m.ID).Contains(UserContext.AccountID) || p.OwnerUserID == UserContext.AccountID));
         }
 
         public CreateProjectStatus CreateProject(string name, string description)
@@ -74,13 +74,13 @@ namespace Neptuo.Forms.Core.Service
         public bool CanUserManage(int id)
         {
             Project project = Get(id);
-            return project != null;
+            return project != null && (project.Managers.Select(m => m.ID).Contains(UserContext.AccountID) || project.OwnerUserID == UserContext.AccountID);
         }
 
         public bool IsUserOwner(int id)
         {
             Project project = Get(id);
-            return project != null;
+            return project != null && project.OwnerUserID == UserContext.AccountID;
         }
     }
 }

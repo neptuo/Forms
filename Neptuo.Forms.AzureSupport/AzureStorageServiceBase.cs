@@ -12,12 +12,17 @@ namespace Neptuo.Forms.AzureSupport
     {
         public const string StorageConnectionString = "StorageConnectionString";
 
+        private static CloudStorageAccount storageAccount;
+
         protected CloudTableClient TableClient { get; set; }
+
+        static AzureStorageServiceBase()
+        {
+            storageAccount = CloudStorageAccount.Parse(RoleEnvironment.GetConfigurationSettingValue(StorageConnectionString));
+        }
 
         public AzureStorageServiceBase()
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(RoleEnvironment.GetConfigurationSettingValue(StorageConnectionString));
-
             TableClient = storageAccount.CreateCloudTableClient();
         }
 

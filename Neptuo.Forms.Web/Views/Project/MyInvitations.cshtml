@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Neptuo.Forms.Web.Models.MyInvitationModel>
+
+<div class="folder invitations-folder">
+    <h2 class="folder-heading">@Loc("Invitations to projects")</h2>
+
+    @{ 
+        
+        UI.Grid(Model)
+            .SetEmptyText((L)"No invitations")
+            .AddColumn((L)"Project name", i => i.ProjectName)
+            .AddColumn((L)"Owner name", i => i.OwnerFullname)
+            .AddColumn((L)"Type", i => i.TypeName)
+            .AddColumn((L)"Created", i => i.Created)
+            .AddColumn("", i => UI.DeleteLink((L)"Accept", "AcceptInvitation", "Project", new { InvitationID = i.ID }) + " "
+                + UI.DeleteLink((L)"Decline", "DeclineInvitation", "Project", new { InvitationID = i.ID }, (L)"Opravdu si přejet odmítnout pozvánku?"), "w100")
+            .Render();
+        
+    }
+</div>

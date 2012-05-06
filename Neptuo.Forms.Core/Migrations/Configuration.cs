@@ -52,6 +52,7 @@ namespace Neptuo.Forms.Core.Migrations
                 FormDefinition miniForum = context.FormDefinitions.Add(new FormDefinition
                 {
                     Name = "Mini-forum",
+                    Created = DateTime.Now,
                     ProjectID = project.ID,
                     PublicContent = true,
                     PublicIdentifier = "66e9da18r5d92",

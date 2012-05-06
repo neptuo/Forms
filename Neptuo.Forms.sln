@@ -13,6 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Forms.AzureSupport",
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Cloud|Any CPU = Cloud|Any CPU
+		Cloud|Mixed Platforms = Cloud|Mixed Platforms
+		Cloud|x86 = Cloud|x86
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
@@ -21,6 +24,11 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Cloud|Any CPU.ActiveCfg = Cloud|Any CPU
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Cloud|Any CPU.Build.0 = Cloud|Any CPU
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Cloud|Mixed Platforms.ActiveCfg = Cloud|Any CPU
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Cloud|Mixed Platforms.Build.0 = Cloud|Any CPU
+		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Cloud|x86.ActiveCfg = Cloud|Any CPU
 		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -31,6 +39,11 @@ Global
 		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A012144F-7147-460B-BEE2-6E9AF3204BCC}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Cloud|Any CPU.ActiveCfg = Cloud|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Cloud|Any CPU.Build.0 = Cloud|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Cloud|Mixed Platforms.ActiveCfg = Cloud|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Cloud|Mixed Platforms.Build.0 = Cloud|Any CPU
+		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Cloud|x86.ActiveCfg = Cloud|Any CPU
 		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -41,6 +54,11 @@ Global
 		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CD7DD92D-E0D0-4B1F-98C6-62F67F14F053}.Release|x86.ActiveCfg = Release|Any CPU
+		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Cloud|Any CPU.ActiveCfg = Cloud|Any CPU
+		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Cloud|Any CPU.Build.0 = Cloud|Any CPU
+		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Cloud|Mixed Platforms.ActiveCfg = Cloud|Any CPU
+		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Cloud|Mixed Platforms.Build.0 = Cloud|Any CPU
+		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Cloud|x86.ActiveCfg = Cloud|Any CPU
 		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -48,6 +66,11 @@ Global
 		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C3FE1CFA-DC3C-4635-A128-B66A628A7C40}.Release|x86.ActiveCfg = Release|Any CPU
+		{46BD8AB8-D413-473A-8D78-C45538136F32}.Cloud|Any CPU.ActiveCfg = Cloud|Any CPU
+		{46BD8AB8-D413-473A-8D78-C45538136F32}.Cloud|Any CPU.Build.0 = Cloud|Any CPU
+		{46BD8AB8-D413-473A-8D78-C45538136F32}.Cloud|Mixed Platforms.ActiveCfg = Cloud|Any CPU
+		{46BD8AB8-D413-473A-8D78-C45538136F32}.Cloud|Mixed Platforms.Build.0 = Cloud|Any CPU
+		{46BD8AB8-D413-473A-8D78-C45538136F32}.Cloud|x86.ActiveCfg = Cloud|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -56,6 +79,11 @@ Global
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Release|x86.ActiveCfg = Release|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Cloud|Any CPU.ActiveCfg = Cloud|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Cloud|Any CPU.Build.0 = Cloud|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Cloud|Mixed Platforms.ActiveCfg = Cloud|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Cloud|Mixed Platforms.Build.0 = Cloud|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Cloud|x86.ActiveCfg = Cloud|Any CPU
 		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

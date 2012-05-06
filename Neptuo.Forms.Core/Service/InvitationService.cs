@@ -13,6 +13,9 @@ namespace Neptuo.Forms.Core.Service
         public IRepository<ProjectInvitation> ProjectInvitations { get; set; }
 
         [Dependency]
+        public IRepository<Project> ProjectRepository { get; set; }
+
+        [Dependency]
         public IProjectService ProjectService { get; set; }
 
         [Dependency]
@@ -50,6 +53,7 @@ namespace Neptuo.Forms.Core.Service
                 Created = DateTime.Now,
                 TargetProjectID = projectID,
                 TargetUserID = account.ID,
+                OwnerUserID = project.OwnerUserID,
                 Type = type
             };
             ProjectInvitations.Insert(invitation);
@@ -65,10 +69,16 @@ namespace Neptuo.Forms.Core.Service
 
             if (invitation.TargetUserID != UserContext.AccountID)
                 return AcceptInvitationStatus.NotTarget;
-
-            //TODO: Assign to project
+                
+            if (invitation.Type == ProjectInvitationType.Manager)
+                invitation.TargetProject.Managers.Add(invitation.TargetUser);
+            else if (invitation.Type == ProjectInvitationType.Reader)
+                invitation.TargetProject.Readers.Add(invitation.TargetUser);
+            else if (invitation.Type == ProjectInvitationType.Owner)
+                invitation.TargetProject.OwnerUserID = invitation.TargetUserID;
 
             ActivityService.ProjectInvitationAccepted(invitation.ID);
+            ProjectRepository.Update(invitation.TargetProject);
             ProjectInvitations.Delete(invitation);
             return AcceptInvitationStatus.Accepted;
         }

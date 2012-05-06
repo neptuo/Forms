@@ -204,5 +204,64 @@ namespace Neptuo.Forms.Web.Controllers
 
             return RedirectToAction("Invitations", new { projectID = projectID });
         }
+
+        [ChildActionOnly]
+        public ActionResult MyInvitations()
+        {
+            IQueryable<ProjectInvitation> invitations = InvitationService.GetProjectInvitations();
+            if (invitations.Count() > 0)
+            {
+                return PartialView(invitations.Select(i => new MyInvitationModel
+                {
+                    ID = i.ID,
+                    ProjectName = i.TargetProject.Name,
+                    OwnerFullname = i.OwnerUser.Fullname,
+                    Created = i.Created,
+                    Type = i.Type
+                }));
+            }
+
+            return new EmptyResult();
+        }
+
+        [HttpPost]
+        public ActionResult AcceptInvitation(int invitationID)
+        {
+            AcceptInvitationStatus status = InvitationService.AcceptProjectInvitation(invitationID);
+            switch (status)
+            {
+                case AcceptInvitationStatus.Accepted:
+                    ShowMessage((L)"Invitation accepted.");
+                    return RedirectToAction("Index", "FormDefinition");
+                case AcceptInvitationStatus.NotTarget:
+                    ShowMessage((L)"You are not the invited user!", HtmlMessageType.Warning);
+                    return RedirectToAction("Index", "FormDefinition");
+                case AcceptInvitationStatus.NoSuchInvitation:
+                    ShowMessage((L)"Invitations doesn't exist!", HtmlMessageType.Warning);
+                    return RedirectToAction("Index", "FormDefinition");
+            }
+
+            return RedirectToAction("Index", "FormDefinition");
+        }
+
+        [HttpPost]
+        public ActionResult DeclineInvitation(int invitationID)
+        {
+            DeclineInvitationStatus status = InvitationService.DeclineProjectInvitation(invitationID);
+            switch (status)
+            {
+                case DeclineInvitationStatus.Declined:
+                    ShowMessage((L)"Invitation declined.");
+                    return RedirectToAction("Index", "FormDefinition");
+                case DeclineInvitationStatus.NotTarget:
+                    ShowMessage((L)"You are not the invited user!", HtmlMessageType.Warning);
+                    return RedirectToAction("Index", "FormDefinition");
+                case DeclineInvitationStatus.NoSuchInvitation:
+                    ShowMessage((L)"Invitations doesn't exist!", HtmlMessageType.Warning);
+                    return RedirectToAction("Index", "FormDefinition");
+            }
+
+            return RedirectToAction("Index", "FormDefinition");
+        }
     }
 }

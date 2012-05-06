@@ -9,6 +9,9 @@ namespace Neptuo.Forms.Web.Models
 {
     public class ChangeAccountModel
     {
+        [Display(Name = "Identifier")]
+        public string PublicIdentifier { get; set; }
+
         [Display(Name = "Fullname")]
         [Required(ErrorMessage = "Fullname is required!")]
         public string Fullname { get; set; }

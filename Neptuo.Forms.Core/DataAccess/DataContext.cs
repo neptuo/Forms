@@ -25,8 +25,24 @@ namespace Neptuo.Forms.Core.DataAccess
         public DbSet<ProjectInvitation> ProjectInvitations { get; set; }
 
         public DataContext()
-        {
+        { }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Project>().HasMany(p => p.Managers).WithMany().Map(mc =>
+            {
+                mc.ToTable("ProjectManagers");
+                mc.MapLeftKey("ProjectID");
+                mc.MapRightKey("UserAccountID");
+            });
+            modelBuilder.Entity<Project>().HasMany(p => p.Readers).WithMany().Map(mc =>
+            {
+                mc.ToTable("ProjectReaders");
+                mc.MapLeftKey("ProjectID");
+                mc.MapRightKey("UserAccountID");
+            });
         }
     }
 }
