@@ -10,4 +10,4 @@
 28	Mini-Forum	Na úvodní stránce FormService jsme právě zprovoznili první funkční verzi formuláře. Pojďte nám něco napsat :)	cs	2012-04-24 20:18:34.480	5
 29	Mini-Forum	We have just completed first functional version of form. Let's write something to us :)	en	2012-04-24 20:19:20.297	5
 30	Maximální počet formulářů v projektu stanoven na 15	Byl nastaven maximální počet formulářů v projektu na 15. I přes toto omezení však každý uživatel může vlastnit až 375 formulářů, plus v dalších může být veden jako manažer/čtenář.	cs	2012-04-29 17:01:05.687	5
-31	Maximum forms count in project is setu to 15	Maximum forms count in single project was set to 15. So every user can have up to 375 forms, plus can manager/reader in others.	en	2012-04-29 17:02:33.180	5
+31	Maximum forms count in project is set to 15	Maximum forms count in single project was set to 15. So every user can have up to 375 forms, plus can manager/reader in others.	en	2012-04-29 17:02:33.180	5

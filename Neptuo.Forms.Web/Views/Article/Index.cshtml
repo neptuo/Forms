@@ -5,7 +5,14 @@
 }
 
 <div class="folder">
-    <h2 class="folder-heading">@Loc("Articles")</h2>
+    <div class="folder-heading">
+        <h2 class="left">@Loc("Articles")</h2>
+
+        <div class="grid-paging right">
+            @Html.DisplayFor(m => m.PagingInfo)
+        </div>
+        <div class="clear"></div>
+    </div>
 
     @{
         
@@ -19,10 +26,6 @@
             .AddColumn("", a => Html.ActionLink((L)"Edit", "edit", new { id = a.ID }) + " " + UI.DeleteLink((L)"Delete", "delete", new { id = a.ID }), "w70")
             .Render();
     }
-    
-    <div class="grid-paging">
-        @Html.DisplayFor(m => m.PagingInfo)
-    </div>
 
     <div class="folder-foot">
         @Html.ActionLink((L)"+Create", "create")

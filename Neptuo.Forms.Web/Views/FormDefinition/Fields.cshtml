@@ -5,7 +5,7 @@
 }
 
 <div class="folder">
-    <h2 class="folder-heading">@Loc("Form fields")</h2>
+    <h2 class="folder-heading">@Model.FormName > @Loc("Form fields")</h2>
 
     @{
         
@@ -23,7 +23,11 @@
 
     <div class="folder-foot">
         @Html.ActionLink((L)"+Create", "create", "fielddefinition")
-        @Html.ActionLink((L)"+Create reference field", "createreference", "fielddefinition")
-        @Html.ActionLink((L)"Back to projects", "forms", "project", new { ProjectID = Model.ProjectID }, null)
+        @*@if (Model.FormType == Neptuo.Forms.Core.FormType.Form)
+        {
+            @Html.ActionLink((L)"+Create reference field", "createreference", "fielddefinition")
+        }*@
+        |
+        @Html.ActionLink((L)"Back to forms", "forms", "project", new { ProjectID = Model.ProjectID }, null)
     </div>
 </div>

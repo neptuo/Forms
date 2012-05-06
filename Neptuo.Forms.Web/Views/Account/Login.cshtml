@@ -13,7 +13,7 @@
     <script type="text/javascript">
 
         $(function () {
-            openid.init('openid_identifier');
+            openid.init("@Neptuo.Forms.Web.Controllers.AccountController.OpenIDTextBox");
         });
     
     </script>
@@ -28,7 +28,7 @@
             <div id="openid_btns"></div>
         </div>
         <div id="openid_input_area">
-            @Html.TextBox("openid_identifier")
+            @Html.TextBox(Neptuo.Forms.Web.Controllers.AccountController.OpenIDTextBox)
             <input type="submit" value="@Loc("Sign in")" />
         </div>
     }

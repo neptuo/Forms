@@ -92,9 +92,8 @@ namespace Neptuo.Forms.Web
             {
                 LinkText = "Settings",
                 IconUrl = "admin-settings",
-                UrlContent = "#",
-                Controller = "Settings",
-                Action = "Index"
+                Controller = "account",
+                Action = "settings"
             }, new MenuItem
             {
                 LinkText = "User account",
@@ -162,8 +161,8 @@ namespace Neptuo.Forms.Web
                 .Initialize()
                 .BuildFormsCore(RegisterUnity)
                 .InitializeDataContext()
-                //.RegisterAzure()
                 .RegisterStandard()
+                .RegisterAzure()
                 .BuildLocalization(RegisterLocales)
                 .BuildStandartMenu(RegisterMenu)
                 .SetupGlobalFilters()

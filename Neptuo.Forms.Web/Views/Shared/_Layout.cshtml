@@ -99,6 +99,9 @@
 
             $(function () {
                 $('select').chosen();
+                $('.confirm').click(function(e) {
+                    return confirm($(this).attr('data-confirm'));
+                });
 
                 @RenderSection("JavascriptDomReady", false)
             });

@@ -125,7 +125,7 @@ namespace Neptuo.Forms.Web.Controllers
         }
 
         [HttpPost]
-        [Url("user/form-definition-{formDefinitionID}/delete")]
+        [Url("user/form-{formDefinitionID}/delete")]
         public ActionResult Delete(int formDefinitionID)
         {
             FormDefinition form = FormService.Get(formDefinitionID);
@@ -148,9 +148,12 @@ namespace Neptuo.Forms.Web.Controllers
         [Url("user/form-{formDefinitionID}/fields")]
         public ActionResult Fields(int formDefinitionID)
         {
+            FormDefinition form = FormService.Get(formDefinitionID);
             return View(new ListFieldDefinitionModel
             {
-                ProjectID = FormService.Get(formDefinitionID).ProjectID,
+                ProjectID = form.ProjectID,
+                FormName = form.Name,
+                FormType = form.FormType,
                 Fields = FormService.GetFields(formDefinitionID).Select(f => new ListItemFieldDefinitionModel
                 {
                     FieldDefinitionID = f.ID,
@@ -165,25 +168,23 @@ namespace Neptuo.Forms.Web.Controllers
         [Url("user/form-{formDefinitionID}/data")]
         public ActionResult FormData(int formDefinitionID, int page = 1)
         {
+            FormDefinition form = FormService.Get(formDefinitionID);
             return View(new ListFormDataModel
             {
-                Items = DataService.GetList(formDefinitionID).Select(d => new ListItemFormDataModel
+                ProjectID = form.ProjectID,
+                FormName = form.Name,
+                Columns = FormService.GetFields(formDefinitionID).Select(f => new SimpleColumn
+                {
+                    ID = f.ID,
+                    Name = f.Name
+                }).ToList(),
+                Items = PagingHelper.TakePage(DataService.GetList(formDefinitionID).Select(d => new ListItemFormDataModel
                 {
                     ID = d.ID,
                     Created = d.Created,
-                    Columns = d.Fields.Select(f => new FieldDataModel {
-                        Name = f.FieldDefinition.Name, 
-                        Value = f.GetDisplayValue()
-                    })
-                })
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize),
-                PagingInfo = new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = pageSize,
-                    TotalItems = DataService.GetList(formDefinitionID).Count()
-                }
+                    Columns = d.Fields
+                }), page, pageSize),
+                PagingInfo = PagingHelper.CreateInfo(DataService.GetList(formDefinitionID), page, pageSize)
             });
         }
     }

@@ -65,5 +65,6 @@
         <div class="clear"></div>
         
         <input type="submit" name="save" value="@Loc("Save form")" />
+        @Html.ActionLink((L)"Back to forms", "forms", "project", new { ProjectID = Model.ProjectID }, new { @class = "button" })
     }
 </div>

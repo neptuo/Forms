@@ -21,7 +21,7 @@ namespace Neptuo.Forms.Core.Service
 
         public IQueryable<FormData> GetList(int formDefinitionID)
         {
-            return DataRepository.Where(d => d.FormDefinitionID == formDefinitionID);
+            return DataRepository.Where(d => d.FormDefinitionID == formDefinitionID).OrderByDescending(d => d.Created);
         }
 
         public FormData Get(int id)

@@ -38,6 +38,7 @@ namespace Neptuo.Forms.Core
         public void RegisterTypes(UnityContainer container)
         {
             (UnityContainer = container)
+                .RegisterInstance<IMessageFormatter>(new DefaultMessageFormatter())
                 .RegisterType<IActivityService, ActivityService>()
                 .RegisterType<IRepository<UserAccount>, GenericRepository<UserAccount, DataContext>>()
                 .RegisterType<IUserService, UserService>()

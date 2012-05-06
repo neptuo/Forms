@@ -128,6 +128,7 @@
     <Compile Include="RemoteCredentials.cs" />
     <Compile Include="Service\ActivityService.cs" />
     <Compile Include="Service\ArticleService.cs" />
+    <Compile Include="Service\DefaultMessageFormatter.cs" />
     <Compile Include="Service\DirectCleanUpService.cs" />
     <Compile Include="Service\FormDataService.cs" />
     <Compile Include="Service\FormDefinitionService.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Service\IFormDefinitionService.cs" />
     <Compile Include="Service\IInvitationService.cs" />
     <Compile Include="Service\ILogger.cs" />
+    <Compile Include="Service\IMessageFormatter.cs" />
     <Compile Include="Service\InvitationService.cs" />
     <Compile Include="Service\MemoryFileStorage.cs" />
     <Compile Include="Service\IProjectService.cs" />

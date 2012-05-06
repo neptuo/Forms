@@ -19,7 +19,7 @@ namespace Neptuo.Forms.Web.Controllers
 {
     public class AccountController : AuthController<LocalLoginModel>
     {
-        private const string OpenIDTextBox = "openid_identifier";
+        public const string OpenIDTextBox = "openid_identifier";
         private static OpenIdRelyingParty openid = new OpenIdRelyingParty();
 
         [Dependency]
@@ -36,6 +36,8 @@ namespace Neptuo.Forms.Web.Controllers
 
         [Dependency]
         public IRemoteAuthProvider RemoteAuthProvider { get; set; }
+
+        #region Authentication
 
         protected override ActionResult AfterLoginFailure(LocalLoginModel model)
         {
@@ -121,6 +123,10 @@ namespace Neptuo.Forms.Web.Controllers
             return new EmptyResult();
         }
 
+        #endregion
+
+        #region Registration
+
         public ActionResult Register()
         {
             if (TempData["OpenID"] != null)
@@ -173,6 +179,10 @@ namespace Neptuo.Forms.Web.Controllers
             }
             return View(model);
         }
+
+        #endregion
+
+        #region Change/Change password
 
         [AuthorizeUser]
         public ActionResult Change()
@@ -232,5 +242,17 @@ namespace Neptuo.Forms.Web.Controllers
             }
             return Change();
         }
+
+        #endregion
+
+        #region Settings
+
+        [AuthorizeUser]
+        public ActionResult Settings()
+        {
+            return View();
+        }
+
+        #endregion
     }
 }

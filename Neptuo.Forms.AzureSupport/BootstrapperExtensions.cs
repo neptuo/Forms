@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Practices.Unity;
 using Neptuo.Web.Mvc;
 using Neptuo.Forms.Core.Service;
+using Microsoft.WindowsAzure.ServiceRuntime;
 
 namespace Neptuo.Forms.AzureSupport
 {
@@ -15,15 +16,18 @@ namespace Neptuo.Forms.AzureSupport
     {
         /// <summary>
         /// Registers <see cref="AzureFileStorage"/> as <see cref="IFileStorage"/>.
-        /// Registers <see cref="AzureBlobLogger"/> as <see cref="ILogger"/>.
+        /// Registers <see cref="AzureLogger"/> as <see cref="ILogger"/>.
         /// </summary>
         /// <param name="bootstrapper">Current bootstrapper.</param>
         /// <returns>Fluently.</returns>
         public static Bootstrapper RegisterAzure(this Bootstrapper bootstrapper)
         {
-            bootstrapper.UnityContainer
-                .RegisterType<IFileStorage, AzureFileStorage>()
-                .RegisterType<ILogger, AzureBlobLogger>();
+            if (RoleEnvironment.IsAvailable)
+            {
+                bootstrapper.UnityContainer
+                    .RegisterType<IFileStorage, AzureFileStorage>()
+                    .RegisterType<ILogger, AzureLogger>();
+            }
 
             return bootstrapper;
         }

@@ -7,7 +7,6 @@
 <div class="folder">
     <div class="folder-heading">
         <div class="right">
-            @Html.ActionLink("Projects", "index")
             @Html.DropDownList("ProjectFilter", Model.GetProjects(Url))
         </div>
         <h2>@Loc("Project forms")</h2>
@@ -24,15 +23,16 @@
             .AddColumn((L)"Public", f => f.PublicContent ? (L)"Yes" : (L)"No", "w30")
             .AddColumn("", f => Html.ActionLink((L)"Edit", "edit", "formdefinition", new { formDefinitionID = f.FormDefinitionID }, null)
                 + " " + Html.ActionLink((L)"Fields", "fields", "formdefinition", new { formDefinitionID = f.FormDefinitionID }, null)
-                + " " + Html.ActionLink((L)"Data", "index", "formdata", new { formDefinitionID = f.FormDefinitionID })
-                + " " + UI.DeleteLink((L)"Delete", "delete", "formdefinition", new { formDefinitionID = f.FormDefinitionID }), "w140")
+                + " " + Html.ActionLink((L)"Data", "formdata", "formdefinition", new { formDefinitionID = f.FormDefinitionID }, null)
+                + " " + UI.DeleteLink((L)"Delete", "delete", "formdefinition", new { formDefinitionID = f.FormDefinitionID }, (L)"Opravdu smazat definici formuláře?"), "w140")
             .Render();
         
     }
 
     <div class="folder-foot">
         @Html.ActionLink((L)"+Create", "create", "formdefinition", new { ProjectID = Model.CurrentProjectID }, null)
-        @Html.ActionLink((L)"Back to projects", "index")
+        |
+        @Html.ActionLink((L)" To projects", "index")
     </div>
 </div>
 

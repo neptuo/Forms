@@ -17,6 +17,7 @@
     <Certificates>
     </Certificates>
     <ConfigurationSettings>
+      <Setting name="StorageConnectionString" />
     </ConfigurationSettings>
   </WebRole>
 </ServiceDefinition>

@@ -49,5 +49,6 @@
         
         @Html.HiddenFor(m => m.FormDefinitionID)
         <input type="submit" name="save" value="@Loc("Save field")" />
+        @Html.ActionLink((L)"Back to fields", "fields", "formdefinition", new { FieldDefinitionID = Model.FieldDefinitionID }, new { @class = "button" })
     }
 </div>

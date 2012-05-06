@@ -25,22 +25,15 @@ namespace Neptuo.Forms.Web.Controllers
         [Url("admin/articles")]
         public ActionResult Index(int page = 1)
         {
-            return View(new ListArticleModel(ArticleService.GetList().Select(a => new ListItemArticleModel
+            return View(new ListArticleModel(PagingHelper.TakePage(ArticleService.GetList().Select(a => new ListItemArticleModel
                 {
                     ID = a.ID,
                     Title = a.Title,
                     Culture = a.Culture,
                     Modified = a.Modified,
                     AuthorFullname = a.Author.Fullname
-                })
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize),
-                new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = pageSize,
-                    TotalItems = ArticleService.GetList().Count()
-                }
+                }), page, pageSize),
+                PagingHelper.CreateInfo(ArticleService.GetList(), page, pageSize)
             ));
         }
 

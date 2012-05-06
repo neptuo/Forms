@@ -1,0 +1,36 @@
+﻿@model Neptuo.Forms.Web.Models.ListFormDataModel
+
+@{
+    ViewBag.Title = "FormData";
+    ViewBag.HideSideBar = true;
+
+    var grid = UI.Grid(Model.Items)
+        .SetEmptyText((L)"No form data.")
+        .AddColumn((L)"ID", d => d.ID, "w30")
+        .AddColumn((L)"Created", d => d.Created, "w110");
+
+    foreach (var column in Model.Columns)
+    {
+        grid.AddColumn(column.Name, d => d.Columns.First(c => c.FieldDefinitionID == column.ID).GetDisplayValue());
+    }
+
+    grid.AddColumn("", d => "[Delete]", "w50");
+}
+
+<div class="folder">
+    <div class="folder-heading">
+        <h2 class="left">@Model.FormName > @Loc("Form data")</h2>
+
+        <div class="grid-paging right">
+            @Html.DisplayFor(m => m.PagingInfo)
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    @{ grid.Render(); }
+
+    <div class="folder-foot">
+        @Html.ActionLink((L)"Back to forms", "forms", "project", new { ProjectID = Model.ProjectID }, null)
+    </div>
+</div>
+

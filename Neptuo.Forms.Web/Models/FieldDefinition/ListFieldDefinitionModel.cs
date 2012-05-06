@@ -10,6 +10,10 @@ namespace Neptuo.Forms.Web.Models
     {
         public int ProjectID { get; set; }
 
+        public string FormName { get; set; }
+
+        public int FormType { get; set; }
+
         public IEnumerable<ListItemFieldDefinitionModel> Fields { get; set; }
     }
 

@@ -3,8 +3,8 @@
   <Role name="Neptuo.Forms.Web">
     <Instances count="2" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <!--<Setting name="DataConnectionString" value="DefaultEndpointsProtocol=https;AccountName=marek.fisera;AccountKey="  />-->
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=neptuoforms;AccountKey=oZ6fgWFyvC/D7ilNQvcRqPyZxuPbBU9hVmUPjl3fLwHfe+fL/l+lt7kbYpVSyVeyH269Sa/YVSzF1f4rUmovuQ==" />
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=neptuoforms;AccountKey=oZ6fgWFyvC/D7ilNQvcRqPyZxuPbBU9hVmUPjl3fLwHfe+fL/l+lt7kbYpVSyVeyH269Sa/YVSzF1f4rUmovuQ==" />
     </ConfigurationSettings>
     <Certificates>
     </Certificates>

@@ -197,6 +197,7 @@
     <Compile Include="Models\WebService\FormDefinitionModel.cs" />
     <Compile Include="Models\WebService\FormListDataModel.cs" />
     <Compile Include="Models\WebService\InsertValidationModel.cs" />
+    <Compile Include="PagingHelper.cs" />
     <Compile Include="RemoteAuthProvider.cs" />
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="CurrentUserContext.cs" />
@@ -359,6 +360,8 @@
     <Content Include="Views\Home\LearnJavascript.cs.cshtml" />
     <Content Include="Views\Home\Examples.cshtml" />
     <Content Include="Views\Project\Invitations.cshtml" />
+    <Content Include="Views\FormDefinition\FormData.cshtml" />
+    <Content Include="Views\Account\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\RestApi\" />
