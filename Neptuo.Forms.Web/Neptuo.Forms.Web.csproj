@@ -292,7 +292,9 @@
     <Content Include="Javascript\Forms.UI.js" />
     <Content Include="Javascript\jquery-1.7.1.min.js" />
     <Content Include="Javascript\jquery.jsonp-2.3.0.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -312,7 +314,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.Forms.AzureSupport\Neptuo.Forms.AzureSupport.csproj">
-      <Project>{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}</Project>
+      <Project>{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}</Project>
       <Name>Neptuo.Forms.AzureSupport</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Forms.Core\Neptuo.Forms.Core.csproj">

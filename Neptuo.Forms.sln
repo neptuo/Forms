@@ -9,7 +9,7 @@ Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Neptuo.Forms.Web.Azure", "N
 EndProject
 Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "Neptuo.Forms.Web.Deploy", "Neptuo.Forms.Web.Deploy\Neptuo.Forms.Web.Deploy.wdproj", "{46BD8AB8-D413-473A-8D78-C45538136F32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Forms.AzureSupport", "Neptuo.Forms.AzureSupport\Neptuo.Forms.AzureSupport.csproj", "{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Forms.AzureSupport", "Neptuo.Forms.AzureSupport\Neptuo.Forms.AzureSupport.csproj", "{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,23 +56,22 @@ Global
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{46BD8AB8-D413-473A-8D78-C45538136F32}.Release|x86.ActiveCfg = Release|Any CPU
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Debug|x86.ActiveCfg = Debug|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Debug|x86.Build.0 = Debug|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Release|Any CPU.ActiveCfg = Release|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Release|Any CPU.Build.0 = Release|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Release|Mixed Platforms.Build.0 = Release|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Release|x86.ActiveCfg = Release|x86
-		{CDBF3061-B522-42BD-90D2-3EEE62F27F1C}.Release|x86.Build.0 = Release|x86
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 		VisualSVNWorkingCopyRoot = .
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal
