@@ -1,20 +1,9 @@
-﻿@model Neptuo.Forms.Web.Models.ListFormDataModel
+﻿@model ListFormDataModel
 
 @{
     ViewBag.Title = "FormData";
     ViewBag.HideSideBar = true;
-
-    var grid = UI.Grid(Model.Items)
-        .SetEmptyText((L)"No form data.")
-        .AddColumn((L)"ID", d => d.ID, "w30")
-        .AddColumn((L)"Created", d => d.Created, "w110");
-
-    foreach (var column in Model.Columns)
-    {
-        grid.AddColumn(column.Name, d => d.Columns.First(c => c.FieldDefinitionID == column.ID).GetDisplayValue());
-    }
-
-    grid.AddColumn("", d => "[Delete]", "w50");
+    ViewBag.IdleEven = 0;
 }
 
 <div class="folder">
@@ -27,7 +16,45 @@
         <div class="clear"></div>
     </div>
 
-    @{ grid.Render(); }
+    @if (Model.Items.Count() > 0) { 
+        <table class="grid">
+            <tr>
+                <th class="w30">@Loc("ID")</th>
+                <th class="w110">@Loc("Created")</th>
+                @foreach (var column in Model.Columns)
+                {
+                    <th>@column.Name</th>
+                }
+                <th class="w50"></th>
+            </tr>
+            @foreach (var item in Model.Items)
+            {
+                <tr class="@(ViewBag.IdleEven % 2 == 0 ? "even" : "idle")">
+                    <td>@item.ID</td>
+                    <td>@item.Created</td>
+                    @foreach (var column in Model.Columns)
+                    {
+                        var value = item.Columns.First(c => c.FieldDefinitionID == column.ID);
+                        <td>
+                        @if (value != null)
+                        { 
+                            if (value.FieldDefinition.FieldType == Neptuo.Forms.Core.FieldType.FileField)
+                            {
+                                @Html.ActionLink(value.GetDisplayValue(), "File", "Form", new { FieldID = value.ID }, null)
+                            }
+                            else
+                            {
+                                @value.GetDisplayValue()
+                            }
+                        }
+                        </td>
+                    }
+                    <td></td>
+                </tr>
+                ViewBag.IdleEven++;
+            }
+        </table>
+    }
 
     <div class="folder-foot">
         @Html.ActionLink((L)"Back to forms", "forms", "project", new { ProjectID = Model.ProjectID }, null)

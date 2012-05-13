@@ -12,6 +12,9 @@ Forms.UI.FormBuilder = function (formID) {
     this.FormID = formID;
     this.ParentDataID = null;
 
+    this.ReferenceFields = [];
+    this.FileFields = [];
+
     this.SetParentDataID = function (dataID) {
         This.ParentDataID = dataID;
     };
@@ -105,6 +108,13 @@ Forms.UI.FormBuilder = function (formID) {
         for (var i = 0; i < This.FormDefinition.Fields.length; i++) {
             var field = This.FormDefinition.Fields[i];
             var fieldMeta = This.CreateFieldMetaDataInternal(this.MetaData.Fields[field.PublicIdentifier], field);
+
+            if (field.Type == 'ReferenceField') {
+                This.ReferenceFields[this.ReferenceFields.length] = field;
+            } else if (field.Type == 'FileField') {
+                This.FileFields[this.FileFields.length] = field;
+            }
+
             This.BuildFieldInternal(field, $form, fieldMeta);
         }
 
@@ -123,11 +133,21 @@ Forms.UI.FormBuilder = function (formID) {
 
         $item = $('<div class="form-field ' + fieldID + '" />').appendTo($(parent));
         $label = $('<label for="' + fieldID + '" class="field-label" />').html(metaData.Label).appendTo($item);
-        $field = $(metaData.Template.replace('{id}', fieldID).replace('{name}', fieldID).replace('{class}', "field-input").replace('{value}', metaData.DefaultValue)).appendTo($item);
+        $field = $(metaData.Template.replace('{id}', fieldID).replace('{name}', field.Type == 'FileField' ? field.FileIdentifier : fieldID).replace('{class}', "field-input").replace('{value}', metaData.DefaultValue)).appendTo($item);
         $validation = $('<div class="field-validation" />').appendTo($item);
     };
 
     this.ProcessSend = function ($form) {
+        if (This.FileFields.length > 0) {
+            This.UploadFileInternal(This.ProcessSendInternal);
+        } else {
+            This.ProcessSendInternal($form);
+        }
+
+
+    };
+
+    this.ProcessSendInternal = function ($form) {
         var form = This.FormDefinition;
         var fields = This.GetFieldValues(form, $form);
 
@@ -138,6 +158,7 @@ Forms.UI.FormBuilder = function (formID) {
         }, function () {
             This.HandleCustomErrorInternal($form);
         });
+        //alert(1);
     };
 
     this.GetFieldValues = function (formDefinition, $form) {
@@ -145,10 +166,18 @@ Forms.UI.FormBuilder = function (formID) {
         for (var i = 0; i < formDefinition.Fields.length; i++) {
             fields[i] = {
                 PublicIdentifier: formDefinition.Fields[i].PublicIdentifier,
-                Value: $('#field-' + formDefinition.Fields[i].PublicIdentifier).val()
+                Value:  formDefinition.Fields[i].Type == 'FileField' ? formDefinition.Fields[i].FileIdentifier : $('#field-' + formDefinition.Fields[i].PublicIdentifier).val()
             };
         }
         return fields;
+    };
+
+    this.UploadFileInternal = function (callback) {
+        $iframe = $('<iframe id="' + This.FormID + '-upload" />').hide().appendTo($('body'));
+        $iframe.load(function () {
+            callback(This.$Form);
+        });
+        This.$Form.attr('method', 'post').attr('enctype', 'multipart/form-data').attr('action', Forms.IO.GetUploadUrl(This.FormID)).attr('target', This.FormID + '-upload').submit();
     };
 
     this.HandleSavedInternal = function (newItem, $form) {
@@ -216,6 +245,8 @@ Forms.UI.FormBuilder = function (formID) {
                 metaData.RenderAs = 'checkbox';
             } else if (field.Type == 'ReferenceField') {
                 metaData.RenderAs = 'dropdown';
+            } else if (field.Type == 'FileField') {
+                metaData.RenderAs = 'file';
             }
         }
         if (This.IsNullOrUndefined(metaData.Template)) {
@@ -231,6 +262,9 @@ Forms.UI.FormBuilder = function (formID) {
                     break;
                 case 'dropdown':
                     metaData.Template = '<select id="{id}" name="{name}" class="{class}" />';
+                    break;
+                case 'file':
+                    metaData.Template = '<input type="file" id="{id}" name="{name}" class="{class}" value="{value}" />';
                     break;
             }
         }

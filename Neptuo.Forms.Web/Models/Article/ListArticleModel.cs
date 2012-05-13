@@ -8,19 +8,6 @@ namespace Neptuo.Forms.Web.Models
 {
     public class ListArticleModel
     {
-        public IEnumerable<ListItemArticleModel> Items { get; set; }
-
-        public PagingInfo PagingInfo { get; set; }
-
-        public ListArticleModel(IEnumerable<ListItemArticleModel> items, PagingInfo pagingInfo)
-        {
-            Items = items;
-            PagingInfo = pagingInfo;
-        }
-    }
-
-    public class ListItemArticleModel
-    {
         public int ID { get; set; }
 
         public string Title { get; set; }

@@ -9,6 +9,7 @@ using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using DotNetOpenAuth.Messaging;
 using Microsoft.Practices.Unity;
+using RiaLibrary.Web;
 using Neptuo.Web.Mvc.Controllers;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Forms.Core;
@@ -247,6 +248,65 @@ namespace Neptuo.Forms.Web.Controllers
         public ActionResult Settings()
         {
             return View();
+        }
+
+        #endregion
+
+        #region SuperAdmin
+
+        [AuthorizeSuperAdmin]
+        [Url("accounts")]
+        public ActionResult List(int page = 1)
+        {
+            return View(new PageableModel<ListUserAccount>(PagingHelper.TakePage(UserService.GetList().Select(u => new ListUserAccount
+                {
+                    ID = u.ID,
+                    PublicIdentifier = u.PublicIdentifier,
+                    Fullname = u.Fullname,
+                    LocalUsername = u.LocalCredentials.Username,
+                    RemoteUsername = u.RemoteCredentials.Username,
+                    Enabled = u.Enabled,
+                    Created = u.Created,
+                    UserRole = u.UserRole
+                }), page, BaseController.PageSize),
+                PagingHelper.CreateInfo(UserService.GetList(), page, BaseController.PageSize)
+            ));
+        }
+
+        [AuthorizeSuperAdmin]
+        [HttpPost]
+        public ActionResult Disable(int userAccountID)
+        {
+            UserService.DisableUser(userAccountID);
+            ShowMessage((L)"Account disabled.");
+            return RedirectToAction("List");
+        }
+
+        [AuthorizeSuperAdmin]
+        [HttpPost]
+        public ActionResult Enable(int userAccountID)
+        {
+            UserService.EnableUser(userAccountID);
+            ShowMessage((L)"Account enabled.");
+            return RedirectToAction("List");
+        }
+
+        [AuthorizeSuperAdmin]
+        [HttpPost]
+        public ActionResult MakeAdmin(int userAccountID)
+        {
+            UserService.MakeAdmin(userAccountID);
+            ShowMessage(String.Format((L)"Account role changed to {0}.", UserRole.Admin));
+            return RedirectToAction("List");
+        }
+
+        [AuthorizeSuperAdmin]
+        [HttpPost]
+        public ActionResult MakeUser(int userAccountID)
+        {
+            UserService.MakeUser(userAccountID);
+            ShowMessage(String.Format((L)"Account role changed to {0}.", UserRole.User));
+            return RedirectToAction("List");
         }
 
         #endregion

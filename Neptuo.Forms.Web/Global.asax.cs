@@ -11,7 +11,7 @@ using Neptuo.Web.Mvc;
 using Neptuo.Web.Mvc.Auth;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Web.Mvc.Unity;
-using Neptuo.Forms.AzureSupport;
+//using Neptuo.Forms.AzureSupport;
 using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
 
@@ -116,6 +116,12 @@ namespace Neptuo.Forms.Web
                 Controller = "Article",
                 Action = "Index",
                 ActiveOn = c => c.RouteData.GetControllerLower() == "article"
+            }, new MenuItem
+            {
+                LinkText = "User accounts",
+                Controller = "Account",
+                Action = "List",
+                Displayed = c => AuthorizeSuperAdminAttribute.IsSuperAdmin()
             });
 
             //Learn sidebar menu
@@ -161,8 +167,8 @@ namespace Neptuo.Forms.Web
                 .Initialize()
                 .BuildFormsCore(RegisterUnity)
                 .InitializeDataContext()
-                .RegisterStandard()
-                .RegisterAzure()
+                .RegisterStandard(Server)
+                //.RegisterAzure()
                 .BuildLocalization(RegisterLocales)
                 .BuildStandartMenu(RegisterMenu)
                 .SetupGlobalFilters()

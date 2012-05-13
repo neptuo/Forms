@@ -14,6 +14,8 @@ namespace Neptuo.Forms.Web
     [Localized]
     public class BaseController : Neptuo.Web.Mvc.Controller
     {
+        public const int PageSize = 10;
+
         /// <summary>
         /// Current user context.
         /// </summary>

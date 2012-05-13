@@ -14,6 +14,9 @@ namespace Neptuo.Forms.Core.Service
         public IRepository<FormData> DataRepository { get; set; }
 
         [Dependency]
+        public IRepository<FieldData> FieldDataRepository { get; set; }
+
+        [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
         [Dependency]
@@ -27,6 +30,11 @@ namespace Neptuo.Forms.Core.Service
         public FormData Get(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public FileFieldData GetFileData(int fieldID)
+        {
+            return FieldDataRepository.FirstOrDefault(f => f.ID == fieldID) as FileFieldData;
         }
 
         public IFormDataCreator CreateForm()
@@ -226,7 +234,6 @@ namespace Neptuo.Forms.Core.Service
 
             if (field.FieldType != FieldType.FileField)
                 return AddFieldStatus.IncorrectFieldType;
-
 
             formData.Fields.Add(new FileFieldData
             {

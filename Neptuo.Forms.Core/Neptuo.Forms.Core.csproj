@@ -150,6 +150,7 @@
     <Compile Include="Service\ArticleService.cs" />
     <Compile Include="Service\DefaultMessageFormatter.cs" />
     <Compile Include="Service\DirectCleanUpService.cs" />
+    <Compile Include="Service\FileSystemStorage.cs" />
     <Compile Include="Service\FormDataService.cs" />
     <Compile Include="Service\FormDefinitionService.cs" />
     <Compile Include="Service\IActivityService.cs" />

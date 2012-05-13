@@ -16,8 +16,6 @@ namespace Neptuo.Forms.Web.Controllers
     [AuthorizeUser]
     public class FormDefinitionController : BaseController
     {
-        private int pageSize = 10;
-
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
@@ -189,8 +187,8 @@ namespace Neptuo.Forms.Web.Controllers
                     ID = d.ID,
                     Created = d.Created,
                     Columns = d.Fields
-                }), page, pageSize),
-                PagingInfo = PagingHelper.CreateInfo(DataService.GetList(formDefinitionID), page, pageSize)
+                }), page, PageSize),
+                PagingInfo = PagingHelper.CreateInfo(DataService.GetList(formDefinitionID), page, PageSize)
             });
         }
     }

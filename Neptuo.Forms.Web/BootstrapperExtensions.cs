@@ -34,10 +34,12 @@ namespace Neptuo.Forms.Web
             return bootstrapper;
         }
 
-        public static Bootstrapper RegisterStandard(this Bootstrapper bootstrapper)
+        public static Bootstrapper RegisterStandard(this Bootstrapper bootstrapper, HttpServerUtility server)
         {
+            FileSystemStorage.StoragePath = server.MapPath("~/Storage");
+
             bootstrapper.UnityContainer
-                .RegisterType<IFileStorage, MemoryFileStorage>()
+                .RegisterType<IFileStorage, FileSystemStorage>()
                 .RegisterType<ILogger, TraceLogger>();
 
             return bootstrapper;

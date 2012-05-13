@@ -6,7 +6,7 @@
     <AzureHostedServiceLabel>neptuo-forms</AzureHostedServiceLabel>
     <AzureSlot>Production</AzureSlot>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
-    <AzureEnableProfiling>False</AzureEnableProfiling>
+    <AzureEnableProfiling>True</AzureEnableProfiling>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureStorageAccountName>neptuoforms</AzureStorageAccountName>
     <AzureStorageAccountLabel>neptuoforms</AzureStorageAccountLabel>

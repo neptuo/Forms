@@ -48,6 +48,7 @@ namespace Neptuo.Forms.Core
                 .RegisterType<IRepository<FieldDefinition>, GenericRepository<FieldDefinition, DataContext>>()
                 .RegisterType<IFormDefinitionService, FormDefinitionService>()
                 .RegisterType<IRepository<FormData>, GenericRepository<FormData, DataContext>>()
+                .RegisterType<IRepository<FieldData>, GenericRepository<FieldData, DataContext>>()
                 .RegisterType<IFormDataService, FormDataService>()
                 .RegisterType<IRepository<ProjectInvitation>, GenericRepository<ProjectInvitation, DataContext>>()
                 .RegisterType<IInvitationService, InvitationService>()

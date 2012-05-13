@@ -8,16 +8,22 @@ using RiaLibrary.Web;
 using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
 using Neptuo.Forms.Web.Models.WebService;
+using System.IO;
 
 namespace Neptuo.Forms.Web.Controllers.WebService
 {
     public class FormController : BaseController
     {
+        private static Dictionary<string, HttpPostedFileBase> files = new Dictionary<string, HttpPostedFileBase>();
+
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
 
         [Dependency]
         public IFormDataService DataService { get; set; }
+
+        [Dependency]
+        public IFileStorage FileStorage { get; set; }
 
         [Url("ws/{formPublicIdentifier}/definition")]
         public object GetDefinition(string formPublicIdentifier)
@@ -37,6 +43,7 @@ namespace Neptuo.Forms.Web.Controllers.WebService
                     PublicIdentifier = f.PublicIdentifier,
                     Required = f.Required,
                     Type = FieldType.GetTypes().FirstOrDefault(t => t.Key == f.FieldType).Value,
+                    FileIdentifier = f.FieldType == FieldType.FileField ? Guid.NewGuid().ToString() : null,
                     TargetFormPublicIdentifier = f.ReferenceFormID != null ? f.FormDefinition.PublicIdentifier : null,
                     TargetFieldPublicIdentifier = f.ReferenceDisplayFieldID != null ? f.ReferenceDisplayField.PublicIdentifier : null
                 })
@@ -61,6 +68,21 @@ namespace Neptuo.Forms.Web.Controllers.WebService
                     Value = f.GetDisplayValue()
                 })
             }));
+        }
+
+        [Url("ws/{formPublicIdentifier}/upload")]
+        [HttpPost]
+        public ActionResult UploadFiles(string formPublicIdentifier)
+        {
+            foreach (string key in Request.Files.AllKeys)
+            {
+                if (files.ContainsKey(key))
+                    files[key] = Request.Files[key];
+                else
+                    files.Add(key, Request.Files[key]);
+            }
+
+            return new EmptyResult();
         }
 
         [Url("ws/{formPublicIdentifier}/inquiry-data")]
@@ -101,9 +123,32 @@ namespace Neptuo.Forms.Web.Controllers.WebService
 
             creator.Tag(model.FormTag);
 
+            FormDefinition form = FormService.Get(model.FormPublicIdentifier);
             foreach (FieldInsertModel field in model.Fields)
             {
-                AddFieldStatus afs = creator.AddFieldConvert(field.PublicIdentifier, field.Value);
+                FieldDefinition def = form.Fields.FirstOrDefault(f => f.PublicIdentifier == field.PublicIdentifier);
+                AddFieldStatus afs;
+
+                if (def != null && def.FieldType == FieldType.FileField)
+                {
+                    HttpPostedFileBase file = files[field.Value];
+                    if (file != null)
+                    {
+                        MemoryStream stream = new MemoryStream();
+                        file.InputStream.CopyTo(stream);
+                        afs = creator.AddField(field.PublicIdentifier, file.FileName, file.ContentType, stream.ToArray());
+                        files.Remove(field.Value);
+                    }
+                    else
+                    {
+                        afs = AddFieldStatus.IncorrectValue;
+                    }
+                }
+                else
+                {
+                    afs = creator.AddFieldConvert(field.PublicIdentifier, field.Value);
+                }
+
                 switch (afs)
                 {
                     case AddFieldStatus.NoSuchFormDefinition:
@@ -122,7 +167,6 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             }
 
             //TODO: Handle reference field!
-            //TODO: What about file field???
 
             if (validation.Count == 0)
             {
@@ -146,6 +190,17 @@ namespace Neptuo.Forms.Web.Controllers.WebService
 
             DataService = DependencyResolver.Current.GetService<IFormDataService>(); //TODO: Never mind! 'Hack' for creating new DataContext
             return GetFormData(model.FormPublicIdentifier, 1, 0);
+        }
+
+        [Url("ws/file-{fieldID}")]
+        public ActionResult File(int fieldID)
+        {
+            FileFieldData data = DataService.GetFileData(fieldID);
+            byte[] fileData = FileStorage.GetData(data.LocalFilename);
+            if(fileData == null)
+                return new HttpStatusCodeResult(404);
+
+            return File(fileData, data.MimeType, data.Filename);
         }
 
         

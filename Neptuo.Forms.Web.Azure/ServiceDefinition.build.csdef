@@ -26,6 +26,7 @@
     <Certificates></Certificates>
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" />
+      <Setting name="CloudToolsDiagnosticAgentVersion" />
     </ConfigurationSettings>
   </WebRole>
 </ServiceDefinition>

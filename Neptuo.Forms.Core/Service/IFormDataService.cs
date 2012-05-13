@@ -11,6 +11,8 @@ namespace Neptuo.Forms.Core.Service
 
         FormData Get(int id);
 
+        FileFieldData GetFileData(int fieldID);
+
         IFormDataCreator CreateForm();
 
         IInquiryDataCreator CreateInquiry();

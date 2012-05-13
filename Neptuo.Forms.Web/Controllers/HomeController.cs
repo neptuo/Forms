@@ -16,8 +16,6 @@ namespace Neptuo.Forms.Web.Controllers
     //[OutputCache(Duration = Int32.MaxValue, VaryByParam="lang")]
     public class HomeController : BaseController
     {
-        private int pageSize = 10;
-
         [Dependency]
         public IArticleService ArticleService { get; set; }
 
@@ -51,21 +49,14 @@ namespace Neptuo.Forms.Web.Controllers
         [Url("news")]
         public ActionResult News(int page = 1)
         {
-            return View(new ListDetailArticleModel(ArticleService.GetList(Thread.CurrentThread.CurrentUICulture).Select(a => new DetailArticleModel
+            return View(new ListDetailArticleModel(PagingHelper.TakePage(ArticleService.GetList(Thread.CurrentThread.CurrentUICulture).Select(a => new DetailArticleModel
                 {
                     Title = a.Title,
                     Content = a.Content,
                     Modified = a.Modified,
                     AuthorFullname = a.Author.Fullname
-                })
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize),
-                new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = pageSize,
-                    TotalItems = ArticleService.GetList(Thread.CurrentThread.CurrentUICulture).Count()
-                }
+                }), page, PageSize),
+                PagingHelper.CreateInfo(ArticleService.GetList(Thread.CurrentThread.CurrentUICulture), page, PageSize)
             ));
         }
 

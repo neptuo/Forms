@@ -1,0 +1,55 @@
+﻿@model PageableModel<ListUserAccount>
+
+@{
+    ViewBag.Title = "List";
+}
+
+@helper GetControls(Neptuo.Forms.Web.Models.ListUserAccount u) {    
+    if (!Neptuo.Forms.Web.AuthorizeSuperAdminAttribute.IsSuperAdmin(u))
+    { 
+        if (u.Enabled)
+        {
+            @UI.DeleteLink((L)"Disable", "Disable", new { UserAccountID = u.ID })
+        }
+        else { 
+            @UI.DeleteLink((L)"Enable", "Enable", new { UserAccountID = u.ID })
+        }
+        <text> </text>
+        if (u.UserRole == Neptuo.Forms.Core.UserRole.User) { 
+            @UI.DeleteLink((L)"Make admin", "MakeAdmin", new { UserAccountID = u.ID })
+        }
+        else
+        { 
+            @UI.DeleteLink((L)"Make user", "MakeUser", new { UserAccountID = u.ID })
+        }
+        <text> </text>
+        @UI.DeleteLink((L)"Delete", "Delete", "Account", new { UserAccountID = u.ID }, (L)"Do you really want to delete account?")
+    }
+}
+
+<div class="folder">
+    <div class="folder-heading">
+        <h2 class="left">@Loc("List of user accounts")</h2>
+
+        <div class="grid-paging right">
+            @Html.DisplayFor(m => m.PagingInfo)
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    @{
+        
+        UI.Grid(Model.Items)
+            .AddColumn((L)"ID", m => m.ID, "w30")
+            .AddColumn((L)"Identifier", m => m.PublicIdentifier, "w50")
+            .AddColumn((L)"Fullname", m => m.Fullname)
+            .AddColumn((L)"Username", m => m.GetUsername())
+            .AddColumn((L)"Enabled", m => m.Enabled, "w30")
+            .AddColumn((L)"Registered", m => m.Created, "w120")
+            .AddColumn((L)"Role", m => m.UserRole, "w50")
+            .AddColumn((L)"", m => GetControls(m), "w160")
+            .Render();
+        
+    }
+</div>
+

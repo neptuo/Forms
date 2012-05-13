@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Practices.Unity;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.StorageClient;
 using Neptuo.Forms.Core.Service;
-using Microsoft.Practices.Unity;
 
 namespace Neptuo.Forms.AzureSupport
 {

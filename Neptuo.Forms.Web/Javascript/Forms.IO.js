@@ -52,6 +52,10 @@ Forms.IO.InsertFormData = function (formID, fields, success, validation, error) 
     });
 };
 
+Forms.IO.GetUploadUrl = function (formID) {
+    return Forms.IO.BaseUrl + formID + '/upload';
+}
+
 
 
 Forms.IO.GetInquiryData = function (inquiryID, success, error) {

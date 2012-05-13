@@ -17,23 +17,21 @@ namespace Neptuo.Forms.Web.Controllers
     [AuthorizeAdmin]
     public class ArticleController : BaseController
     {
-        private int pageSize = 10;
-
         [Dependency]
         public IArticleService ArticleService { get; set; }
 
         [Url("admin/articles")]
         public ActionResult Index(int page = 1)
         {
-            return View(new ListArticleModel(PagingHelper.TakePage(ArticleService.GetList().Select(a => new ListItemArticleModel
+            return View(new PageableModel<ListArticleModel>(PagingHelper.TakePage(ArticleService.GetList().Select(a => new ListArticleModel
                 {
                     ID = a.ID,
                     Title = a.Title,
                     Culture = a.Culture,
                     Modified = a.Modified,
                     AuthorFullname = a.Author.Fullname
-                }), page, pageSize),
-                PagingHelper.CreateInfo(ArticleService.GetList(), page, pageSize)
+                }), page, PageSize),
+                PagingHelper.CreateInfo(ArticleService.GetList(), page, PageSize)
             ));
         }
 

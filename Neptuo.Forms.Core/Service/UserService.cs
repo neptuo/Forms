@@ -178,7 +178,7 @@ namespace Neptuo.Forms.Core.Service
 
         public IQueryable<UserAccount> GetList()
         {
-            return Repository;
+            return Repository.OrderBy(u => u.ID);
         }
 
         public UserAccount GetByLocalCredentials(string username, string password)

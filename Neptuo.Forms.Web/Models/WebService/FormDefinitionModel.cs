@@ -26,6 +26,8 @@ namespace Neptuo.Forms.Web.Models.WebService
 
         public string Type { get; set; }
 
+        public string FileIdentifier { get; set; }
+
         public string TargetFormPublicIdentifier { get; set; }
 
         public string TargetFieldPublicIdentifier { get; set; }
