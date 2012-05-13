@@ -383,6 +383,8 @@
     </Content>
     <Content Include="Views\Project\MyInvitations.cshtml" />
     <Content Include="Views\Account\List.cshtml" />
+    <Content Include="Views\Home\Examples.cs.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\InPageMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\RestApi\" />

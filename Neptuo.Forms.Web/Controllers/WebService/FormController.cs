@@ -203,7 +203,6 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             return File(fileData, data.MimeType, data.Filename);
         }
 
-        
         [HttpGet]
         [Url("ws/{formPublicIdentifier}/inquiry-insert")]
         public ActionResult InsertInquiryData(string formPublicIdentifier, string fieldPublicIdentifier)

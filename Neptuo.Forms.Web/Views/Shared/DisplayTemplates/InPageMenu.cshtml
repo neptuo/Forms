@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Neptuo.Web.Mvc.Html.MenuItem>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li@(item.ActiveOn(ViewContext) ? " class=active" : "")>
+            @Html.ActionLink(item.LinkText, item.Action, item.Controller)
+        </li>
+    }
+</ul>

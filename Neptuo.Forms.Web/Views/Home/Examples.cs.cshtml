@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Examples";
+}
+
+@section SideBarTop {
+    <div class="folder">
+        <h4 class="folder-heading">@Loc("Learn")</h4>
+        @UI.Menu("ExamplesMenu", "SideBarMenu")
+    </div>
+}
+
+<div class="folder">
+    <h2 class="folder-heading">Úkazky formulářů</h2>
+    <p class="first">
+        V této sekci můžete najít nejrůznější ukázky formulářů, které je možné pomocí této služby vytvořit, od těch nejzákladnějších až po upload souborů k formulářům.
+    </p>
+
+    @UI.Menu("ExamplesMenu", "InPageMenu")
+
+    <p class="last">
+        Pro ukázku kompletní funkčnosti, jsou tyto ukázky dostupné jak z této domény a tak z jiné.
+    </p>
+</div>
