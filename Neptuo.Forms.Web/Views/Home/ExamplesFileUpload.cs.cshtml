@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "ExamplesFileUpload";
+}
+
+@section SideBarTop {
+    <div class="folder">
+        <h4 class="folder-heading">@Loc("Learn")</h4>
+        @UI.Menu("ExamplesMenu", "SideBarMenu")
+    </div>
+}
+
+<div class="folder">
+    <h2 class="folder-heading">Ukázka nahrávání souborů k formuláři</h2>
+    <p class="first">
+        U toho formuláře je možné přidat soubor k formuláři, stačí vyplnit "jméno" a vybrat soubor z lokálního počítače.
+    </p>
+    <p id="form">
+        
+    </p>
+    <div class="folder-separator"></div>
+    <p class="last">
+        <table class="grid">
+            <tr>
+                <th>Vytvořeno</th>
+                <th>Jméno</th>
+                <th>Soubor</th>
+            </tr>
+            <tbody id="results" />
+        </table>
+    </p>
+</div>
+
+@Javascript.Include("~/Javascript/jquery.jsonp-2.3.0.min.js")
+@Javascript.Include("~/Javascript/Forms.IO.js")
+@Javascript.Include("~/Javascript/Forms.UI.js")
+
+@section JavascriptDomReady {
+
+    var formID = '388af325a2bd9';
+    var renderer = new Forms.UI.DataRenderer(formID)
+        .SetParent('#results')
+        .SetItemTemplate('<tr><td>{created}</td><td>{5202c72amd50e}</td><td><a href="{1b37c3dcl5506:FileUrl}">{1b37c3dcl5506}</a></td></tr>')
+        .SetDateTimeFormat('dd.MM.yyyy HH:mm:ss')
+        .Render();
+
+    var builder = new Forms.UI.FormBuilder(formID)
+        .SetParent('#form')
+        .SetSavedHandler(function (item) {
+            alert('Soubor nahrán');
+            if (renderer != null) {
+                renderer.SetData(item.concat(renderer.GetData()));
+                renderer.ReRender();
+                this.Clear();
+            }
+        })
+        .CreateSendButton('Upload')
+        .Build();
+
+}
+
+@section HtmlHead {
+    <style type="text/css">
+    
+        .form-field { padding: 5px; }
+        .field-label { width: 65px; display: inline-block; }
+
+    </style>
+}

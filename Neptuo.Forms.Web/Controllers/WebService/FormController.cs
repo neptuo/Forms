@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using Microsoft.Practices.Unity;
 using RiaLibrary.Web;
 using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
 using Neptuo.Forms.Web.Models.WebService;
-using System.IO;
 
 namespace Neptuo.Forms.Web.Controllers.WebService
 {
@@ -53,6 +54,8 @@ namespace Neptuo.Forms.Web.Controllers.WebService
         [Url("ws/{formPublicIdentifier}/data")]
         public ActionResult GetFormData(string formPublicIdentifier, int pageSize = 20, int pageIndex = 0)
         {
+            UrlHelper url = new UrlHelper(ControllerContext.RequestContext);
+
             //TODO: Ordering,filtering,column selection
             FormDefinition form = FormService.Get(formPublicIdentifier);
             if (form == null)
@@ -65,7 +68,8 @@ namespace Neptuo.Forms.Web.Controllers.WebService
                 Fields = d.Fields.Select(f => new FieldListDataModel {
                     PublicIdentifier = f.FieldDefinition.PublicIdentifier,
                     Name = f.FieldDefinition.Name,
-                    Value = f.GetDisplayValue()
+                    Value = f.GetDisplayValue(),
+                    FileUrl = f.FieldDefinition.FieldType == FieldType.FileField ? ResolveUrl("~" + url.Action("File", new { FieldID = f.ID })) : null
                 })
             }));
         }

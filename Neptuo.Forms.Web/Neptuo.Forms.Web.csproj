@@ -385,6 +385,10 @@
     <Content Include="Views\Account\List.cshtml" />
     <Content Include="Views\Home\Examples.cs.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InPageMenu.cshtml" />
+    <Content Include="Views\Home\ExamplesFileUpload.cshtml" />
+    <Content Include="Views\Home\ExamplesFileUpload.cs.cshtml" />
+    <Content Include="Views\Home\ExamplesContactForm.cshtml" />
+    <Content Include="Views\Home\ExamplesContactForm.cs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\RestApi\" />

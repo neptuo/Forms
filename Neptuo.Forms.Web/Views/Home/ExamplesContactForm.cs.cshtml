@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "ExamplesContactForm";
+}
+
+@section SideBarTop {
+    <div class="folder">
+        <h4 class="folder-heading">@Loc("Learn")</h4>
+        @UI.Menu("ExamplesMenu", "SideBarMenu")
+    </div>
+}
+
+<div class="folder">
+    <h2 class="folder-heading">Ukázka kompletního formuláře pro ukládání kontaktů</h2>
+    <p id="form">
+        
+    </p>
+    <div class="folder-separator"></div>
+    <p class="last">
+        <table class="grid">
+            <tr>
+                <th>Vytvořeno</th>
+                <th>Jméno</th>
+                <th>Příjmení</th>
+                <th>E-mail</th>
+                <th>Věk</th>
+                <th>Je kamarád</th>
+                <th>Shrnutí</th>
+            </tr>
+            <tbody id="results" />
+        </table>
+    </p>
+</div>
+
+@Javascript.Include("~/Javascript/jquery.jsonp-2.3.0.min.js")
+@Javascript.Include("~/Javascript/Forms.IO.js")
+@Javascript.Include("~/Javascript/Forms.UI.js")
+
+@section JavascriptDomReady {
+
+    var formID = '993c2274ta253';
+    var renderer = new Forms.UI.DataRenderer(formID)
+        .SetParent('#results')
+        .SetItemTemplate('<tr><td>{created}</td><td>{9b49b1c3N715c}</td></td></tr>')
+        .SetDateTimeFormat('dd.MM.yyyy HH:mm:ss')
+        .Render();
+
+    var builder = new Forms.UI.FormBuilder(formID)
+        .SetParent('#form')
+        .SetMetaData({
+            'Fields': {
+                '9b49b1c3N715c': {
+                    'Label' : 'Jméno'
+                },
+                'a93a529am363a': {
+                    'Label' : 'Příjmení'
+                },
+                '498c0c62lc1c2': {
+                    'Label' : 'E-mail'
+                },
+                '766c6b7ae3d96': {
+                    'Label' : 'Věk'
+                },
+                '0fcc2e6dn0133': {
+                    'Label' : 'Je kamarád?'
+                },
+                'd3d269cfm963a': {
+                    'Label' : 'Shrnutí',
+                    'RenderAs': 'textarea'
+                }
+            }
+        })
+        .SetSavedHandler(function (item) {
+            alert('Kontakt uložen');
+            if (renderer != null) {
+                renderer.SetData(item.concat(renderer.GetData()));
+                renderer.ReRender();
+                this.Clear();
+            }
+        })
+        .CreateSendButton('Uložit')
+        .Build();
+
+}
+
+@section HtmlHead {
+    <style type="text/css">
+    
+        .form-field { padding: 5px; }
+        .field-input[type=text] { width: 200px; }
+        .field-label { width: 80px; display: inline-block; }
+
+    </style>
+}

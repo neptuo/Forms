@@ -26,5 +26,7 @@ namespace Neptuo.Forms.Web.Models.WebService
         public string Name { get; set; }
 
         public string Value { get; set; }
+
+        public string FileUrl { get; set; }
     }
 }

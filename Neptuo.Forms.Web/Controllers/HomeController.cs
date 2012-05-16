@@ -108,10 +108,16 @@ namespace Neptuo.Forms.Web.Controllers
             return View("Examples");
         }
 
-        [Url("examples/parent-child")]
-        public ActionResult ExamplesParentChild()
+        [Url("examples/contact-form")]
+        public ActionResult ExamplesContactForm()
         {
-            return View("Examples");
+            return View();
+        }
+
+        [Url("examples/file-upload")]
+        public ActionResult ExamplesFileUpload()
+        {
+            return View();
         }
 
         #endregion

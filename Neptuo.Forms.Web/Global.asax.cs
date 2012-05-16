@@ -155,9 +155,14 @@ namespace Neptuo.Forms.Web
                 Action = "ExamplesBasic"
             }, new MenuItem
             {
-                LinkText = "Parent/Child data",
+                LinkText = "Contact form",
                 Controller = "Home",
-                Action = "ExamplesParentChild"
+                Action = "ExamplesContactForm"
+            }, new MenuItem
+            {
+                LinkText = "File upload",
+                Controller = "Home",
+                Action = "ExamplesFileUpload"
             });
         }
 

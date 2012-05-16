@@ -166,10 +166,22 @@ Forms.UI.FormBuilder = function (formID) {
         for (var i = 0; i < formDefinition.Fields.length; i++) {
             fields[i] = {
                 PublicIdentifier: formDefinition.Fields[i].PublicIdentifier,
-                Value:  formDefinition.Fields[i].Type == 'FileField' ? formDefinition.Fields[i].FileIdentifier : $('#field-' + formDefinition.Fields[i].PublicIdentifier).val()
+                Value: This.GetFieldValueInternal(formDefinition.Fields[i], $('#field-' + formDefinition.Fields[i].PublicIdentifier))
             };
         }
         return fields;
+    };
+
+    this.GetFieldValueInternal = function (fieldDefinition, $input) {
+        if (fieldDefinition.Type == 'FileField') {
+            return fieldDefinition.FileIdentifier;
+        }
+
+        if($input.attr('type') == 'checkbox') {
+            return $input.val() == 'on';
+        }
+
+        return $input.val();
     };
 
     this.UploadFileInternal = function (callback) {
@@ -374,7 +386,10 @@ Forms.UI.DataRenderer = function (formID) {
 
         for (var j = 0; j < item.Fields.length; j++) {
             var field = item.Fields[j];
-            template = template.replace('{' + field.PublicIdentifier + '}', field.Value);
+            template = template
+                .replace('{' + field.PublicIdentifier + '}', field.Value)
+                .replace('{' + field.PublicIdentifier + ':Name}', field.Name)
+                .replace('{' + field.PublicIdentifier + ':FileUrl}', field.FileUrl);
         }
         $(template).appendTo($parent);
     };

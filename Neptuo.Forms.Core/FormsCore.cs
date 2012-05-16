@@ -21,6 +21,8 @@ namespace Neptuo.Forms.Core
 
         public UnityContainer UnityContainer { get; set; }
 
+        public string BaseUrl { get; set; }
+
         public static void CreateInstance()
         {
             if (Instance != null)

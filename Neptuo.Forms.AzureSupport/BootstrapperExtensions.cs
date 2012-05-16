@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Practices.Unity;
-using Neptuo.Web.Mvc;
-using Neptuo.Forms.Core.Service;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using Neptuo.Web.Mvc;
+using Neptuo.Forms.Core;
+using Neptuo.Forms.Core.Service;
 
 namespace Neptuo.Forms.AzureSupport
 {
@@ -24,6 +25,8 @@ namespace Neptuo.Forms.AzureSupport
         {
             if (RoleEnvironment.IsAvailable)
             {
+                FormsCore.Instance.BaseUrl = "http://neptuo-forms.cloudapp.net";
+
                 bootstrapper.UnityContainer
                     .RegisterType<IFileStorage, AzureFileStorage>()
                     .RegisterType<ILogger, AzureLogger>();

@@ -37,5 +37,10 @@ namespace Neptuo.Forms.Web
                 throw e;
             }
         }
+
+        protected string ResolveUrl(string relativeUrl)
+        {
+            return relativeUrl.Replace("~", FormsCore.Instance.BaseUrl);
+        }
     }
 }

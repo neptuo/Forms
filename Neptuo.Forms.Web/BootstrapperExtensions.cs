@@ -37,6 +37,7 @@ namespace Neptuo.Forms.Web
         public static Bootstrapper RegisterStandard(this Bootstrapper bootstrapper, HttpServerUtility server)
         {
             FileSystemStorage.StoragePath = server.MapPath("~/Storage");
+            FormsCore.Instance.BaseUrl = "http://localhost:36258";
 
             bootstrapper.UnityContainer
                 .RegisterType<IFileStorage, FileSystemStorage>()
