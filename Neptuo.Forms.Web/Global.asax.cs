@@ -148,12 +148,12 @@ namespace Neptuo.Forms.Web
             });
 
             //Learn sidebar menu
-            menu.Register("ExamplesMenu", new MenuItem
+            menu.Register("ExamplesMenu", /*new MenuItem
             {
                 LinkText = "Basic",
                 Controller = "Home",
                 Action = "ExamplesBasic"
-            }, new MenuItem
+            }, */new MenuItem
             {
                 LinkText = "Contact form",
                 Controller = "Home",
