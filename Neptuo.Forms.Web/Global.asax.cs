@@ -11,7 +11,7 @@ using Neptuo.Web.Mvc;
 using Neptuo.Web.Mvc.Auth;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Web.Mvc.Unity;
-//using Neptuo.Forms.AzureSupport;
+using Neptuo.Forms.AzureSupport;
 using Neptuo.Forms.Core;
 using Neptuo.Forms.Core.Service;
 
@@ -173,7 +173,7 @@ namespace Neptuo.Forms.Web
                 .BuildFormsCore(RegisterUnity)
                 .InitializeDataContext()
                 .RegisterStandard(Server)
-                //.RegisterAzure()
+                .RegisterAzure()
                 .BuildLocalization(RegisterLocales)
                 .BuildStandartMenu(RegisterMenu)
                 .SetupGlobalFilters()

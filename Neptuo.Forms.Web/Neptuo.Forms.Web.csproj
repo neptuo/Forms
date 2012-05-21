@@ -331,6 +331,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Forms.AzureSupport\Neptuo.Forms.AzureSupport.csproj">
+      <Project>{EA83FEA6-3C95-4425-80B2-9BCBE70C4AB4}</Project>
+      <Name>Neptuo.Forms.AzureSupport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Forms.Core\Neptuo.Forms.Core.csproj">
       <Project>{A012144F-7147-460B-BEE2-6E9AF3204BCC}</Project>
       <Name>Neptuo.Forms.Core</Name>
