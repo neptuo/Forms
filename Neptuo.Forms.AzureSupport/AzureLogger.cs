@@ -10,7 +10,7 @@ using Neptuo.Forms.Core.Service;
 
 namespace Neptuo.Forms.AzureSupport
 {
-    public class AzureLogger : AzureStorageServiceBase, ILogger
+    public class AzureLogger : AzureTableStorageServiceBase, ILogger
     {
         public const string TableName = "ActivityLog";
 

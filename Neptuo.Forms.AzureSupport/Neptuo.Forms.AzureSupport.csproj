@@ -72,9 +72,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityLogEntry.cs" />
+    <Compile Include="AzureBlobStorageServiceBase.cs" />
     <Compile Include="AzureFileStorage.cs" />
     <Compile Include="AzureLogger.cs" />
     <Compile Include="AzureStorageServiceBase.cs" />
+    <Compile Include="AzureTableStorageServiceBase.cs" />
     <Compile Include="BootstrapperExtensions.cs" />
     <Compile Include="FileEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

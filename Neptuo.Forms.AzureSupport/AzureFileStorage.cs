@@ -7,32 +7,29 @@ using Neptuo.Forms.Core.Service;
 
 namespace Neptuo.Forms.AzureSupport
 {
-    public class AzureFileStorage : AzureStorageServiceBase, IFileStorage
+    public class AzureFileStorage : AzureBlobStorageServiceBase, IFileStorage
     {
-        public const string TableName = "FileStorage";
+        public const string ContainerName = "FileStorage";
+
+        private CloudBlobContainer container;
 
         public AzureFileStorage()
         {
-            EnsureTable(TableName);
+            container = BlobClient.GetContainerReference(ContainerName);
+            container.CreateIfNotExist();
         }
 
         public byte[] GetData(string filename)
         {
-            FileEntry file = CreateContext().CreateQuery<FileEntry>(TableName).FirstOrDefault(e => e.PartitionKey == FileEntry.DefaultPartitionKey && e.RowKey == filename);
-            if (file == null)
-                return null;
-
-            return file.Data;
+            CloudBlob blob = container.GetBlobReference(filename);
+            return blob.DownloadByteArray();
         }
 
         public string InsertData(byte[] data)
         {
             string filename = Guid.NewGuid().ToString();
-
-            TableServiceContext context = CreateContext();
-            context.AddObject(TableName, new FileEntry(filename, data));
-            context.SaveChangesWithRetries();
-
+            CloudBlob blob = container.GetBlobReference(filename);
+            blob.UploadByteArray(data);
             return filename;
         }
     }
