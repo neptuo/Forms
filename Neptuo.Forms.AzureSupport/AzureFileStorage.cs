@@ -9,7 +9,7 @@ namespace Neptuo.Forms.AzureSupport
 {
     public class AzureFileStorage : AzureBlobStorageServiceBase, IFileStorage
     {
-        public const string ContainerName = "FileStorage";
+        public const string ContainerName = "attachments";
 
         private CloudBlobContainer container;
 
