@@ -15,7 +15,10 @@ namespace Neptuo.Forms.AzureSupport
 
         static AzureStorageServiceBase()
         {
-            storageAccount = CloudStorageAccount.Parse(RoleEnvironment.GetConfigurationSettingValue(StorageConnectionString));
+            if (RoleEnvironment.IsEmulated)
+                storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+            else
+                storageAccount = CloudStorageAccount.Parse(RoleEnvironment.GetConfigurationSettingValue(StorageConnectionString));
         }
     }
 }
