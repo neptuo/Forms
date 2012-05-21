@@ -15,7 +15,7 @@ namespace Neptuo.Forms.Web.Controllers.WebService
 {
     public class FormController : BaseController
     {
-        private static Dictionary<string, HttpPostedFileBase> files = new Dictionary<string, HttpPostedFileBase>();
+        private static Dictionary<string, PostedFile> files = new Dictionary<string, PostedFile>();
 
         [Dependency]
         public IFormDefinitionService FormService { get; set; }
@@ -81,23 +81,12 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             foreach (string key in Request.Files.AllKeys)
             {
                 if (files.ContainsKey(key))
-                    files[key] = Request.Files[key];
+                    files[key] = new PostedFile(Request.Files[key]);
                 else
-                    files.Add(key, Request.Files[key]);
+                    files.Add(key, new PostedFile(Request.Files[key]));
             }
 
             return new EmptyResult();
-        }
-
-        [Url("ws/{formPublicIdentifier}/inquiry-data")]
-        public ActionResult GetInquiryData(string formPublicIdentifier)
-        {
-            FormDefinition form = FormService.Get(formPublicIdentifier);
-            if (form == null)
-                return new HttpStatusCodeResult(404);
-
-            //TODO: Compute inquiry data! (Use cache?)
-            return View();
         }
 
         [HttpGet]
@@ -135,12 +124,10 @@ namespace Neptuo.Forms.Web.Controllers.WebService
 
                 if (def != null && def.FieldType == FieldType.FileField)
                 {
-                    HttpPostedFileBase file = files[field.Value];
+                    PostedFile file = files[field.Value];
                     if (file != null)
                     {
-                        MemoryStream stream = new MemoryStream();
-                        file.InputStream.CopyTo(stream);
-                        afs = creator.AddField(field.PublicIdentifier, file.FileName, file.ContentType, stream.ToArray());
+                        afs = creator.AddField(field.PublicIdentifier, file.Name, file.ContentType, file.Stream.ToArray());
                         files.Remove(field.Value);
                     }
                     else
@@ -207,6 +194,17 @@ namespace Neptuo.Forms.Web.Controllers.WebService
             return File(fileData, data.MimeType, data.Filename);
         }
 
+        [Url("ws/{formPublicIdentifier}/inquiry-data")]
+        public ActionResult GetInquiryData(string formPublicIdentifier)
+        {
+            FormDefinition form = FormService.Get(formPublicIdentifier);
+            if (form == null)
+                return new HttpStatusCodeResult(404);
+
+            //TODO: Compute inquiry data! (Use cache?)
+            return View();
+        }
+
         [HttpGet]
         [Url("ws/{formPublicIdentifier}/inquiry-insert")]
         public ActionResult InsertInquiryData(string formPublicIdentifier, string fieldPublicIdentifier)
@@ -242,6 +240,24 @@ namespace Neptuo.Forms.Web.Controllers.WebService
 
             //TODO: Should return something! (Inserted data?)
             return new EmptyResult();
+        }
+    }
+
+    class PostedFile
+    {
+        public string Name { get; set; }
+
+        public string ContentType { get; set; }
+
+        public MemoryStream Stream { get; set; }
+
+        public PostedFile(HttpPostedFileBase file)
+        {
+            Stream = new MemoryStream();
+            file.InputStream.CopyTo(Stream);
+
+            Name = file.FileName;
+            ContentType = file.ContentType;
         }
     }
 }
