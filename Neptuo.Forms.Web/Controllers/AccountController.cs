@@ -10,6 +10,7 @@ using DotNetOpenAuth.OpenId.RelyingParty;
 using DotNetOpenAuth.Messaging;
 using Microsoft.Practices.Unity;
 using RiaLibrary.Web;
+using Neptuo.Web.Localization.Mvc3;
 using Neptuo.Web.Mvc.Controllers;
 using Neptuo.Web.Mvc.Html;
 using Neptuo.Forms.Core;
@@ -18,6 +19,7 @@ using Neptuo.Forms.Web.Models;
 
 namespace Neptuo.Forms.Web.Controllers
 {
+    [Localized]
     public class AccountController : AuthController<LocalLoginModel>
     {
         public const string OpenIDTextBox = "openid_identifier";
